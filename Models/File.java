@@ -1,3 +1,6 @@
-class File{
-    public string path;
+package models;
+
+public class File
+{
+    public String path;
 }

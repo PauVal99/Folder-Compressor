@@ -1,0 +1,6 @@
+package tests;
+
+class Tester
+{
+    
+}
