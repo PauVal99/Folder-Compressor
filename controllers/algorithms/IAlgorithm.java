@@ -1,8 +1,10 @@
 package controllers.algorithms;
 
+import models.File;
+
 interface IAlgorithm
 {
-    void compress();
+    void compress(File f);
 
-    void decompress();
+    void decompress(File f);
 }
