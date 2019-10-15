@@ -4,7 +4,7 @@ import models.File;
 
 interface IAlgorithm
 {
-    void compress(File f);
+    public String compress(String uncompressed);
 
-    void decompress(File f);
+    public String decompress(String compressed);
 }

@@ -1,9 +1,11 @@
 package tests.unit;
 
-class Tester
+import java.lang.RuntimeException;
+
+public class Tester
 {
-    void assertEqualStirng(String s1, String s2)
+    public void assertEqualStirng(String s1, String s2)
     {
-        if(s1 != s2) throw new Exception("Operands non equal.")
+        if(s1 != s2) throw new RuntimeException("Operands non equal."+s1+" - "+s2);
     }
 }
