@@ -1,6 +1,0 @@
-package tests;
-
-class Tester
-{
-    
-}
