@@ -2,16 +2,15 @@ package controllers.algorithms;
 
 import java.util.*;
 
-public class LZW implements IAlgorithm
+public class LZW //implements IAlgorithm
 {
-    public String compress(String uncompressed)
+    public byte[] compress(String uncompressed)
     {
-        // Build the dictionary.
-        int dictSize = 128;
-        Map<String,Integer> dictionary = new HashMap<String,Integer>();
-        for (int i = 0; i < 128; i++)
-            dictionary.put("" + (char)i, i);
- 
+        int dictSize = 256;
+        Map<String,Character> dictionary = new HashMap<String,Character>();
+        for (int i = 0; i < 256; i++)
+            dictionary.put("" + (char)i, (char)i);
+
         String w = "";
         String result = "";
         for (char c : uncompressed.toCharArray()) {
@@ -19,28 +18,25 @@ public class LZW implements IAlgorithm
             if (dictionary.containsKey(wc))
                 w = wc;
             else {
+                dictionary.put(wc, (char)dictSize++);
                 result = result + dictionary.get(w);
-                // Add wc to the dictionary.
-                dictionary.put(wc, dictSize++);
                 w = "" + c;
             }
         }
- 
-        // Output the code for w.
         if (!w.equals(""))
             result = result + dictionary.get(w);
-        return result;
+        return result.getBytes();
     }
     
-    public String decompress(String compressed)
-    {
+    public String decompress(byte[] compressedBytes) {
         // Build the dictionary.
-        int dictSize = 128;
-        Map<Integer,String> dictionary = new HashMap<Integer,String>();
-        for (int i = 0; i < 128; i++)
-            dictionary.put(i, "" + (char)i);
- 
-        String w = "";// + compressed.substring(1);
+        int dictSize = 256;
+        Map<Character,String> dictionary = new HashMap<Character,String>();
+        for (int i = 0; i < 256; i++)
+            dictionary.put((char)i, "" + (char)i);
+
+        String compressed = new String(compressedBytes);
+        String w = "" + compressed.charAt(0); compressed = compressed.substring(1);
         StringBuffer result = new StringBuffer(w);
         for (char k : compressed.toCharArray()) {
             String entry;
@@ -54,7 +50,7 @@ public class LZW implements IAlgorithm
             result.append(entry);
  
             // Add w+entry[0] to the dictionary.
-            dictionary.put(dictSize++, w + entry.charAt(0));
+            dictionary.put((char) dictSize++, w + entry.charAt(0));
  
             w = entry;
         }

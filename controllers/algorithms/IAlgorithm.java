@@ -1,10 +1,8 @@
 package controllers.algorithms;
 
-import models.File;
-
 interface IAlgorithm
 {
-    public String compress(String uncompressed);
+    public Byte[] compress(Byte[] uncompressed);
 
-    public String decompress(String compressed);
+    public Byte[] decompress(Byte[] compressed);
 }
