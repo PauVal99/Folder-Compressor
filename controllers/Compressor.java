@@ -8,14 +8,13 @@ import java.nio.file.Paths;
 
 public class Compressor
 {
-    public void compressFile(File file)
+    public void compressFile(File fileToCompress, String destinationPath)
     {
         try
         { 
-            LZW lzw = new LZW();
-            byte[] compressedBytes = lzw.compress(new String(file.getContent()));
-            Files.createFile( Paths.get("C:\\Users\\Pau\\Desktop\\P1") );
-            Files.write( Paths.get("C:\\Users\\Pau\\Desktop\\P1"),  compressedBytes);
+            byte[] compressedBytes = LZW.compress(new String(fileToCompress.getContent()));
+            Files.createFile(Paths.get(destinationPath));
+            Files.write(Paths.get(destinationPath), compressedBytes);
         }
         catch (IOException e)
         {

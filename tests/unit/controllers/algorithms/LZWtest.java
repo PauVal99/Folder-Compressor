@@ -2,48 +2,65 @@ package tests.unit.controllers.algorithms;
 
 import controllers.algorithms.LZW;
 import tests.unit.Tester;
-import java.util.*;
 
 public class LZWtest extends Tester 
 {
-    public void testFirst()
+    public void testCompressVoidText()
     {
-        LZW lzw = new LZW();
-        List<Character> compressed = lzw.compress("TOBEORNOTTOBEORTOBEORNOT");
-        System.out.println(compressed);
-        String decompressed = lzw.decompress(compressed);
-        System.out.println(decompressed);
+        this.imGoingTo("Compress a void text.");
+        String text = "";
+        byte[] compressedBytes = LZW.compress(text);
+        byte[] expectedBytes = {};
+        this.assertEqualBytes(compressedBytes, expectedBytes);
+        this.completed();
     }
 
-    public void testCompressVoidFile()
+    public void testCompressText()
     {
-        String voidFile = "";
-        LZW lzw = new LZW();
-        String compressedFile = lzw.compress(voidFile);
-        this.assertEqualStirng(compressedFile,"");
+        this.imGoingTo("Compress \"visca la democracia\".");
+        String text = "visca la democracia";
+        byte[] compressedBytes = LZW.compress(text);
+        byte[] expectedBytes = {118,105,115,99,97,32,108,-60,-124,100,101,109,111,99,114,97,99,105,97};
+        this.assertEqualBytes(compressedBytes,expectedBytes);
+        this.completed();
     }
 
-    public void testCompressFile()
+    public void testCompressLargeText()
     {
-        String file = "visca la democracia";
-        LZW lzw = new LZW();
-        String compressedFile = lzw.compress(file);
-        this.assertEqualStirng(compressedFile,"");
+        this.imGoingTo("Compress a large text.");
+        String text = "Olivier J. L. Heldens (born 1 February 1995), better known by his stage name Oliver Heldens, is a Dutch DJ and electronic music producer from Rotterdam.[1] His 2013 song \"Gecko\" caught the attention of fellow Dutch DJ Tiësto, who signed him to his label,[2] Musical Freedom, and released the track with vocals from British singer Becky Hill on 23 June 2014 as \"Gecko (Overdrive)\".[3] He is regarded as a pioneer of the future house genre propelling it to international attention and numerous chart successes with \"Gecko (Overdrive)\" and \"Last All Night (Koala)\". In 2015, he began producing bass house songs under the alias HI-LO, which comes from 'Oli H' in reversed form.[4] Under his alias, Heldens has produced ten singles, including \"Crank It Up\", \"Renegade Mastah\" and \"Wappy Flirt\", releasing the latter two on his label Heldeep Records.";
+        byte[] compressedBytes = LZW.compress(text);
+        byte[] expectedBytes = {79,108,105,118,105,101,114,32,74,46,32,76,-60,-119,72,101,108,100,101,110,115,32,40,98,111,114,110,32,49,32,70,101,98,114,117,97,114,121,-60,-102,57,57,53,41,44,32,98,101,116,116,-60,-123,32,107,110,111,119,-60,-103,98,-60,-92,104,105,-60,-109,115,116,97,103,101,32,110,97,109,-59,-128,-60,-128,-60,-126,-60,-80,-60,-115,-60,-113,-60,-111,115,-60,-86,-60,-70,32,97,32,68,117,116,99,104,-59,-111,74,-59,-113,110,100,32,-60,-114,101,99,116,114,111,110,105,99,32,109,117,115,-59,-92,32,112,-59,-95,100,117,99,-60,-80,102,-59,-95,109,32,82,111,-60,-82,-60,-123,100,-59,-125,46,91,49,93,32,72,-59,-114,50,48,49,51,32,115,-59,-94,103,32,34,71,-59,-98,107,111,34,32,99,97,117,103,104,116,32,116,104,-59,-128,97,-59,-72,110,116,105,-59,-94,32,111,102,32,102,-60,-114,108,-60,-76,-59,-111,-59,-109,-59,-107,-59,-105,32,84,105,-61,-85,-60,-68,111,-60,-86,119,104,111,-58,-121,105,103,110,101,-59,-101,-60,-71,-59,-76,116,-58,-72,-60,-71,-60,-109,108,97,-60,-84,108,44,91,50,-59,-65,77,-59,-88,-59,-92,97,108,-60,-100,114,101,-58,-67,111,109,-60,-86,97,-59,-102,32,-57,-109,108,101,97,115,-58,-67,-58,-103,-58,-101,-58,-103,114,97,99,107,32,119,105,-58,-102,32,118,111,-58,-109,108,-60,-109,-59,-78,-57,-106,32,66,114,-57,-85,-60,-70,-59,-106,-59,-87,110,-60,-65,-60,-122,66,-58,-114,-60,-92,-58,-127,108,-57,-111,-58,-94,50,-58,-122,74,117,-58,-68,32,-58,-125,49,52,-59,-113,-60,-109,-58,-116,-58,-114,-58,-72,40,79,118,-59,-71,-57,-73,-56,-106,41,34,-59,-68,51,-59,-65,-60,-115,32,-59,-114,-57,-109,103,-60,-94,-60,-112,-59,-101,-57,-97,-59,-113,-59,-85,-58,-95,-58,-68,-60,-80,-58,-92,-57,-94,-59,-128,102,-59,-109,117,-57,-109,32,-58,-73,-59,-88,-59,-128,-60,-65,110,-56,-77,-59,-84,111,112,-58,-88,105,-57,-68,-56,-96,-58,-104,-57,-127,-56,-96,-58,-97,-60,-123,-59,-126,-58,-96,-59,-94,-57,-112,-59,-113,-58,-98,-55,-120,-60,-103,-57,-103,-59,-101,110,117,-59,-124,-59,-95,-59,-88,-58,-110,104,-60,-94,-58,-104,115,-59,-81,-59,-80,115,-57,-96,-60,-109,-57,-86,-57,-84,-56,-111,-57,-89,-56,-109,-56,-107,-56,-105,-59,-121,-56,-102,-59,-103,-59,-101,34,76,-57,-97,-58,-104,65,-56,-125,32,78,-58,-70,-58,-105,-60,-108,75,111,-57,-112,97,-56,-102,-60,-119,73,-60,-103,-56,-116,53,-60,-86,-57,-93,-60,-84,-56,-93,-60,-103,-56,-69,-59,-82,99,-56,-65,-58,-118,98,-57,-97,-60,-109,-56,-75,-57,-96,-58,-121,-58,-119,-60,-109,-56,-119,-60,-112,-60,-122,-58,-102,-58,-100,-60,-127,-56,-89,72,73,45,76,79,-58,-75,-60,-71,-58,-83,99,-57,-106,101,-57,-78,-59,-77,32,39,-59,-122,-58,-128,39,-55,-124,-57,-101,101,-56,-106,114,-57,-96,-59,-101,102,-60,-105,109,-59,-68,52,-59,-65,85,-59,-102,-60,-80,-57,-125,-59,-113,-54,-105,-59,-116,-58,-128,-60,-114,-60,-112,-60,-110,-56,-76,-56,-89,-54,-123,-59,-81,-57,-95,-60,-81,-60,-103,-57,-69,103,-57,-99,-54,-66,-56,-65,99,108,117,100,-54,-120,-58,-117,67,-57,-91,110,-57,-88,73,-58,-104,85,112,34,-60,-86,34,82,-60,-111,101,-56,-93,-60,-112,32,77,-55,-83,97,104,-58,-111,-55,-113,-58,-117,87,97,112,112,-60,-92,70,-60,-127,114,116,-53,-99,-54,-84,-57,-99,-57,-97,-53,-109,-54,-107,32,-57,-123,-59,-72,-54,-108,119,-58,-72,-58,-94,-54,-69,-57,-123,-57,-121,-54,-65,-59,-118,101,112,-59,-75,-59,-98,-60,-105,100,115,46};
+        this.assertEqualBytes(compressedBytes,expectedBytes);
+        this.completed();
     }
 
-    public void testDecompressVoidFile()
+    public void testDecompressVoidText()
     {
-        String voidFile = "";
-        LZW lzw = new LZW();
-        String decompressedFile = lzw.decompress(voidFile);
-        this.assertEqualStirng(decompressedFile,"");
+        this.imGoingTo("Decompress a void text.");
+        byte[] voidBytes = new byte[0];
+        String decompressedString = LZW.decompress(voidBytes);
+        this.assertEqualStirng(decompressedString,"");
+        this.completed();
+
     }
 
-    public void testDecompressFile()
+    public void testDecompressText()
     {
-        String file = "";
-        LZW lzw = new LZW();
-        String decompressedFile = lzw.decompress(file);
-        this.assertEqualStirng(decompressedFile,"visca la democracia");
+        this.imGoingTo("Decompress \"visca la democracia\".");
+        byte[] compressedBytes = {118,105,115,99,97,32,108,-60,-124,100,101,109,111,99,114,97,99,105,97};
+        String decompressedString = LZW.decompress(compressedBytes);
+        this.assertEqualStirng(decompressedString,"visca la democracia");
+        this.completed();
+    }
+
+    public void testDecompressLargeText()
+    {
+        this.imGoingTo("Decompress a large text.");
+        byte[] compressedBytes = {79,108,105,118,105,101,114,32,74,46,32,76,-60,-119,72,101,108,100,101,110,115,32,40,98,111,114,110,32,49,32,70,101,98,114,117,97,114,121,-60,-102,57,57,53,41,44,32,98,101,116,116,-60,-123,32,107,110,111,119,-60,-103,98,-60,-92,104,105,-60,-109,115,116,97,103,101,32,110,97,109,-59,-128,-60,-128,-60,-126,-60,-80,-60,-115,-60,-113,-60,-111,115,-60,-86,-60,-70,32,97,32,68,117,116,99,104,-59,-111,74,-59,-113,110,100,32,-60,-114,101,99,116,114,111,110,105,99,32,109,117,115,-59,-92,32,112,-59,-95,100,117,99,-60,-80,102,-59,-95,109,32,82,111,-60,-82,-60,-123,100,-59,-125,46,91,49,93,32,72,-59,-114,50,48,49,51,32,115,-59,-94,103,32,34,71,-59,-98,107,111,34,32,99,97,117,103,104,116,32,116,104,-59,-128,97,-59,-72,110,116,105,-59,-94,32,111,102,32,102,-60,-114,108,-60,-76,-59,-111,-59,-109,-59,-107,-59,-105,32,84,105,-61,-85,-60,-68,111,-60,-86,119,104,111,-58,-121,105,103,110,101,-59,-101,-60,-71,-59,-76,116,-58,-72,-60,-71,-60,-109,108,97,-60,-84,108,44,91,50,-59,-65,77,-59,-88,-59,-92,97,108,-60,-100,114,101,-58,-67,111,109,-60,-86,97,-59,-102,32,-57,-109,108,101,97,115,-58,-67,-58,-103,-58,-101,-58,-103,114,97,99,107,32,119,105,-58,-102,32,118,111,-58,-109,108,-60,-109,-59,-78,-57,-106,32,66,114,-57,-85,-60,-70,-59,-106,-59,-87,110,-60,-65,-60,-122,66,-58,-114,-60,-92,-58,-127,108,-57,-111,-58,-94,50,-58,-122,74,117,-58,-68,32,-58,-125,49,52,-59,-113,-60,-109,-58,-116,-58,-114,-58,-72,40,79,118,-59,-71,-57,-73,-56,-106,41,34,-59,-68,51,-59,-65,-60,-115,32,-59,-114,-57,-109,103,-60,-94,-60,-112,-59,-101,-57,-97,-59,-113,-59,-85,-58,-95,-58,-68,-60,-80,-58,-92,-57,-94,-59,-128,102,-59,-109,117,-57,-109,32,-58,-73,-59,-88,-59,-128,-60,-65,110,-56,-77,-59,-84,111,112,-58,-88,105,-57,-68,-56,-96,-58,-104,-57,-127,-56,-96,-58,-97,-60,-123,-59,-126,-58,-96,-59,-94,-57,-112,-59,-113,-58,-98,-55,-120,-60,-103,-57,-103,-59,-101,110,117,-59,-124,-59,-95,-59,-88,-58,-110,104,-60,-94,-58,-104,115,-59,-81,-59,-80,115,-57,-96,-60,-109,-57,-86,-57,-84,-56,-111,-57,-89,-56,-109,-56,-107,-56,-105,-59,-121,-56,-102,-59,-103,-59,-101,34,76,-57,-97,-58,-104,65,-56,-125,32,78,-58,-70,-58,-105,-60,-108,75,111,-57,-112,97,-56,-102,-60,-119,73,-60,-103,-56,-116,53,-60,-86,-57,-93,-60,-84,-56,-93,-60,-103,-56,-69,-59,-82,99,-56,-65,-58,-118,98,-57,-97,-60,-109,-56,-75,-57,-96,-58,-121,-58,-119,-60,-109,-56,-119,-60,-112,-60,-122,-58,-102,-58,-100,-60,-127,-56,-89,72,73,45,76,79,-58,-75,-60,-71,-58,-83,99,-57,-106,101,-57,-78,-59,-77,32,39,-59,-122,-58,-128,39,-55,-124,-57,-101,101,-56,-106,114,-57,-96,-59,-101,102,-60,-105,109,-59,-68,52,-59,-65,85,-59,-102,-60,-80,-57,-125,-59,-113,-54,-105,-59,-116,-58,-128,-60,-114,-60,-112,-60,-110,-56,-76,-56,-89,-54,-123,-59,-81,-57,-95,-60,-81,-60,-103,-57,-69,103,-57,-99,-54,-66,-56,-65,99,108,117,100,-54,-120,-58,-117,67,-57,-91,110,-57,-88,73,-58,-104,85,112,34,-60,-86,34,82,-60,-111,101,-56,-93,-60,-112,32,77,-55,-83,97,104,-58,-111,-55,-113,-58,-117,87,97,112,112,-60,-92,70,-60,-127,114,116,-53,-99,-54,-84,-57,-99,-57,-97,-53,-109,-54,-107,32,-57,-123,-59,-72,-54,-108,119,-58,-72,-58,-94,-54,-69,-57,-123,-57,-121,-54,-65,-59,-118,101,112,-59,-75,-59,-98,-60,-105,100,115,46};
+        String text = "Olivier J. L. Heldens (born 1 February 1995), better known by his stage name Oliver Heldens, is a Dutch DJ and electronic music producer from Rotterdam.[1] His 2013 song \"Gecko\" caught the attention of fellow Dutch DJ Tiësto, who signed him to his label,[2] Musical Freedom, and released the track with vocals from British singer Becky Hill on 23 June 2014 as \"Gecko (Overdrive)\".[3] He is regarded as a pioneer of the future house genre propelling it to international attention and numerous chart successes with \"Gecko (Overdrive)\" and \"Last All Night (Koala)\". In 2015, he began producing bass house songs under the alias HI-LO, which comes from 'Oli H' in reversed form.[4] Under his alias, Heldens has produced ten singles, including \"Crank It Up\", \"Renegade Mastah\" and \"Wappy Flirt\", releasing the latter two on his label Heldeep Records.";
+        String decompressedString = LZW.decompress(compressedBytes);
+        this.assertEqualStirng(decompressedString,text);
+        this.completed();
     }
 }

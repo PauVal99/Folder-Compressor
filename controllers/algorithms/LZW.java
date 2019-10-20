@@ -4,7 +4,7 @@ import java.util.*;
 
 public class LZW //implements IAlgorithm
 {
-    public byte[] compress(String uncompressed)
+    public static byte[] compress(String uncompressed)
     {
         int dictSize = 256;
         Map<String,Character> dictionary = new HashMap<String,Character>();
@@ -28,14 +28,14 @@ public class LZW //implements IAlgorithm
         return result.getBytes();
     }
     
-    public String decompress(byte[] compressedBytes) {
-        // Build the dictionary.
+    public static String decompress(byte[] compressedBytes) {
         int dictSize = 256;
         Map<Character,String> dictionary = new HashMap<Character,String>();
         for (int i = 0; i < 256; i++)
             dictionary.put((char)i, "" + (char)i);
 
         String compressed = new String(compressedBytes);
+        if(compressed.length() == 0) return "";
         String w = "" + compressed.charAt(0); compressed = compressed.substring(1);
         StringBuffer result = new StringBuffer(w);
         for (char k : compressed.toCharArray()) {
@@ -49,7 +49,6 @@ public class LZW //implements IAlgorithm
  
             result.append(entry);
  
-            // Add w+entry[0] to the dictionary.
             dictionary.put((char) dictSize++, w + entry.charAt(0));
  
             w = entry;

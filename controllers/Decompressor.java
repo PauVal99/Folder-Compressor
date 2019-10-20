@@ -8,14 +8,13 @@ import java.nio.file.Paths;
 
 public class Decompressor
 {
-    public void decompressFile(File file)
+    public void decompressFile(File fileToDecompress, String destinationPath)
     {
         try
         { 
-            LZW lzw = new LZW();
-            String decompressedBytes = lzw.decompress(file.getContent());
-            Files.createFile( Paths.get("C:\\Users\\Pau\\Desktop\\P1.txt") );
-            Files.write( Paths.get("C:\\Users\\Pau\\Desktop\\P1.txt"),  decompressedBytes.getBytes());
+            String decompressedBytes = LZW.decompress(fileToDecompress.getContent());
+            Files.createFile(Paths.get(destinationPath));
+            Files.write(Paths.get(destinationPath), decompressedBytes.getBytes());
         }
         catch (IOException e)
         {
