@@ -1,6 +1,6 @@
 package controllers.algorithms;
 
-public class LZSS extends Algorithm
+public abstract class Algorithm
 {
     public byte[] compress(String uncompressed)
     {
