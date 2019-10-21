@@ -27,6 +27,6 @@ public class Decompressor
 
     private Algorithm getAlgorithm(File fileToDecompress)
     {
-        return new LZ78();
+        return new LZW();
     }
 }

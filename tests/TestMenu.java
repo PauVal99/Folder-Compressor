@@ -34,14 +34,6 @@ public class TestMenu
         lzwt.testDecompressVoidText();
         lzwt.testDecompressText();
         lzwt.testDecompressLargeText();
-
-        LZ78test lz78t = new LZ78test();
-        lz78t.testCompressVoidText();
-        lz78t.testCompressText();
-        lz78t.testCompressLargeText();
-        lz78t.testDecompressVoidText();
-        lz78t.testDecompressText();
-        lz78t.testDecompressLargeText();
     }
 
     private void runFunctionalTests()

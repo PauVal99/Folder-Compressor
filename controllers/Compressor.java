@@ -16,10 +16,10 @@ public class Compressor
         try
         { 
             Files.createFile(destinationPath);
-            //Files.write(destinationPath, "{\nalgorithm:LZW\ncontent:".getBytes());
+            Files.write(destinationPath, "{\nalgorithm:LZW\ncontent:".getBytes());
             byte[] compressedBytes = algorithm.compress(new String(fileToCompress.getContent()));
             Files.write(destinationPath, compressedBytes);
-            //Files.write(destinationPath, "\n}".getBytes());
+            Files.write(destinationPath, "\n}".getBytes());
         }
         catch (IOException e)
         {
@@ -30,6 +30,6 @@ public class Compressor
 
     private Algorithm setAlgorithm()
     {
-        return new LZ78();
+        return new LZW();
     }
 }
