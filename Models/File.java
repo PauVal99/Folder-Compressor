@@ -19,12 +19,6 @@ public class File
         return this.path;
     }
 
-    public String getAlgorithmName()
-    {
-        String algorithmName;
-        return algorithmName;
-    }
-
     public byte[] getContent()
     {
         byte[] bytes = new byte[0];
