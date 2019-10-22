@@ -29,7 +29,7 @@ public class Compressor
                         "algorithm:" + this.algorithm.getName()                 + "\n"; 
         this.writeInDetiantionFile(header.getBytes());
         this.writeInDetiantionFile(compressedBytes);
-        this.writeInDetiantionFile("\nEND".getBytes());
+        this.writeInDetiantionFile("\n".getBytes());
     }
 
     private void createDestinationFile()

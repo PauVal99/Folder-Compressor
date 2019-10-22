@@ -6,18 +6,28 @@ import controllers.algorithms.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.io.File;
 
 public class Decompressor
 {
-    public void decompressFile(CompressedFile compressedFile, String destination)
+    private CompressedFile compressedFile;
+    private Path destinationPath;
+    private Algorithm algorithm;
+
+    public Decompressor(CompressedFile compressedFile, String destination)
     {
-        Algorithm algorithm = this.getAlgorithm(compressedFile);
-        Path destinationPath = Paths.get(destination);
+        this.compressedFile = compressedFile;
+        this.destinationPath = Paths.get(destination + File.separator + compressedFile.getFileName());
+        this.algorithm = this.setAlgorithm(compressedFile.getAlgorithm());
+    }
+
+    public void decompress()
+    {
         try
         { 
-            String decompressedBytes = algorithm.decompress(compressedFile.getContent());
-            Files.createFile(destinationPath);
-            Files.write(destinationPath, decompressedBytes.getBytes());
+            String decompressedBytes = algorithm.decompress(this.compressedFile.getContent());
+            Files.createFile(this.destinationPath);
+            Files.write(this.destinationPath, decompressedBytes.getBytes());
         }
         catch (IOException e)
         {
@@ -25,8 +35,11 @@ public class Decompressor
         }
     }
 
-    private Algorithm getAlgorithm(CompressedFile compressedFile)
+    private Algorithm setAlgorithm(String algorithmName)
     {
-        return new LZW();
+        if(algorithmName.equals("LZ78")) return new LZ78();
+        else if(algorithmName.equals("LZSS")) return new LZSS();
+        else if(algorithmName.equals("LZW")) return new LZW();
+        return new JPEG();
     }
 }

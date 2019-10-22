@@ -15,12 +15,13 @@ public class CompressedFile extends File
         try{
             BufferedReader br = new BufferedReader(new FileReader(this.getPath()));
             String line;
-            for(int i=0; i<3;i++){
+            for(int i=0; i<2;i++){
                 line = br.readLine();
                 String[] split = line.split(":");
-                if(split[0] == "name") this.name = split[1];
-                if(split[0] == "algorithm") this.algorithm = split[1];
+                if(split[0].equals("name")) this.name = split[1];
+                if(split[0].equals("algorithm")) this.algorithm = split[1];
             }
+            this.content = new byte[0];
             while ((line = br.readLine()) != null) {
                 this.content = this.concatenate(this.content, line.getBytes());
             }
