@@ -55,4 +55,9 @@ public class LZW extends Algorithm
         }
         return result.toString();
     }
+
+    public String getName()
+    {
+        return "LZW";
+    }
 }

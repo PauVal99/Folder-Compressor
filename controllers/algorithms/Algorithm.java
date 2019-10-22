@@ -2,13 +2,7 @@ package controllers.algorithms;
 
 public abstract class Algorithm
 {
-    public byte[] compress(String uncompressed)
-    {
-        byte[] b = new byte[1];
-        return b;
-    }
-    public String decompress(byte[] compressedBytes)
-    {
-        return "";
-    }
+    public abstract byte[] compress(String uncompressed);
+    public abstract String decompress(byte[] compressedBytes);
+    public abstract String getName();
 }

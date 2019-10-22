@@ -11,4 +11,9 @@ public class JPEG extends Algorithm
     {
         return "";
     }
+
+    public String getName()
+    {
+        return "JPEG";
+    }
 }

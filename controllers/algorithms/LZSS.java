@@ -11,4 +11,9 @@ public class LZSS extends Algorithm
     {
         return "";
     }
+
+    public String getName()
+    {
+        return "LZSS";
+    }
 }

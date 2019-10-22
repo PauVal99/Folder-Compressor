@@ -11,4 +11,9 @@ public class LZ78 extends Algorithm
     {
         return "";
     }
+
+    public String getName()
+    {
+        return "LZ78";
+    }
 }
