@@ -27,9 +27,9 @@ public class Compressor
         this.createDestinationFile();
         String header = "name:"      + this.uncompressedFile.getName()          + "\n" +
                         "algorithm:" + this.algorithm.getName()                 + "\n"; 
-        this.writeInDetiantionFile(header.getBytes());
-        this.writeInDetiantionFile(compressedBytes);
-        this.writeInDetiantionFile("\n".getBytes());
+        this.writeInDestiantionFile(header.getBytes());
+        this.writeInDestiantionFile(compressedBytes);
+        this.writeInDestiantionFile("\n".getBytes());
     }
 
     private void createDestinationFile()
@@ -40,7 +40,7 @@ public class Compressor
             e.printStackTrace();}
     }
 
-    private void writeInDetiantionFile(byte[] bytes)
+    private void writeInDestiantionFile(byte[] bytes)
     {   
         try{
             Files.write(this.destinationPath, bytes, StandardOpenOption.APPEND);}
