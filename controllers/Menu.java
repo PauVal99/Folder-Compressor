@@ -1,9 +1,11 @@
 package controllers;
 
 import java.io.Console;
-import models.File;
+import java.io.File;
+import models.*;
 import controllers.Compressor;
 import tests.TestMenu;
+import java.util.*;
 
 public class Menu
 {
@@ -22,21 +24,32 @@ public class Menu
 
     private void compress()
     {
-        File fileToCompress = new File();
-        fileToCompress.setPath(this.console.readLine("Please enter the file path: "));
-        String destinationPath = this.console.readLine("Please enter the destination path: ");
-        Compressor compressor = new Compressor();
-        compressor.compressFile(fileToCompress,destinationPath);
+        UncompressedFile uncompressedFile = new UncompressedFile(this.console.readLine("Please enter the file path: "));
+        String destinationFolder = this.console.readLine("Please enter the destination folder: ");
+        String compressedName = this.console.readLine("Please enter the name of the compressed file (by default is the same name): ");
+        if(compressedName.equals("")){
+            String name = uncompressedFile.getName();
+            int pos = name.lastIndexOf(".");
+            if (pos > 0) {
+                compressedName = name.substring(0, pos);
+            }
+        }
+        String destinationPath = destinationFolder + File.separator + compressedName;
+        String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", "auto"};
+        String algorithm = this.console.readLine("Especify the algorithm (LZ78, LZSS, LZW, JPEG, auto): ");
+        while(!Arrays.asList(possibleAlgorithms).contains(algorithm)) algorithm = this.console.readLine("Especify the algorithm (LZ78, LZSS, LZW, JPEG, auto): ");
+        
+        Compressor compressor = new Compressor(uncompressedFile,destinationPath,algorithm);
+        compressor.compress();
     }
 
     
     private void decompress()
     {
-        File fileToDecompress = new File();
-        fileToDecompress.setPath(this.console.readLine("Please enter the file path: "));
-        String destinationPath = this.console.readLine("Please enter the destination path: ");
-        Decompressor decompressor = new Decompressor();
-        decompressor.decompressFile(fileToDecompress,destinationPath);
+        CompressedFile compressedFile = new CompressedFile(this.console.readLine("Please enter the file path: "));
+        String destinationFolder = this.console.readLine("Please enter the destination folder: ");
+        Decompressor decompressor = new Decompressor(compressedFile,destinationFolder);
+        decompressor.decompress();
     }
 
     private void runTest()
