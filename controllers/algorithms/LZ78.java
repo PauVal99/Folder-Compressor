@@ -1,7 +1,19 @@
 package controllers.algorithms;
 
-class LZ78 implements IAlgorithm
+public class LZ78 extends Algorithm
 {
-    void compress();
-    void decompress();
+    public byte[] compress(String uncompressed)
+    {
+        byte[] b = new byte[1];
+        return b;
+    }
+    public String decompress(byte[] compressedBytes)
+    {
+        return "";
+    }
+
+    public String getName()
+    {
+        return "LZ78";
+    }
 }

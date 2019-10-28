@@ -1,7 +1,19 @@
 package controllers.algorithms;
 
-class JPEG implements IAlgorithm
+public class JPEG extends Algorithm
 {
-    void compress();
-    void decompress();
+    public byte[] compress(String uncompressed)
+    {
+        byte[] b = new byte[1];
+        return b;
+    }
+    public String decompress(byte[] compressedBytes)
+    {
+        return "";
+    }
+
+    public String getName()
+    {
+        return "JPEG";
+    }
 }

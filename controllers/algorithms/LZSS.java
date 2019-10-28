@@ -1,7 +1,19 @@
 package controllers.algorithms;
 
-class LZSS implements IAlgorithm
+public class LZSS extends Algorithm
 {
-    void compress();
-    void decompress();
+    public byte[] compress(String uncompressed)
+    {
+        byte[] b = new byte[1];
+        return b;
+    }
+    public String decompress(byte[] compressedBytes)
+    {
+        return "";
+    }
+
+    public String getName()
+    {
+        return "LZSS";
+    }
 }

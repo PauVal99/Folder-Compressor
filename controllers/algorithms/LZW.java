@@ -2,9 +2,9 @@ package controllers.algorithms;
 
 import java.util.*;
 
-public class LZW //implements IAlgorithm
+public class LZW extends Algorithm
 {
-    public static byte[] compress(String uncompressed)
+    public byte[] compress(String uncompressed)
     {
         int dictSize = 256;
         Map<String,Character> dictionary = new HashMap<String,Character>();
@@ -28,7 +28,7 @@ public class LZW //implements IAlgorithm
         return result.getBytes();
     }
     
-    public static String decompress(byte[] compressedBytes) {
+    public String decompress(byte[] compressedBytes) {
         int dictSize = 256;
         Map<Character,String> dictionary = new HashMap<Character,String>();
         for (int i = 0; i < 256; i++)
@@ -54,5 +54,10 @@ public class LZW //implements IAlgorithm
             w = entry;
         }
         return result.toString();
+    }
+
+    public String getName()
+    {
+        return "LZW";
     }
 }
