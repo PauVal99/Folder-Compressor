@@ -1,11 +1,11 @@
 package src.dominio;
 
-
 import java.nio.file.Files;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.io.File;
+import java.nio.file.StandardOpenOption;
 
 import src.persistencia.*;
 import src.dominio.algoritmos.*;
@@ -27,14 +27,28 @@ public class Decompressor
     {
         try
         { 
-            String decompressedBytes = algorithm.decompress(this.compressedFile.getContent());
             Files.createFile(this.destinationPath);
-            Files.write(this.destinationPath, decompressedBytes.getBytes());
+            byte[] readBytes = compressedFile.readContent(1024);
+            while(readBytes.length == 1024){
+                String decompressedBytes = algorithm.decompress(readBytes);
+                this.writeInDestiantionFile(decompressedBytes.getBytes());
+                readBytes = compressedFile.readContent(1024);
+            }
+            String decompressedBytes = algorithm.decompress(readBytes);
+            this.writeInDestiantionFile(decompressedBytes.getBytes());
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void writeInDestiantionFile(byte[] bytes)
+    {   
+        try{
+            Files.write(this.destinationPath, bytes, StandardOpenOption.APPEND);}
+        catch (IOException e){
+            e.printStackTrace();}
     }
 
     private Algorithm setAlgorithm(String algorithmName)

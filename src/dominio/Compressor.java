@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import src.dominio.algoritmos.*;
-import src.persistencia.*;
+import src.persistencia.UncompressedFile;;
 
 public class Compressor
 {
@@ -24,15 +24,18 @@ public class Compressor
 
     public void compress()
     {
-        byte[] readBytes;
-        while((readBytes = uncompressedFile.readContent(1024)) != new byte[0]){
-            byte[] compressedBytes = algorithm.compress(new String(readBytes));
-        }
         this.createDestinationFile();
-        String header = "name:"      + this.uncompressedFile.getName() + "\n" +
-                        "algorithm:" + this.algorithm.getName()        + "\n"; 
-        this.writeInDestiantionFile(header.getBytes());
+        this.writeInDestiantionFile(this.getHeader().getBytes());
+
+        byte[] readBytes = uncompressedFile.readContent(1024);
+        while(readBytes.length == 1024){
+            byte[] compressedBytes = algorithm.compress(new String(readBytes));
+            this.writeInDestiantionFile(compressedBytes);
+            readBytes = uncompressedFile.readContent(1024);
+        }
+        byte[] compressedBytes = algorithm.compress(new String(readBytes));
         this.writeInDestiantionFile(compressedBytes);
+
         this.writeInDestiantionFile("\n".getBytes());
     }
 
@@ -50,6 +53,13 @@ public class Compressor
             Files.write(this.destinationPath, bytes, StandardOpenOption.APPEND);}
         catch (IOException e){
             e.printStackTrace();}
+    }
+
+    private String getHeader()
+    {
+        String header = "name:"      + this.uncompressedFile.getName() + "\n" +
+                        "algorithm:" + this.algorithm.getName()        + "\n" ;
+        return header;
     }
 
     private Algorithm setAlgorithm(String algorithmName)
