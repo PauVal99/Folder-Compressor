@@ -24,7 +24,10 @@ public class Compressor
 
     public void compress()
     {
-        byte[] compressedBytes = algorithm.compress(new String(uncompressedFile.getContent()));
+        byte[] readBytes;
+        while((readBytes = uncompressedFile.readContent(1024)) != new byte[0]){
+            byte[] compressedBytes = algorithm.compress(new String(readBytes));
+        }
         this.createDestinationFile();
         String header = "name:"      + this.uncompressedFile.getName() + "\n" +
                         "algorithm:" + this.algorithm.getName()        + "\n"; 
