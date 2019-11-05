@@ -27,6 +27,16 @@ public class LZWtest extends Tester
         this.completed();
     }
 
+    public void testCompressEnterText()
+    {
+        this.imGoingTo("Compress \"visca\\nla democracia\".");
+        String text = "visca\nla democracia";
+        byte[] compressedBytes = this.lzw.compress(text);
+        byte[] expectedBytes = {118,105,115,99,97,10,108,97,32,100,101,109,111,99,114,97,99,105,97};
+        this.assertEqualBytes(compressedBytes,expectedBytes);
+        this.completed();
+    }
+
     public void testCompressLargeText()
     {
         this.imGoingTo("Compress a large text.");
@@ -53,6 +63,15 @@ public class LZWtest extends Tester
         byte[] compressedBytes = {118,105,115,99,97,32,108,-60,-124,100,101,109,111,99,114,97,99,105,97};
         String decompressedString = this.lzw.decompress(compressedBytes);
         this.assertEqualStirng(decompressedString,"visca la democracia");
+        this.completed();
+    }
+
+    public void testDecompressEnterText()
+    {
+        this.imGoingTo("Decompress \"visca\\nla democracia\".");
+        byte[] compressedBytes = {118,105,115,99,97,10,108,97,32,100,101,109,111,99,114,97,99,105,97};
+        String decompressedString = this.lzw.decompress(compressedBytes);
+        this.assertEqualStirng(decompressedString,"visca\nla democracia");
         this.completed();
     }
 
