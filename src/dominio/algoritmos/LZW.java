@@ -1,4 +1,4 @@
-package controllers.algorithms;
+package src.dominio.algoritmos;
 
 import java.util.*;
 

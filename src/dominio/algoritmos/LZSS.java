@@ -1,6 +1,6 @@
-package controllers.algorithms;
+package src.dominio.algoritmos;
 
-public class LZ78 extends Algorithm
+public class LZSS extends Algorithm
 {
     public byte[] compress(String uncompressed)
     {
@@ -14,6 +14,6 @@ public class LZ78 extends Algorithm
 
     public String getName()
     {
-        return "LZ78";
+        return "LZSS";
     }
 }

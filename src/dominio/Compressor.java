@@ -1,12 +1,13 @@
-package controllers;
+package src.dominio;
 
-import models.*;
 import java.nio.file.Files;
-import controllers.algorithms.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+
+import src.dominio.algoritmos.*;
+import src.persistencia.*;
 
 public class Compressor
 {
@@ -23,7 +24,10 @@ public class Compressor
 
     public void compress()
     {
-        byte[] compressedBytes = algorithm.compress(new String(uncompressedFile.getContent()));
+        byte[] readBytes;
+        while((readBytes = uncompressedFile.readContent(1024)) != new byte[0]){
+            byte[] compressedBytes = algorithm.compress(new String(readBytes));
+        }
         this.createDestinationFile();
         String header = "name:"      + this.uncompressedFile.getName() + "\n" +
                         "algorithm:" + this.algorithm.getName()        + "\n"; 

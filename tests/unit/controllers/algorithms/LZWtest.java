@@ -1,6 +1,6 @@
 package tests.unit.controllers.algorithms;
 
-import controllers.algorithms.LZW;
+import src.dominio.algoritmos.LZW;
 import tests.unit.Tester;
 
 public class LZWtest extends Tester 
