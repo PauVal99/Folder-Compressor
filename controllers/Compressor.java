@@ -25,8 +25,8 @@ public class Compressor
     {
         byte[] compressedBytes = algorithm.compress(new String(uncompressedFile.getContent()));
         this.createDestinationFile();
-        String header = "name:"      + this.uncompressedFile.getName()          + "\n" +
-                        "algorithm:" + this.algorithm.getName()                 + "\n"; 
+        String header = "name:"      + this.uncompressedFile.getName() + "\n" +
+                        "algorithm:" + this.algorithm.getName()        + "\n"; 
         this.writeInDestiantionFile(header.getBytes());
         this.writeInDestiantionFile(compressedBytes);
         this.writeInDestiantionFile("\n".getBytes());

@@ -23,7 +23,7 @@ public class CompressedFile extends File
             }
             this.content = new byte[0];
             while ((line = br.readLine()) != null) {
-                this.content = this.concatenate(this.content, line.getBytes());
+                this.content = this.concatenate(this.content, (line+"\n").getBytes());
             }
             br.close();
         }

@@ -30,9 +30,11 @@ public class TestMenu
         LZWtest lzwt = new LZWtest();
         lzwt.testCompressVoidText();
         lzwt.testCompressText();
+        lzwt.testCompressEnterText();
         lzwt.testCompressLargeText();
         lzwt.testDecompressVoidText();
         lzwt.testDecompressText();
+        lzwt.testDecompressEnterText();
         lzwt.testDecompressLargeText();
     }
 
