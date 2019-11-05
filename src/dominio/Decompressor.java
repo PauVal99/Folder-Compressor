@@ -1,12 +1,14 @@
-package controllers;
+package src.dominio;
 
-import models.*;
+
 import java.nio.file.Files;
-import controllers.algorithms.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.io.File;
+
+import src.persistencia.*;
+import src.dominio.algoritmos.*;
 
 public class Decompressor
 {

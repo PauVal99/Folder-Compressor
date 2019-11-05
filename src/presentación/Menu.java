@@ -1,11 +1,13 @@
-package controllers;
+package src.presentación;
 
 import java.io.Console;
 import java.io.File;
-import models.*;
-import controllers.Compressor;
-import tests.TestMenu;
 import java.util.*;
+
+import src.persistencia.*;
+import src.dominio.*;
+
+import tests.TestMenu;
 
 public class Menu
 {
