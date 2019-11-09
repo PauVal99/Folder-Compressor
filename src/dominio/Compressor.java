@@ -27,7 +27,6 @@ public class Compressor
         createDestinationFile();
         writeInDestiantionFile(getHeader().getBytes());
         writeInDestiantionFile(algorithm.compress(uncompressedFile));
-        writeInDestiantionFile("\n".getBytes());
     }
 
     private void createDestinationFile()
