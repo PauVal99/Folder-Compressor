@@ -24,7 +24,11 @@ public class File extends java.io.File
         byte[] bytes = new byte[nBytes];
         try{
             int read = this.fileInputStream.read(bytes);
-            if(read < nBytes){
+            if(read == -1){
+                fileInputStream.close();
+                return new byte[0];
+            }
+            else if(read < nBytes){
                 if(read == -1) read = 0;
                 byte[] b = new byte[read];
                 for(int i=0; i<read; i++){
@@ -42,7 +46,7 @@ public class File extends java.io.File
 
     public String getFileName()
     {
-        String name = this.getName();
+        String name = getName();
         int pos = name.lastIndexOf(".");
         if (pos > 0) {
             name = name.substring(0, pos);

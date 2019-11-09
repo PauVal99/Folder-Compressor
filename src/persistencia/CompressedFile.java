@@ -25,10 +25,10 @@ public class CompressedFile extends File
                 String line = bufferedReader.readLine();
                 read = read + (line+"\n").getBytes().length;
                 String[] split = line.split(":");
-                if(split[0].equals("name")) this.name = split[1];
-                else if(split[0].equals("algorithm")) this.algorithm = split[1];
+                if(split[0].equals("name")) name = split[1];
+                else if(split[0].equals("algorithm")) algorithm = split[1];
             }
-            this.fileInputStream.skip(read);
+            fileInputStream.skip(read);
             bufferedReader.close();
         }
         catch (IOException e){
