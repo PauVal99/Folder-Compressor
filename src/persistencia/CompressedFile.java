@@ -36,14 +36,14 @@ public class CompressedFile extends File
         }
     }
 
-    public String getFileName()
+    public String getOriginalName()
     {
-        return this.name;
+        return name;
     }
 
     public String getAlgorithm()
     {
-        return this.algorithm;   
+        return algorithm;   
     }
 
     public static final long serialVersionUID = 1L;

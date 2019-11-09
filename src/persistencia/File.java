@@ -1,6 +1,7 @@
 package src.persistencia;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class File extends java.io.File
@@ -11,9 +12,9 @@ public class File extends java.io.File
     {
         super(pathName);
         try{
-            this.fileInputStream = new FileInputStream(this);
+            fileInputStream = new FileInputStream(this);
         }
-        catch (IOException e){
+        catch(FileNotFoundException e){
             e.printStackTrace();
         }
     }
@@ -37,6 +38,16 @@ public class File extends java.io.File
             e.printStackTrace();
         }
         return bytes;
+    }
+
+    public String getFileName()
+    {
+        String name = this.getName();
+        int pos = name.lastIndexOf(".");
+        if (pos > 0) {
+            name = name.substring(0, pos);
+        }
+        return name;
     }
 
     public static final long serialVersionUID = 1L;

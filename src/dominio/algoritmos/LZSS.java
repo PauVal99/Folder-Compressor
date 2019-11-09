@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.*;
 import java.io.IOException;
 
+import src.persistencia.File;
+
 public class LZSS extends Algorithm {
 
     private static final int SEARCH_BUFFER = 4096;
@@ -22,7 +24,7 @@ public class LZSS extends Algorithm {
         public static final long serialVersionUID = 1L;
     }
 
-    public byte[] compress(String decompressed) {
+    public byte[] compress(File decompressed) {
         // Inicializacion de datos
         CharSequence src = decompressed;
         BitSet match = new BitSet();  // flag --> conjunto de bits inicializados a false
@@ -94,7 +96,7 @@ public class LZSS extends Algorithm {
         return datacompressed;
     }
 
-    public String decompress(byte[] compressedBytes) {
+    public byte[] decompress(File compressedBytes) {
         LZSSData objcompressed = null;
         try {
             ByteArrayInputStream bs = new ByteArrayInputStream(compressedBytes);

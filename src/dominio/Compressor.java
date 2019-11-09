@@ -1,64 +1,57 @@
 package src.dominio;
 
-import java.nio.file.Files;
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.nio.file.Path;
+
+import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
 import src.dominio.algoritmos.*;
-import src.persistencia.UncompressedFile;;
+import src.persistencia.File;
 
 public class Compressor
 {
-    private UncompressedFile uncompressedFile;
-    private Path destinationPath;
+    private File uncompressedFile;
+    private File destinationFile;
     private Algorithm algorithm;
 
-    public Compressor(UncompressedFile uncompressedFile, String destination, String algorithmName)
+    public Compressor(File uncompressedFile, File destinationFile, String algorithmName)
     {
         this.uncompressedFile = uncompressedFile;
-        this.destinationPath = Paths.get(destination);
+        this.destinationFile = destinationFile;
         this.algorithm = this.setAlgorithm(algorithmName);
     }
 
     public void compress()
     {
-        this.createDestinationFile();
-        this.writeInDestiantionFile(this.getHeader().getBytes());
-
-        byte[] readBytes = uncompressedFile.readContent(1024);
-        while(readBytes.length == 1024){
-            byte[] compressedBytes = algorithm.compress(new String(readBytes));
-            this.writeInDestiantionFile(compressedBytes);
-            readBytes = uncompressedFile.readContent(1024);
-        }
-        byte[] compressedBytes = algorithm.compress(new String(readBytes));
-        this.writeInDestiantionFile(compressedBytes);
-
-        this.writeInDestiantionFile("\n".getBytes());
+        createDestinationFile();
+        writeInDestiantionFile(getHeader().getBytes());
+        writeInDestiantionFile(algorithm.compress(uncompressedFile));
+        writeInDestiantionFile("\n".getBytes());
     }
 
     private void createDestinationFile()
     {   
         try{
-            Files.createFile(this.destinationPath);}
-        catch (IOException e){
-            e.printStackTrace();}
+            destinationFile.createNewFile();
+        }
+        catch(IOException e){
+            System.out.print("Destination file already exists.");
+        }
     }
 
     private void writeInDestiantionFile(byte[] bytes)
     {   
         try{
-            Files.write(this.destinationPath, bytes, StandardOpenOption.APPEND);}
+            Files.write(destinationFile.toPath(), bytes, StandardOpenOption.APPEND);}
         catch (IOException e){
-            e.printStackTrace();}
+            System.out.print("Error writing in destination file.");
+        }
     }
 
     private String getHeader()
     {
-        String header = "name:"      + this.uncompressedFile.getName() + "\n" +
-                        "algorithm:" + this.algorithm.getName()        + "\n" ;
+        String header = "name:"      + uncompressedFile.getName() + "\n" +
+                        "algorithm:" + algorithm.getName()        + "\n" ;
         return header;
     }
 

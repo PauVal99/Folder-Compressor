@@ -2,9 +2,11 @@ package src.dominio.algoritmos;
 
 import java.util.*;
 
+import src.persistencia.File;
+
 public class LZW extends Algorithm
 {
-    public byte[] compress(String uncompressed)
+    public byte[] compress(File uncompressed)
     {
         int dictSize = 256;
         Map<String,Character> dictionary = new HashMap<String,Character>();
@@ -28,7 +30,7 @@ public class LZW extends Algorithm
         return result.getBytes();
     }
     
-    public String decompress(byte[] compressedBytes) {
+    public byte[] decompress(File compressedBytes) {
         int dictSize = 256;
         Map<Character,String> dictionary = new HashMap<Character,String>();
         for (int i = 0; i < 256; i++)

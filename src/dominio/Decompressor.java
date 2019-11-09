@@ -1,54 +1,50 @@
 package src.dominio;
 
-import java.nio.file.Files;
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.io.File;
+
+import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
-import src.persistencia.*;
 import src.dominio.algoritmos.*;
+import src.persistencia.File;
+import src.persistencia.CompressedFile;
 
 public class Decompressor
 {
     private CompressedFile compressedFile;
-    private Path destinationPath;
+    private File destinationFile;
     private Algorithm algorithm;
 
-    public Decompressor(CompressedFile compressedFile, String destination)
+    public Decompressor(File compressedFile, File destinationFolder)
     {
-        this.compressedFile = compressedFile;
-        this.destinationPath = Paths.get(destination + File.separator + compressedFile.getFileName());
-        this.algorithm = this.setAlgorithm(compressedFile.getAlgorithm());
+        this.compressedFile = new CompressedFile(compressedFile.getPath());
+        this.destinationFile = new File(destinationFolder.toString() + File.separator + this.compressedFile.getOriginalName());
+        this.algorithm = setAlgorithm(this.compressedFile.getAlgorithm());
     }
 
     public void decompress()
     {
-        try
-        { 
-            Files.createFile(this.destinationPath);
-            byte[] readBytes = compressedFile.readContent(1024);
-            while(readBytes.length == 1024){
-                String decompressedBytes = algorithm.decompress(readBytes);
-                this.writeInDestiantionFile(decompressedBytes.getBytes());
-                readBytes = compressedFile.readContent(1024);
-            }
-            String decompressedBytes = algorithm.decompress(readBytes);
-            this.writeInDestiantionFile(decompressedBytes.getBytes());
+        createDestinationFile();
+        writeInDestiantionFile(algorithm.decompress(compressedFile));
+    }
+
+    private void createDestinationFile()
+    {   
+        try{
+            destinationFile.createNewFile();
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
+        catch(IOException e){
+            System.out.print("Destination file already exists.");
         }
     }
 
     private void writeInDestiantionFile(byte[] bytes)
     {   
         try{
-            Files.write(this.destinationPath, bytes, StandardOpenOption.APPEND);}
+            Files.write(destinationFile.toPath(), bytes, StandardOpenOption.APPEND);}
         catch (IOException e){
-            e.printStackTrace();}
+            System.out.print("Error writing in destination file.");
+        }
     }
 
     private Algorithm setAlgorithm(String algorithmName)
