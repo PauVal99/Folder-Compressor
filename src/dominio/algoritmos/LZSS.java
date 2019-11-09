@@ -5,79 +5,9 @@ import java.util.*;
 import java.io.IOException;
 
 public class LZSS extends Algorithm {
-    public byte[] compress(String uncompressed) {
-        int windowSize = WINDOW; // 4KBytes
-        LZSSData result = window_compress(uncompressed, windowSize);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(result);
-            oos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] datacompressed = bos.toByteArray();
-        return datacompressed;
-    }
 
-    public static LZSSData window_compress(CharSequence src, int windowSize) {
-        // Inicializacion de datos
-        BitSet match = new BitSet(); // flag --> nuevo conjunto de bits inicializados a false
-        StringBuilder out = new StringBuilder(); // offset --> caracters de retorno
-        int size = 0; // tamaño de retorno
-        Map<Character, List<Integer>> startPoss = new HashMap<>();
-        int n = src.length(); // tamaño de la secuencia de chars
-
-        for (int i = 0; i < n; i++) {
-            char target = src.charAt(i); // char actual -> posicio i
-            // Encontrar el match mas grande
-            boolean found = false;
-            int start = 0;
-            int matchLen = 0; // tamaño del match
-            List<Integer> poss = startPoss.get(target);
-            if (poss != null) {
-                Iterator<Integer> it = poss.iterator();
-                while (it.hasNext()) {
-                    int s = it.next(); // s = valor de la posicion actual del iterador
-                    if ((i - s) > windowSize) { // comprobamos que no sobrepase el SearchBuffer
-                        it.remove();
-                        continue; // se salta una iteracion si se cumpla una cierta condicion
-                    }
-                    int len = getMatchedLen(src, s + 1, i + 1, n) + 1;
-                    if (len > matchLen) {
-                        start = i - s;
-                        matchLen = len;
-                    }
-                    found = true;
-                }
-                poss.add(i);
-                int jn = Math.min(i + matchLen, n);
-                for (int j = i + 1; j < jn; j++) {
-                    List<Integer> p = startPoss.get(src.charAt(j));
-                    if (p == null) {
-                        p = new LinkedList<>(); // Integer no se necesita especificar
-                        startPoss.put(src.charAt(j), p);
-                    }
-                    p.add(j);
-                }
-            } else {
-                poss = new LinkedList<>();
-                poss.add(i);
-                startPoss.put(target, poss);
-            }
-            if (found && matchLen > 1) {
-                match.set(size);
-                out.append((char) start).append((char) matchLen);
-                // System.out.println(start + "," + matchLen );
-                i += matchLen - 1;
-            } else {
-                match.set(size, false);
-                out.append(target);
-            }
-            size++;
-        }
-        return new LZSSData(match, out, size);
-    }
+    private static final int SEARCH_BUFFER = 4096;
+    private static final int LOOKAHEAD = 4096;
 
     public static class LZSSData implements Serializable {
         public LZSSData(BitSet match, StringBuilder dest, int size) { // <flag, offset, lenght>
@@ -90,6 +20,78 @@ public class LZSS extends Algorithm {
         private StringBuilder dest;
         private int size;
         public static final long serialVersionUID = 1L;
+    }
+
+    public byte[] compress(String decompressed) {
+        // Inicializacion de datos
+        CharSequence src = decompressed;
+        BitSet match = new BitSet();  // flag --> conjunto de bits inicializados a false
+        StringBuilder out = new StringBuilder(); // chars y pair<offset,lenght> de retorno
+        int size = 0;
+        Map<Character, List<Integer>> pos_ini = new HashMap<>();  // diccionario para almacenar los chars recientemente vistos
+        int n = src.length(); // tamaño de la secuencia de chars inicial
+
+        for (int i = 0; i < n; i++) {
+            char act = src.charAt(i);
+            boolean found = false;
+            int inici = 0;
+            int matchLen = 0; // tamaño del match
+            List<Integer> positions = pos_ini.get(act);
+
+            if (positions != null) {
+                Iterator<Integer> it = positions.iterator();
+                while (it.hasNext()) {
+                    int p = it.next();
+                    if ((i - p) > SEARCH_BUFFER) { // comprobamos que no sobrepase el SearchBuffer
+                        it.remove();
+                        continue; // se salta una iteracion si se cumpla una cierta condicion
+                    }
+                    int len = getMatchedLen(src, p + 1, i + 1, n);
+                    if (len > matchLen) {
+                        inici = i - p;   //puntero inicial del match
+                        matchLen = len;  //numero de matchs
+                    }
+                    found = true;
+                }
+                positions.add(i);
+                int jn_aux = Math.min(i + matchLen, LOOKAHEAD);
+                int jn = Math.min(jn_aux, n);
+                for (int j = i + 1; j < jn; j++) {
+                    List<Integer> q = pos_ini.get(src.charAt(j));
+                    if (q == null) {
+                        q = new LinkedList<>(); // Integer no se necesita especificar
+                        pos_ini.put(src.charAt(j), q);
+                    }
+                    q.add(j);
+                }
+            } else{
+                    positions = new LinkedList<>();  //lista de positions vacia
+                    positions.add(i);                //agregamos la primera posicion
+                    pos_ini.put(act, positions);     //agregamos al diccionario el char con su lista de positions
+            }
+
+            if (found && matchLen > 1) {
+                match.set(size);
+                out.append((char) inici).append((char) matchLen);
+                i += matchLen - 1;
+            } else {
+                match.set(size, false);
+                out.append(act);
+            }
+            size++;
+        }
+        LZSSData result = new LZSSData(match,out,size);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(result);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] datacompressed = bos.toByteArray();
+
+        return datacompressed;
     }
 
     public String decompress(byte[] compressedBytes) {
@@ -109,12 +111,12 @@ public class LZSS extends Algorithm {
         }
 
         StringBuilder b = new StringBuilder();
-        final_decompress(objcompressed, b);
+        decompress_alg(objcompressed, b);
 
         return b.toString();
     }
 
-    public static void final_decompress(LZSSData src, StringBuilder out){
+    public static void decompress_alg(LZSSData src, StringBuilder out){
         int index = 0;
         int n = src.size;
         for(int i = 0; i < n; i++){
@@ -134,7 +136,7 @@ public class LZSS extends Algorithm {
 
     private static int getMatchedLen(CharSequence src, int i1, int i2, int end){
         int n = Math.min(i2 - i1, end - i2);
-        for(int i = 0; i < n; i++){
+        for(int i = 1; i <= n; i++){
             if(src.charAt(i1++) != src.charAt(i2++)) return i;
         }
         return 0;
@@ -144,6 +146,4 @@ public class LZSS extends Algorithm {
     {
         return "LZSS";
     }
-
-    private static final int WINDOW = 4096;
 }
