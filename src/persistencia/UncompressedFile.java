@@ -4,15 +4,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class File extends java.io.File
+public class UncompressedFile extends java.io.File
 {
     FileInputStream fileInputStream;
 
-    public File(String pathName)
+    public UncompressedFile(String pathName)
     {
         super(pathName);
         try{
-            fileInputStream = new FileInputStream(this);
+            fileInputStream = new FileInputStream(new java.io.File(pathName));
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
@@ -23,19 +23,10 @@ public class File extends java.io.File
     {
         byte[] bytes = new byte[nBytes];
         try{
-            int read = this.fileInputStream.read(bytes);
+            int read = fileInputStream.read(bytes);
             if(read == -1){
                 fileInputStream.close();
                 return new byte[0];
-            }
-            else if(read < nBytes){
-                if(read == -1) read = 0;
-                byte[] b = new byte[read];
-                for(int i=0; i<read; i++){
-                    b[i] = bytes[i];
-                }
-                fileInputStream.close();
-                return b;
             }
         }
         catch (IOException e){

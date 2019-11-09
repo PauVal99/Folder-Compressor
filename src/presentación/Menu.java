@@ -1,11 +1,12 @@
 package src.presentación;
 
+import java.io.File;
 import java.io.Console;
 import java.util.*;
 
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
-import src.persistencia.File;
+import src.persistencia.UncompressedFile;
 
 import tests.TestMenu;
 
@@ -26,7 +27,7 @@ public class Menu
 
     private void compress()
     {
-        File uncompressedFile = readFile("Please enter the file path: ");
+        UncompressedFile uncompressedFile = readFile("Please enter the file path: ");
         File destinationFolder = readFolder("Please enter the destination folder: ");
         File destinationFile = new File(destinationFolder.toString() + java.io.File.separator + readName(uncompressedFile));
         String algorithm = readAlgorithm();
@@ -37,8 +38,8 @@ public class Menu
     
     private void decompress()
     {
-        File compressedFile = readFile("Please enter the file path: ");
-        File destinationFolder = readFile("Please enter the destination folder: ");
+        UncompressedFile compressedFile = readFile("Please enter the file path: ");
+        File destinationFolder = readFolder("Please enter the destination folder: ");
         Decompressor decompressor = new Decompressor(compressedFile,destinationFolder);
         decompressor.decompress();
     }
@@ -58,7 +59,7 @@ public class Menu
         return algorithm;
     }
 
-    private String readName(File file)
+    private String readName(UncompressedFile file)
     {
         String name = console.readLine("Please enter the name of the compressed file (enter for same name): ");
         if(name.equals("")) name = file.getFileName();
@@ -67,7 +68,7 @@ public class Menu
 
     private File readFolder(String message)
     {
-        File folder = new File(this.console.readLine(message));
+        File folder = new File(console.readLine(message));
         if(!folder.exists()){
             System.out.print("Folder not found.\n");
             readFolder(message);
@@ -79,9 +80,10 @@ public class Menu
         return folder;
     }
 
-    private File readFile(String message)
+    private UncompressedFile readFile(String message)
     {
-        File file = new File(this.console.readLine(message));
+        String path = console.readLine(message);
+        File file = new File(path);
         if(!file.exists()){
             System.out.print("File not found.\n");
             readFile(message);
@@ -90,6 +92,7 @@ public class Menu
             System.out.print("Path is not a file.\n");
             readFile(message);
         }
-        return file;
+        UncompressedFile uncompressedFile = new UncompressedFile(path);
+        return uncompressedFile;
     }
 }

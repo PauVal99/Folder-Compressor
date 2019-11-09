@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import src.persistencia.File;
+import src.persistencia.UncompressedFile;
 
-public class CompressedFile extends File
+public class CompressedFile extends UncompressedFile
 {
     private String name, algorithm;
 

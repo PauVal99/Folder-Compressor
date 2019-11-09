@@ -1,13 +1,12 @@
 package src.dominio;
 
+import java.io.File;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
 import src.dominio.algoritmos.*;
-import src.persistencia.File;
-import src.persistencia.CompressedFile;
+import src.persistencia.*;
 
 public class Decompressor
 {
@@ -15,7 +14,7 @@ public class Decompressor
     private File destinationFile;
     private Algorithm algorithm;
 
-    public Decompressor(File compressedFile, File destinationFolder)
+    public Decompressor(UncompressedFile compressedFile, File destinationFolder)
     {
         this.compressedFile = new CompressedFile(compressedFile.getPath());
         this.destinationFile = new File(destinationFolder.toString() + File.separator + this.compressedFile.getOriginalName());

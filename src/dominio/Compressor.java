@@ -1,20 +1,21 @@
 package src.dominio;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
 import src.dominio.algoritmos.*;
-import src.persistencia.File;
+import src.persistencia.*;
 
 public class Compressor
 {
-    private File uncompressedFile;
+    private UncompressedFile uncompressedFile;
     private File destinationFile;
     private Algorithm algorithm;
 
-    public Compressor(File uncompressedFile, File destinationFile, String algorithmName)
+    public Compressor(UncompressedFile uncompressedFile, File destinationFile, String algorithmName)
     {
         this.uncompressedFile = uncompressedFile;
         this.destinationFile = destinationFile;

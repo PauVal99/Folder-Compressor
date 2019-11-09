@@ -1,10 +1,10 @@
 package src.dominio.algoritmos;
 
-import src.persistencia.File;
+import src.persistencia.*;
 
 public abstract class Algorithm
 {
-    public abstract byte[] compress(File uncompressed);
-    public abstract byte[] decompress(File compressedBytes);
+    public abstract byte[] compress(UncompressedFile uncompressed);
+    public abstract byte[] decompress(CompressedFile compressedBytes);
     public abstract String getName();
 }
