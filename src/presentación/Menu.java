@@ -28,7 +28,7 @@ public class Menu
     {
         UncompressedFile uncompressedFile = readFile("Please enter the file path: ");
         File destinationFolder = readFolder("Please enter the destination folder: ");
-        File destinationFile = new File(destinationFolder.toString() + java.io.File.separator + readName(uncompressedFile));
+        File destinationFile = readCompressDestinationFile(uncompressedFile, destinationFolder);
         String algorithm = readAlgorithm();
 
         Compressor compressor = new Compressor(uncompressedFile,destinationFile,algorithm);
@@ -37,10 +37,17 @@ public class Menu
     
     private void decompress()
     {
-        CompressedFile compressedFile = new CompressedFile(readFile("Please enter the file path: ").getPath());
-        File destinationFolder = readFolder("Please enter the destination folder: ");
-        Decompressor decompressor = new Decompressor(compressedFile,destinationFolder);
-        decompressor.decompress();
+        try{
+            CompressedFile compressedFile = new CompressedFile(readFile("Please enter the file path: ").getPath());
+            File destinationFolder = readFolder("Please enter the destination folder: ");
+            File destinationFile = readDecompressDestinationFile(compressedFile, destinationFolder);
+            Decompressor decompressor = new Decompressor(compressedFile,destinationFile);
+            decompressor.decompress();
+        }
+        catch(Exception e){
+            System.out.print(e.getMessage());
+        }
+
     }
 
     private void runTest()
@@ -57,11 +64,28 @@ public class Menu
         return algorithm;
     }
 
-    private String readName(UncompressedFile file)
+    private File readCompressDestinationFile(UncompressedFile file, File folder)
     {
         String name = console.readLine("Please enter the name of the compressed file (enter for same name): ");
         if(name.equals("")) name = file.getFileName();
-        return name;
+        File destinationFile = new File(folder.toString() + File.separator + name);
+        while(destinationFile.exists()){
+            name = console.readLine("File already exists. Please enter a valid name (enter for same name): ");
+            if(name.equals("")) name = file.getFileName();
+            destinationFile = new File(folder.toString() + File.separator + name);
+        }
+        return destinationFile;
+    }
+
+    private File readDecompressDestinationFile(CompressedFile file, File folder)
+    {
+        File destinationFile = new File(folder.toString() + File.separator + file.getOriginalName());
+        String newName = null;
+        while(destinationFile.exists()){
+            newName = console.readLine("File to decompress already exists. Please insert a new name: ");
+            destinationFile = new File(folder.toString() + File.separator + newName + file.getOriginalExtension());
+        }
+        return destinationFile;
     }
 
     private File readFolder(String message)

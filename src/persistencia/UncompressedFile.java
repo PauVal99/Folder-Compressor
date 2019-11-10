@@ -22,9 +22,8 @@ public class UncompressedFile extends File
 
     public char readChar()
     {
-        char c = 0;
         byte[] bc = readContent(1);
-        if(bc.length == 0) return c;
+        if(bc.length == 0) return 0;
         return new String(bc).charAt(0);
     }
 
