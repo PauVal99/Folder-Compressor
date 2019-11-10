@@ -2,13 +2,11 @@ package src.presentación;
 
 import java.io.File;
 import java.io.Console;
-import java.util.*;
+import java.util.Arrays;
 
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
-import src.persistencia.UncompressedFile;
-
-import tests.TestMenu;
+import src.persistencia.*;
 
 public class Menu
 {
@@ -17,12 +15,13 @@ public class Menu
     public void start()
     {
         console = System.console();
+        String[] possibleOperations = {"1", "2", "3"};
         String operation = console.readLine("Wellcome to compressor/decompressor. Please select an operation:\n 1.Compress\n 2.Uncompress\n 3.Run tests\n");
-        
+        while(!Arrays.asList(possibleOperations).contains(operation)) 
+            operation = console.readLine("Please enter a valid operation: ");
         if(operation.equals("1")) compress();
         else if(operation.equals("2")) decompress();
         else if(operation.equals("3")) runTest();
-        else{ System.out.print("Please enter a valid operation.\n"); start();}
     }
 
     private void compress()
@@ -38,7 +37,7 @@ public class Menu
     
     private void decompress()
     {
-        UncompressedFile compressedFile = readFile("Please enter the file path: ");
+        CompressedFile compressedFile = new CompressedFile(readFile("Please enter the file path: ").getPath());
         File destinationFolder = readFolder("Please enter the destination folder: ");
         Decompressor decompressor = new Decompressor(compressedFile,destinationFolder);
         decompressor.decompress();
@@ -46,15 +45,14 @@ public class Menu
 
     private void runTest()
     {
-        TestMenu testMenu = new TestMenu();
-        testMenu.start();
+
     }
 
     private String readAlgorithm()
     {
         String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", ""};
-        String algorithm = this.console.readLine("Especify the algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
-        while(!Arrays.asList(possibleAlgorithms).contains(algorithm)) algorithm = this.console.readLine("Invalid algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
+        String algorithm = console.readLine("Especify the algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
+        while(!Arrays.asList(possibleAlgorithms).contains(algorithm)) algorithm = console.readLine("Invalid algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         if(algorithm.equals("")) algorithm = "auto";
         return algorithm;
     }
@@ -69,14 +67,8 @@ public class Menu
     private File readFolder(String message)
     {
         File folder = new File(console.readLine(message));
-        if(!folder.exists()){
-            System.out.print("Folder not found.\n");
-            readFolder(message);
-        }
-        else if(!folder.isDirectory()){
-            System.out.print("Path is not a folder.\n");
-            readFolder(message);
-        }
+        while(!folder.exists() || !folder.isDirectory())
+            folder = new File(console.readLine("Folder not found. Please insert a valid folder: "));
         return folder;
     }
 
@@ -84,13 +76,9 @@ public class Menu
     {
         String path = console.readLine(message);
         File file = new File(path);
-        if(!file.exists()){
-            System.out.print("File not found.\n");
-            readFile(message);
-        }
-        else if(!file.isFile()){
-            System.out.print("Path is not a file.\n");
-            readFile(message);
+        while(!file.exists() || !file.isFile()){
+            path = console.readLine("File not found. Please insert a valid file: ");
+            file = new File(path);
         }
         UncompressedFile uncompressedFile = new UncompressedFile(path);
         return uncompressedFile;

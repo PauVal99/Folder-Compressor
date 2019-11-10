@@ -2,45 +2,48 @@ package src.dominio.algoritmos;
 
 import java.util.*;
 
-import src.persistencia.File;
+import src.persistencia.*;
 
 public class LZW extends Algorithm
 {
-    public byte[] compress(File uncompressed)
+    public byte[] compress(UncompressedFile uncompressed)
     {
         int dictSize = 256;
-        Map<String,Character> dictionary = new HashMap<String,Character>();
+        Map<String,Integer> dictionary = new HashMap<String,Integer>();
         for (int i = 0; i < 256; i++)
-            dictionary.put("" + (char)i, (char)i);
+            dictionary.put("" + (char)i, i);
 
         String w = "";
-        String result = "";
-        for (char c : uncompressed.toCharArray()) {
+        byte[] result = new byte[0];
+        char c;
+        while((c = uncompressed.readChar()) != 0){
             String wc = w + c;
             if (dictionary.containsKey(wc))
                 w = wc;
             else {
-                dictionary.put(wc, (char)dictSize++);
-                result = result + dictionary.get(w);
+                dictionary.put(wc, dictSize++);
+                result = concatenate(result, intToByteArray(dictionary.get(w)));
                 w = "" + c;
             }
         }
+
         if (!w.equals(""))
-            result = result + dictionary.get(w);
-        return result.getBytes();
+            result = concatenate(result, intToByteArray(dictionary.get(w)));
+        return result;
     }
     
-    public byte[] decompress(File compressedBytes) {
+    public byte[] decompress(CompressedFile compressed) {
         int dictSize = 256;
-        Map<Character,String> dictionary = new HashMap<Character,String>();
+        Map<Integer,String> dictionary = new HashMap<Integer,String>();
         for (int i = 0; i < 256; i++)
-            dictionary.put((char)i, "" + (char)i);
+            dictionary.put(i, "" + (char)i);
 
-        String compressed = new String(compressedBytes);
-        if(compressed.length() == 0) return "";
-        String w = "" + compressed.charAt(0); compressed = compressed.substring(1);
+        byte[] bc;
+        String w = "" + (char)byteArrayToInt(compressed.readContent(4));
         StringBuffer result = new StringBuffer(w);
-        for (char k : compressed.toCharArray()) {
+        
+        while((bc = compressed.readContent(4)).length != 0){
+            int k = byteArrayToInt(bc);
             String entry;
             if (dictionary.containsKey(k))
                 entry = dictionary.get(k);
@@ -51,12 +54,45 @@ public class LZW extends Algorithm
  
             result.append(entry);
  
-            dictionary.put((char) dictSize++, w + entry.charAt(0));
+            dictionary.put(dictSize++, w + entry.charAt(0));
  
             w = entry;
         }
-        return result.toString();
+
+        return result.toString().getBytes();
     }
+
+    private byte[] intToByteArray(int i)
+    {
+        byte[] buffer = new byte[4];
+        buffer[0] = (byte) (i >> 0);
+        buffer[1] = (byte) (i >> 8);
+        buffer[2] = (byte) (i >> 16);
+        buffer[3] = (byte) (i >> 24);
+        return buffer;
+    }
+
+    private int byteArrayToInt(byte[] buffer)
+    {
+        int i = 0;
+        i += buffer[0] &  0xFF;
+        i += buffer[1] << 8;
+        i += buffer[2] << 16;
+        i += buffer[3] << 24;
+        return i;
+    }
+
+    private byte[] concatenate(byte[] a, byte[] b) {
+        int aLen = a.length;
+        int bLen = b.length;
+
+        byte[] c = new byte[aLen + bLen];
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+
+        return c;
+    }
+
 
     public String getName()
     {

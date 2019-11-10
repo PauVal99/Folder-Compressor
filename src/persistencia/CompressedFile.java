@@ -13,7 +13,7 @@ public class CompressedFile extends UncompressedFile
     public CompressedFile(String pathName)
     {
         super(pathName);
-        this.readAttributes();
+        readAttributes();
     }
 
     private void readAttributes()

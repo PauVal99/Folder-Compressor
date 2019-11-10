@@ -1,51 +1,29 @@
 package src.dominio;
 
 import java.io.File;
-import java.io.IOException;
 
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
+import src.dominio.Actor;
+import src.persistencia.UncompressedFile;;
 
-import src.dominio.algoritmos.*;
-import src.persistencia.*;
-
-public class Compressor
+public class Compressor extends Actor
 {
     private UncompressedFile uncompressedFile;
-    private File destinationFile;
-    private Algorithm algorithm;
+    private long originalSize;
 
     public Compressor(UncompressedFile uncompressedFile, File destinationFile, String algorithmName)
     {
+        super(destinationFile,algorithmName);
         this.uncompressedFile = uncompressedFile;
-        this.destinationFile = destinationFile;
-        this.algorithm = this.setAlgorithm(algorithmName);
     }
 
     public void compress()
     {
+        initCompressStadistics();
         createDestinationFile();
         writeInDestiantionFile(getHeader().getBytes());
-        writeInDestiantionFile(algorithm.compress(uncompressedFile));
-    }
-
-    private void createDestinationFile()
-    {   
-        try{
-            destinationFile.createNewFile();
-        }
-        catch(IOException e){
-            System.out.print("Destination file already exists.");
-        }
-    }
-
-    private void writeInDestiantionFile(byte[] bytes)
-    {   
-        try{
-            Files.write(destinationFile.toPath(), bytes, StandardOpenOption.APPEND);}
-        catch (IOException e){
-            System.out.print("Error writing in destination file.");
-        }
+        byte[] b = algorithm.compress(uncompressedFile);
+        writeInDestiantionFile(b);
+        printCompressStadistics(b.length);
     }
 
     private String getHeader()
@@ -55,12 +33,17 @@ public class Compressor
         return header;
     }
 
-    private Algorithm setAlgorithm(String algorithmName)
+    private void initCompressStadistics()
     {
-        if(algorithmName.equals("LZ78")) return new LZ78();
-        else if(algorithmName.equals("LZSS")) return new LZSS();
-        else if(algorithmName.equals("LZW")) return new LZW();
-        else if(algorithmName.equals("JPEG")) return new JPEG();
-        return new LZW();
+        initStadistics();
+        originalSize = uncompressedFile.length();
+    }
+
+    private void printCompressStadistics(long compressedSize)
+    {
+        printStadistics();
+        System.out.print("Original size was "+originalSize+" bytes.\n");
+        System.out.print("Compressed size is "+compressedSize+" bytes.\n");
+        System.out.print("Compress ratio is "+((float)compressedSize/(float)originalSize)+" bytes.\n");
     }
 }

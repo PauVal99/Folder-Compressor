@@ -1,10 +1,11 @@
 package src.persistencia;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class UncompressedFile extends java.io.File
+public class UncompressedFile extends File
 {
     FileInputStream fileInputStream;
 
@@ -12,11 +13,19 @@ public class UncompressedFile extends java.io.File
     {
         super(pathName);
         try{
-            fileInputStream = new FileInputStream(new java.io.File(pathName));
+            fileInputStream = new FileInputStream(this);
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
         }
+    }
+
+    public char readChar()
+    {
+        char c = 0;
+        byte[] bc = readContent(1);
+        if(bc.length == 0) return c;
+        return new String(bc).charAt(0);
     }
 
     public byte[] readContent(int nBytes)
