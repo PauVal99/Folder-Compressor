@@ -11,9 +11,6 @@ public class LZ78 extends Algorithm{
         int key = 0;
         char c;
         while((c = uncompressed.readChar()) != 0){
-       /* byte[] in;
-            while((in = uncompressed.readContent(1)).length != 0) {
-            char c = new String(in).charAt(0); */
             current += c;
             if(codeWord.containsKey(current)){
                 key = codeWord.get(current);
@@ -25,10 +22,6 @@ public class LZ78 extends Algorithm{
                 current = "";
             }
         }
-       /* if(inD){
-            result += key;
-        }*/
-
         return result.getBytes();
     }
 
