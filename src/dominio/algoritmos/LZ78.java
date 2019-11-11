@@ -9,15 +9,14 @@ public class LZ78 extends Algorithm{
         HashMap<String, Integer> codeWord = new HashMap<String, Integer>();
         String current ="";
         int key = 0;
-        boolean inD = false;
-        byte[] in;
-        while((in = uncompressed.readContent(1)).length != 0) {
-            char c = new String(in).charAt(0);
-            inD = false;
+        char c;
+        while((c = uncompressed.readChar()) != 0){
+       /* byte[] in;
+            while((in = uncompressed.readContent(1)).length != 0) {
+            char c = new String(in).charAt(0); */
             current += c;
             if(codeWord.containsKey(current)){
                 key = codeWord.get(current);
-                inD = true;
             }
             else {
                 result += key + ":" + c;
