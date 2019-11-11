@@ -19,9 +19,8 @@ public class Compressor extends Actor
     public void compress()
     {
         initCompressStadistics();
-        createDestinationFile();
-        writeInDestiantionFile(getHeader().getBytes());
         byte[] b = algorithm.compress(uncompressedFile);
+        writeInDestiantionFile(getHeader().getBytes());
         writeInDestiantionFile(b);
         printCompressStadistics(b.length);
     }

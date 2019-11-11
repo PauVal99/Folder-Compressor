@@ -24,11 +24,12 @@ public class LZW extends Algorithm
             if (dictionary.containsKey(wc))
                 w = wc;
             else {
-                dictSize++;
-                if(dictSize >= Math.pow(2,nBytes * 8)) {nBytes++; for(byte element:intToByteArray(dictionary.get(w))) System.out.print(element + " ");}
+                if(dictionary.get(w) >= Math.pow(2,nBytes * 8)){ 
+                    result = concatenate(result, intToByteArray(0));
+                    nBytes++;
+                }
                 result = concatenate(result, intToByteArray(dictionary.get(w)));
-                //System.out.print(dictionary.get(w) + ":" + nBytes + " ");
-                dictionary.put(wc, dictSize);
+                dictionary.put(wc, dictSize++);
                 w = "" + c;
             }
         }
@@ -46,10 +47,9 @@ public class LZW extends Algorithm
         byte[] bc;
         String w = "" + (char)byteArrayToInt(compressed.readContent(nBytes));
         StringBuilder result = new StringBuilder(w);
-
         while((bc = compressed.readContent(nBytes)).length != 0){
             int k = byteArrayToInt(bc);
-            //System.out.print(k + ":" + nBytes + " ");
+            if(k == 0) {nBytes++; continue;}
             String entry = "";
             if (dictionary.containsKey(k))
                 entry = dictionary.get(k);
@@ -59,9 +59,8 @@ public class LZW extends Algorithm
                 throw new IllegalArgumentException("Bad compressed k: " + k);
  
             result.append(entry);
-            dictSize++;
-            dictionary.put(dictSize, w + entry.charAt(0));
-            if(dictSize == 256){ nBytes++; for(byte element:bc) System.out.print(element + " ");}
+
+            dictionary.put(dictSize++, w + entry.charAt(0));
  
             w = entry;
         }
@@ -80,7 +79,7 @@ public class LZW extends Algorithm
     {
         int n = 0;
         for (int i = 0; i < buffer.length; i++) {
-            int a = ((buffer[i] & 0xff)) + i * 8;
+            int a = ((buffer[i] & 0xff)) * (int) Math.pow(2,i * 8);
             n = n + a;
         }
         return n;

@@ -18,7 +18,6 @@ public class Decompressor extends Actor
     public void decompress()
     {
         initStadistics();
-        createDestinationFile();
         byte[] b = algorithm.decompress(compressedFile);
         writeInDestiantionFile(b);
         printStadistics();

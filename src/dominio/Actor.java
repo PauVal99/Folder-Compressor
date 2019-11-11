@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import src.dominio.algoritmos.*;
 
 public class Actor
@@ -28,7 +31,7 @@ public class Actor
     protected void printStadistics()
     {
         stopTime = System.currentTimeMillis();
-        System.out.print("Done in "+ (stopTime - startTime) +" milliseconds.\n");
+        System.out.print("Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stopTime - startTime)) + ".\n");
     }
 
     protected void createDestinationFile()
@@ -44,7 +47,7 @@ public class Actor
     protected void writeInDestiantionFile(byte[] bytes)
     {   
         try{
-            Files.write(destinationFile.toPath(), bytes, StandardOpenOption.APPEND);}
+            Files.write(destinationFile.toPath(), bytes, StandardOpenOption.APPEND, StandardOpenOption.CREATE);}
         catch (IOException e){
             System.out.print("Error writing in destination file.");
         }
