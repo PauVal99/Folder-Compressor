@@ -5,10 +5,29 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Esta clase representa un archivo sin comprimir.
+ * Su cometido es gestionar todas las necesidades del progama respecto este fichero.
+ * Extiende la clase java.io.File.
+ * 
+ * @author Pau Val
+ */
+
 public class UncompressedFile extends File
 {
+    /**
+     * Lector del archivo
+     * 
+     * @see java.io.FileInputStream
+     */
     FileInputStream fileInputStream;
 
+    /**
+     * Constructora de un UncompressedFile.
+     * Inicializa el lector del archivo.
+     * 
+     * @param pathName ruta al archivo sin comprimir
+     */
     public UncompressedFile(String pathName)
     {
         super(pathName);
@@ -20,11 +39,25 @@ public class UncompressedFile extends File
         }
     }
 
+    /**
+     * Esta función lee todos los bytes del archivo.
+     * 
+     * @return byte array con todos los bytes del archivo.
+     * 
+     * @see this.readContent(nBytes)
+     */
     public byte[] readAll()
     {
         return readContent((int)this.length());
     }
 
+    /**
+     * Esta función lee el siguiente caracter sin leer del fichero.
+     * 
+     * @return siguiente caracter
+     * 
+     * @see this.readContent(nBytes)
+     */
     public char readChar()
     {
         byte[] bc = readContent(1);
@@ -32,6 +65,14 @@ public class UncompressedFile extends File
         return new String(bc).charAt(0);
     }
 
+    /**
+     * Esta función retorna un byte array con el numero de bytes siguientes sin leer.
+     * 
+     * @param nBytes numero de bytes a leer
+     * @return contenido de los siguientes nBytes
+     * 
+     * @see java.io.FileInputStream::read(byte[])
+     */
     public byte[] readContent(int nBytes)
     {
         byte[] bytes = new byte[nBytes];
@@ -48,6 +89,13 @@ public class UncompressedFile extends File
         return bytes;
     }
 
+    /**
+     * Retorna el nombre sin extension de este fichero.
+     * 
+     * @return nombre sin extension de este fichero
+     * 
+     * @see java.io.File::getName()
+     */
     public String getFileName()
     {
         String name = getName();

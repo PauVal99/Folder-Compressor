@@ -7,16 +7,47 @@ import java.lang.Exception;
 
 import src.persistencia.UncompressedFile;
 
+/**
+ * Esta clase representa un archivo comprimido.
+ * Su cometido es gestionar todas las necesidades del progama respecto este fichero.
+ * Extiende la clase src.persistencia.UncompressedFile.
+ * 
+ * @author Pau Val
+ */
+
 public class CompressedFile extends UncompressedFile
 {
-    private String name = null, algorithm = null;
+    /** Nombre del archivo original. */
+    private String name = null;
 
+    /** Nombre del algoritmo con el que fue comprimido. */
+    private String algorithm = null;
+
+    /**
+     * Constructora de un CompressedFile.
+     * Llama al lector de atributos.
+     * 
+     * @param pathName ruta al archivo comprimido
+     * 
+     * @throws Exeption lanza una excepción si el archivo no fue comprimido con este programa
+     * 
+     * @see this.readAttributes()
+     */
     public CompressedFile(String pathName) throws Exception
     {
         super(pathName);
         readAttributes();
     }
 
+    /**
+     * Lee los atributos del archivo original almazenados en el archivo comprimido. Si esta no existe lanza una excepción.
+     * 
+     * @throws Exeption lanza una excepción si el archivo no fue comprimido con este programa
+     *
+     * @see java.io.FileInputStream::skip()
+     * @see java.io.BufferedReader::readLine()
+     * @see java.io.FileReader
+     */
     private void readAttributes() throws Exception
     {
         try{
@@ -39,11 +70,21 @@ public class CompressedFile extends UncompressedFile
         }
     }
 
+    /**
+     * Retorna el nombre con la extensión del archivo original.
+     * 
+     * @return nombre con la extensión del archivo original
+     */
     public String getOriginalName()
     {
         return name;
     }
 
+    /**
+     * Retorna la extensión del archivo original.
+     * 
+     * @return extensión del archivo original
+     */
     public String getOriginalExtension()
     {
         String ext = null;
@@ -54,6 +95,11 @@ public class CompressedFile extends UncompressedFile
         return ext;
     }
 
+    /**
+     * Retorna el nombre del algoritmo con el que fue comprimido.
+     * 
+     * @return el nombre del algoritmo con el que fue comprimido
+     */
     public String getAlgorithm()
     {
         return algorithm;   
