@@ -1,28 +1,13 @@
 package src.dominio.algoritmos;
 
-import java.io.*;
 import java.util.*;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import src.persistencia.*;
 
 public class LZSS extends Algorithm {
 
-    private static final int SEARCH_BUFFER = 4096;
-    //private static final int LOOKAHEAD = 4096;
-
-    public static class LZSSData implements Serializable {
-        public LZSSData(BitSet match, StringBuilder dest, int size) { // <flag, offset, lenght>
-            this.match = match;
-            this.dest = dest;
-            this.size = size;
-        }
-        private BitSet match;
-        private StringBuilder dest;
-        private int size;
-        public static final long serialVersionUID = 1L;
-    }
+    private static final int WINDOW = 4096;
 
     public byte[] compress(UncompressedFile decompressed) {
         
@@ -50,7 +35,7 @@ public class LZSS extends Algorithm {
                 Iterator<Integer> it = positions.iterator();
                 while (it.hasNext()) {
                     int p = it.next();
-                    if ((i - p) > SEARCH_BUFFER) { // comprobamos que no sobrepase el SearchBuffer
+                    if ((i - p) > WINDOW) { // comprobamos que no sobrepase la ventana corrediza
                         it.remove();
                         continue; // se salta una iteracion si se cumpla una cierta condicion
                     }
@@ -88,13 +73,11 @@ public class LZSS extends Algorithm {
             }
             size++;
         }
-        
-        LZSSData result = new LZSSData(match,out,size);
 
-        String res = result.dest.toString();
+        String res = out.toString();
         byte[] b_result = res.getBytes();
-        byte[] bytes2 = result.match.toByteArray();
-        byte[] compressed = intToByteArray(result.size);
+        byte[] bytes2 = match.toByteArray();
+        byte[] compressed = intToByteArray(size);
         compressed = concatenate(compressed, bytes2);
         compressed = concatenate(compressed, b_result);
  
@@ -103,43 +86,34 @@ public class LZSS extends Algorithm {
 
     public byte[] decompress(CompressedFile compressedBytes) {
 
+        //Recuperacion de la info para comprimir
         byte[] result = compressedBytes.readAll();
 
         byte[] rec_size = readBytes(result,0, 4);
-        int x = byteArrayToInt(rec_size);
-        int bset_size = x / 8 + (((x) % 8 == 0) ? 0 : 1);  //calculo de bytes pertenecientes al BitSet
+        int n = byteArrayToInt(rec_size); int bset_size = n / 8 + (((n) % 8 == 0) ? 0 : 1);  //calculo de bytes pertenecientes al BitSet
         byte[] bset = readBytes(result, 4, bset_size);
-        BitSet k = byteToBits(bset);
-        //int bs = result.length;
+        BitSet match = byteToBits(bset);
         byte[] bstring = readBytes(result, bset_size+4, result.length-(bset_size+4));
         String decomp = new String(bstring);
-        StringBuilder a = new StringBuilder(); a = a.append(decomp);
-
-        LZSSData objcompressed = new LZSSData(k,a,x);
-        
-        StringBuilder b = new StringBuilder();
-        decompress_alg(objcompressed, b);
-        String ult = b.toString();
-
-        return ult.getBytes();
-    }
-
-    public static void decompress_alg(LZSSData src, StringBuilder out){
+        StringBuilder src = new StringBuilder(); src = src.append(decomp);
+        StringBuilder out = new StringBuilder();
         int index = 0;
-        int n = src.size;
         for(int i = 0; i < n; i++){
-            if(src.match.get(i)){
-                int start = src.dest.charAt(index++);
-                int matchedLen = src.dest.charAt(index++);
+            if(match.get(i)){
+                int start = src.charAt(index++);
+                int matchedLen = src.charAt(index++);
                 int s = out.length() - start;
                 int e = s + matchedLen;
                 for(; s < e; s++){
                     out.append(out.charAt(s));
                 }
             } else{
-                out.append(src.dest.charAt(index++));
+                out.append(src.charAt(index++));
             }
         }
+        String ult = out.toString();
+
+        return ult.getBytes();
     }
 
     private static int getMatchedLen(CharSequence src, int i1, int i2, int end){
@@ -170,6 +144,15 @@ public class LZSS extends Algorithm {
         return i;
     }
 
+    private byte[] concatenate(byte[] a, byte[] b) {
+        int aLen = a.length;
+        int bLen = b.length;
+        byte[] c = new byte[aLen + bLen];
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+        return c;
+    }
+
     private static byte[] readBytes(byte[] a, int ini, int nbytes) {
         byte[] res = new byte[nbytes];
         for (int i=ini; i<nbytes+ini; i++) {
@@ -193,17 +176,6 @@ public class LZSS extends Algorithm {
     private static Boolean isBitSet(byte b, int bit)
     {
         return (b & (1 << bit)) != 0;
-    }
-
-    private byte[] concatenate(byte[] a, byte[] b) {
-        int aLen = a.length;
-        int bLen = b.length;
-
-        byte[] c = new byte[aLen + bLen];
-        System.arraycopy(a, 0, c, 0, aLen);
-        System.arraycopy(b, 0, c, aLen, bLen);
-
-        return c;
     }
 
     public String getName()
