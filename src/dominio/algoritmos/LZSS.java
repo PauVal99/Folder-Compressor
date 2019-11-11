@@ -3,6 +3,7 @@ package src.dominio.algoritmos;
 import java.io.*;
 import java.util.*;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import src.persistencia.*;
 
@@ -89,37 +90,33 @@ public class LZSS extends Algorithm {
         }
         
         LZSSData result = new LZSSData(match,out,size);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(result);
-            oos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] datacompressed = bos.toByteArray();
-        System.out.print(datacompressed);
-        
-        return datacompressed;
+
+        String res = result.dest.toString();
+        byte[] b_result = res.getBytes();
+        byte[] bytes2 = result.match.toByteArray();
+        byte[] compressed = intToByteArray(result.size);
+        compressed = concatenate(compressed, bytes2);
+        compressed = concatenate(compressed, b_result);
+ 
+        return compressed;
     }
 
     public byte[] decompress(CompressedFile compressedBytes) {
 
         byte[] result = compressedBytes.readAll();
-        LZSSData objcompressed = null;
-        try {
-            ByteArrayInputStream bs = new ByteArrayInputStream(result);
-            ObjectInputStream is = new ObjectInputStream(bs);
-            try {
-                objcompressed = (LZSSData) is.readObject();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            is.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+
+        byte[] rec_size = readBytes(result,0, 4);
+        int x = byteArrayToInt(rec_size);
+        int bset_size = x / 8 + (((x) % 8 == 0) ? 0 : 1);  //calculo de bytes pertenecientes al BitSet
+        byte[] bset = readBytes(result, 4, bset_size);
+        BitSet k = byteToBits(bset);
+        //int bs = result.length;
+        byte[] bstring = readBytes(result, bset_size+4, result.length-(bset_size+4));
+        String decomp = new String(bstring);
+        StringBuilder a = new StringBuilder(); a = a.append(decomp);
+
+        LZSSData objcompressed = new LZSSData(k,a,x);
+        
         StringBuilder b = new StringBuilder();
         decompress_alg(objcompressed, b);
         String ult = b.toString();
@@ -151,6 +148,62 @@ public class LZSS extends Algorithm {
             if(src.charAt(i1++) != src.charAt(i2++)) return i;
         }
         return 0;
+    }
+
+    private byte[] intToByteArray(int i)
+    {
+        byte[] buffer = new byte[4];
+        buffer[0] = (byte) (i >> 0);
+        buffer[1] = (byte) (i >> 8);
+        buffer[2] = (byte) (i >> 16);
+        buffer[3] = (byte) (i >> 24);
+        return buffer;
+    }
+
+    private int byteArrayToInt(byte[] buffer)
+    {
+        int i = 0;
+        i += buffer[0] &  0xFF;
+        i += buffer[1] << 8;
+        i += buffer[2] << 16;
+        i += buffer[3] << 24;
+        return i;
+    }
+
+    private static byte[] readBytes(byte[] a, int ini, int nbytes) {
+        byte[] res = new byte[nbytes];
+        for (int i=ini; i<nbytes+ini; i++) {
+            res[i-ini] = a[i];
+        }
+        return res;
+    }
+
+    public static BitSet byteToBits(byte[] bytearray){
+        BitSet returnValue = new BitSet(bytearray.length*8);
+        ByteBuffer  byteBuffer = ByteBuffer.wrap(bytearray);
+        for (int i = 0; i < bytearray.length; i++) {
+            byte thebyte = byteBuffer.get(i);
+            for (int j = 0; j <8 ; j++) {
+                returnValue.set(i*8+j,isBitSet(thebyte,j));
+            }
+        }
+        return returnValue;
+    }
+
+    private static Boolean isBitSet(byte b, int bit)
+    {
+        return (b & (1 << bit)) != 0;
+    }
+
+    private byte[] concatenate(byte[] a, byte[] b) {
+        int aLen = a.length;
+        int bLen = b.length;
+
+        byte[] c = new byte[aLen + bLen];
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+
+        return c;
     }
 
     public String getName()
