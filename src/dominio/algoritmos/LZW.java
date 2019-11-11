@@ -1,16 +1,19 @@
 package src.dominio.algoritmos;
 
 import java.util.*;
+import java.lang.Math;
 
 import src.persistencia.*;
 
 public class LZW extends Algorithm
 {
+    private int nBytes = 1;
+    private int dictSize = 128;
+
     public byte[] compress(UncompressedFile uncompressed)
     {
-        int dictSize = 256;
         Map<String,Integer> dictionary = new HashMap<String,Integer>();
-        for (int i = 0; i < 256; i++)
+        for (int i = 0; i < dictSize; i++)
             dictionary.put("" + (char)i, i);
 
         String w = "";
@@ -21,8 +24,11 @@ public class LZW extends Algorithm
             if (dictionary.containsKey(wc))
                 w = wc;
             else {
+                dictSize++;
+                if(dictSize >= Math.pow(2,nBytes * 8)) {nBytes++; for(byte element:intToByteArray(dictionary.get(w))) System.out.print(element + " ");}
                 result = concatenate(result, intToByteArray(dictionary.get(w)));
-                dictionary.put(wc, dictSize++);
+                //System.out.print(dictionary.get(w) + ":" + nBytes + " ");
+                dictionary.put(wc, dictSize);
                 w = "" + c;
             }
         }
@@ -33,17 +39,17 @@ public class LZW extends Algorithm
     }
     
     public byte[] decompress(CompressedFile compressed) {
-        int dictSize = 256;
         Map<Integer,String> dictionary = new HashMap<Integer,String>();
-        for (int i = 0; i < 256; i++)
+        for (int i = 0; i < dictSize; i++)
             dictionary.put(i, "" + (char)i);
 
         byte[] bc;
-        String w = "" + (char)byteArrayToInt(compressed.readContent(2));
+        String w = "" + (char)byteArrayToInt(compressed.readContent(nBytes));
         StringBuilder result = new StringBuilder(w);
 
-        while((bc = compressed.readContent(2)).length != 0){
+        while((bc = compressed.readContent(nBytes)).length != 0){
             int k = byteArrayToInt(bc);
+            //System.out.print(k + ":" + nBytes + " ");
             String entry = "";
             if (dictionary.containsKey(k))
                 entry = dictionary.get(k);
@@ -52,10 +58,10 @@ public class LZW extends Algorithm
             else
                 throw new IllegalArgumentException("Bad compressed k: " + k);
  
-
             result.append(entry);
- 
-            dictionary.put(dictSize++, w + entry.charAt(0));
+            dictSize++;
+            dictionary.put(dictSize, w + entry.charAt(0));
+            if(dictSize == 256){ nBytes++; for(byte element:bc) System.out.print(element + " ");}
  
             w = entry;
         }
@@ -63,24 +69,21 @@ public class LZW extends Algorithm
         return result.toString().getBytes();
     }
 
-    private byte[] intToByteArray(int i)
+    private byte[] intToByteArray(int n)
     {
-        byte[] buffer = new byte[2];
-        buffer[0] = (byte) (i >> 0);
-        buffer[1] = (byte) (i >> 8);
-        //buffer[2] = (byte) (i >> 16);
-        //buffer[3] = (byte) (i >> 24);
+        byte[] buffer = new byte[nBytes];
+        for(int i=0; i<nBytes; i++) buffer[i] = (byte) (n >>> (i * 8));
         return buffer;
     }
 
     private int byteArrayToInt(byte[] buffer)
     {
-        int i = 0;
-        i += buffer[0] &  0xFF;
-        i += buffer[1] << 8;
-        //i += buffer[2] << 16;
-        //i += buffer[3] << 24;
-        return i;
+        int n = 0;
+        for (int i = 0; i < buffer.length; i++) {
+            int a = ((buffer[i] & 0xff)) + i * 8;
+            n = n + a;
+        }
+        return n;
     }
 
     private byte[] concatenate(byte[] a, byte[] b) {
