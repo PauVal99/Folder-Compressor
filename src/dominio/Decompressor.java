@@ -9,9 +9,9 @@ public class Decompressor extends Actor
 {
     private CompressedFile compressedFile;
 
-    public Decompressor(CompressedFile compressedFile, File destinationFolder)
+    public Decompressor(CompressedFile compressedFile, File destinationFile)
     {
-        super(new File(destinationFolder.toString() + File.separator + compressedFile.getOriginalName()), compressedFile.getAlgorithm());
+        super(destinationFile, compressedFile.getAlgorithm());
         this.compressedFile = compressedFile;
     }
 

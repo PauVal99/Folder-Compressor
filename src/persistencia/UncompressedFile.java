@@ -20,11 +20,15 @@ public class UncompressedFile extends File
         }
     }
 
+    public byte[] readAll()
+    {
+        return readContent((int)this.length());
+    }
+
     public char readChar()
     {
-        char c = 0;
         byte[] bc = readContent(1);
-        if(bc.length == 0) return c;
+        if(bc.length == 0) return 0;
         return new String(bc).charAt(0);
     }
 

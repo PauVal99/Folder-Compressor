@@ -21,8 +21,8 @@ public class LZW extends Algorithm
             if (dictionary.containsKey(wc))
                 w = wc;
             else {
-                dictionary.put(wc, dictSize++);
                 result = concatenate(result, intToByteArray(dictionary.get(w)));
+                dictionary.put(wc, dictSize++);
                 w = "" + c;
             }
         }
@@ -39,12 +39,12 @@ public class LZW extends Algorithm
             dictionary.put(i, "" + (char)i);
 
         byte[] bc;
-        String w = "" + (char)byteArrayToInt(compressed.readContent(4));
-        StringBuffer result = new StringBuffer(w);
-        
-        while((bc = compressed.readContent(4)).length != 0){
+        String w = "" + (char)byteArrayToInt(compressed.readContent(2));
+        StringBuilder result = new StringBuilder(w);
+
+        while((bc = compressed.readContent(2)).length != 0){
             int k = byteArrayToInt(bc);
-            String entry;
+            String entry = "";
             if (dictionary.containsKey(k))
                 entry = dictionary.get(k);
             else if (k == dictSize)
@@ -52,6 +52,7 @@ public class LZW extends Algorithm
             else
                 throw new IllegalArgumentException("Bad compressed k: " + k);
  
+
             result.append(entry);
  
             dictionary.put(dictSize++, w + entry.charAt(0));
@@ -64,11 +65,11 @@ public class LZW extends Algorithm
 
     private byte[] intToByteArray(int i)
     {
-        byte[] buffer = new byte[4];
+        byte[] buffer = new byte[2];
         buffer[0] = (byte) (i >> 0);
         buffer[1] = (byte) (i >> 8);
-        buffer[2] = (byte) (i >> 16);
-        buffer[3] = (byte) (i >> 24);
+        //buffer[2] = (byte) (i >> 16);
+        //buffer[3] = (byte) (i >> 24);
         return buffer;
     }
 
@@ -77,8 +78,8 @@ public class LZW extends Algorithm
         int i = 0;
         i += buffer[0] &  0xFF;
         i += buffer[1] << 8;
-        i += buffer[2] << 16;
-        i += buffer[3] << 24;
+        //i += buffer[2] << 16;
+        //i += buffer[3] << 24;
         return i;
     }
 

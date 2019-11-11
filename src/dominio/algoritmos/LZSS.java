@@ -4,12 +4,12 @@ import java.io.*;
 import java.util.*;
 import java.io.IOException;
 
-import src.persistencia.File;
+import src.persistencia.*;
 
 public class LZSS extends Algorithm {
 
     private static final int SEARCH_BUFFER = 4096;
-    private static final int LOOKAHEAD = 4096;
+    //private static final int LOOKAHEAD = 4096;
 
     public static class LZSSData implements Serializable {
         public LZSSData(BitSet match, StringBuilder dest, int size) { // <flag, offset, lenght>
@@ -17,21 +17,26 @@ public class LZSS extends Algorithm {
             this.dest = dest;
             this.size = size;
         }
-
         private BitSet match;
         private StringBuilder dest;
         private int size;
         public static final long serialVersionUID = 1L;
     }
 
-    public byte[] compress(File decompressed) {
+    public byte[] compress(UncompressedFile decompressed) {
+        
         // Inicializacion de datos
-        CharSequence src = decompressed;
+        String dec = "";
+        char c;
+        while ( (c=decompressed.readChar()) != 0 ) {
+            dec += c ;
+        }
+        CharSequence src = dec; //Secuencia de chars a comprimir
+        int n = src.length();    //Medida de los chars
         BitSet match = new BitSet();  // flag --> conjunto de bits inicializados a false
         StringBuilder out = new StringBuilder(); // chars y pair<offset,lenght> de retorno
         int size = 0;
         Map<Character, List<Integer>> pos_ini = new HashMap<>();  // diccionario para almacenar los chars recientemente vistos
-        int n = src.length(); // tamaño de la secuencia de chars inicial
 
         for (int i = 0; i < n; i++) {
             char act = src.charAt(i);
@@ -56,8 +61,8 @@ public class LZSS extends Algorithm {
                     found = true;
                 }
                 positions.add(i);
-                int jn_aux = Math.min(i + matchLen, LOOKAHEAD);
-                int jn = Math.min(jn_aux, n);
+                int jn = Math.min(i + matchLen, n);
+                //int jn = Math.min(jn_aux, n);
                 for (int j = i + 1; j < jn; j++) {
                     List<Integer> q = pos_ini.get(src.charAt(j));
                     if (q == null) {
@@ -82,6 +87,7 @@ public class LZSS extends Algorithm {
             }
             size++;
         }
+        
         LZSSData result = new LZSSData(match,out,size);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
@@ -92,14 +98,17 @@ public class LZSS extends Algorithm {
             e.printStackTrace();
         }
         byte[] datacompressed = bos.toByteArray();
-
+        System.out.print(datacompressed);
+        
         return datacompressed;
     }
 
-    public byte[] decompress(File compressedBytes) {
+    public byte[] decompress(CompressedFile compressedBytes) {
+
+        byte[] result = compressedBytes.readAll();
         LZSSData objcompressed = null;
         try {
-            ByteArrayInputStream bs = new ByteArrayInputStream(compressedBytes);
+            ByteArrayInputStream bs = new ByteArrayInputStream(result);
             ObjectInputStream is = new ObjectInputStream(bs);
             try {
                 objcompressed = (LZSSData) is.readObject();
@@ -111,11 +120,11 @@ public class LZSS extends Algorithm {
         catch (IOException e){
             e.printStackTrace();
         }
-
         StringBuilder b = new StringBuilder();
         decompress_alg(objcompressed, b);
+        String ult = b.toString();
 
-        return b.toString();
+        return ult.getBytes();
     }
 
     public static void decompress_alg(LZSSData src, StringBuilder out){
