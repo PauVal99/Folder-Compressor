@@ -43,7 +43,7 @@ public class Actor
      * @param algorithmName nombre del algoritmo a usar
      * 
      * @see java.io.File
-     * @see this.setAlgortihm()
+     * @see src.dominio.Actor::setAlgortihm()
      */
     public Actor(File destinationFile, String algorithmName)
     {

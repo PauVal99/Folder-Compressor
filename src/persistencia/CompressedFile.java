@@ -5,17 +5,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.Exception;
 
-import src.persistencia.UncompressedFile;
+import src.persistencia.File;
 
 /**
  * Esta clase representa un archivo comprimido.
  * Su cometido es gestionar todas las necesidades del progama respecto este fichero.
- * Extiende la clase src.persistencia.UncompressedFile.
+ * Extiende la clase src.persistencia.File.
  * 
  * @author Pau Val
  */
 
-public class CompressedFile extends UncompressedFile
+public class CompressedFile extends File
 {
     /** Nombre del archivo original. */
     private String name = null;
@@ -31,7 +31,7 @@ public class CompressedFile extends UncompressedFile
      * 
      * @throws Exeption lanza una excepción si el archivo no fue comprimido con este programa
      * 
-     * @see this.readAttributes()
+     * @see src.persistencia.CompressedFile::readAttributes()
      */
     public CompressedFile(String pathName) throws Exception
     {
