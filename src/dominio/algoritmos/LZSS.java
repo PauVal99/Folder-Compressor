@@ -2,7 +2,6 @@ package src.dominio.algoritmos;
 
 import java.util.*;
 import java.nio.ByteBuffer;
-
 import src.persistencia.*;
 
 public class LZSS extends Algorithm {
@@ -26,9 +25,7 @@ public class LZSS extends Algorithm {
 
         for (int i = 0; i < n; i++) {
             char act = src.charAt(i);
-            boolean found = false;
-            int inici = 0;
-            int matchLen = 0; // tamaño del match
+            boolean found = false; int inici = 0; int matchLen = 0;
             List<Integer> positions = pos_ini.get(act);
 
             if (positions != null) {
@@ -37,7 +34,7 @@ public class LZSS extends Algorithm {
                     int p = it.next();
                     if ((i - p) > WINDOW) { // comprobamos que no sobrepase la ventana corrediza
                         it.remove();
-                        continue; // se salta una iteracion si se cumpla una cierta condicion
+                        continue; // saltamos a la siguiente iteracion si se cumpla la condicion
                     }
                     int len = getMatchedLen(src, p + 1, i + 1, n);
                     if (len > matchLen) {
@@ -48,7 +45,6 @@ public class LZSS extends Algorithm {
                 }
                 positions.add(i);
                 int jn = Math.min(i + matchLen, n);
-                //int jn = Math.min(jn_aux, n);
                 for (int j = i + 1; j < jn; j++) {
                     List<Integer> q = pos_ini.get(src.charAt(j));
                     if (q == null) {
@@ -86,7 +82,7 @@ public class LZSS extends Algorithm {
 
     public byte[] decompress(CompressedFile compressedBytes) {
 
-        //Recuperacion de la info para comprimir
+        //Recuperacion de los datos para comprimir
         byte[] result = compressedBytes.readAll();
 
         byte[] rec_size = readBytes(result,0, 4);
@@ -118,6 +114,7 @@ public class LZSS extends Algorithm {
 
     private static int getMatchedLen(CharSequence src, int i1, int i2, int end){
         int n = Math.min(i2 - i1, end - i2);
+        //int n = Math.min(n_aux, 32);
         for(int i = 1; i <= n; i++){
             if(src.charAt(i1++) != src.charAt(i2++)) return i;
         }
