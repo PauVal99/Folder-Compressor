@@ -11,7 +11,7 @@ public class Tester {
 
     public void test(String file, String alg_name) 
     {
-        System.out.print("\n\tTest with algorithm:"+alg_name+", File:"+file+".txt\n");
+        System.out.print("\nTest with algorithm:"+alg_name+", File:"+file+".txt\n");
         String originalFile = "data/"+file+".txt" ;
         String compressedFile = "data/compressed/"+alg_name+"/"+file;
         String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".txt";

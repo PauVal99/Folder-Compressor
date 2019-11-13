@@ -17,16 +17,16 @@ public class TestMenu {
     public void start()
     {
         String[] possibleFunctions = {"1", "2", "3", "4", "5"};
-        String operation = console.readLine("\tWellcome to compressor/decompressor Tester!"+
-        "\n 1.LZW Tester\n 2.LZ78 Tester\n 3.LZSS Tester\n 4.JPEG Tester\n 5.All Testers\n"+
-        "Select your operation: ");
+        String operation = console.readLine("Wellcome to compressor/decompressor Tester. Please select an operation:\n"+
+        " 1.All Testers\n 2.LZW Tester\n 3.LZ78 Tester\n 4.LZSS Tester\n 5.JPEG Tester\n"+
+        "");
         while(!Arrays.asList(possibleFunctions).contains(operation)) 
             operation = console.readLine("Please enter a valid operation: ");
-        if(operation.equals("1")) testLZW();
-        else if(operation.equals("2")) testLZ78();
-        else if(operation.equals("3")) testLZSS();
-        else if(operation.equals("4")) testJPEG();
-        else if(operation.equals("5")) testAll();
+        if(operation.equals("1")) testAll();
+        else if(operation.equals("2")) testLZW();
+        else if(operation.equals("3")) testLZ78();
+        else if(operation.equals("4")) testLZSS();
+        else if(operation.equals("5")) testJPEG();
     }
 
     private void testLZW()
