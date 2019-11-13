@@ -8,6 +8,9 @@ import src.dominio.*;
 import src.persistencia.*;
 
 public class Tester {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
 
     public void test(String file, String alg_name) 
     {
@@ -51,8 +54,8 @@ public class Tester {
     private void comprovation(UncompressedFile original, UncompressedFile result, String file)
     {
         System.out.print("\nResult:\n");
-        if (!Arrays.equals(original.readAll(),result.readAll())) System.out.print(file+".txt test failed.\n");
-        else System.out.print("Test Passed! Algorithm is working good!\n");
+        if (!Arrays.equals(original.readAll(),result.readAll())) System.out.print(ANSI_RED +file+".txt test failed.\n" + ANSI_RESET);
+        else System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
         //if(result.delete()) System.out.print("  -> Uncompressed file deleted !!\n");
         //else System.out.print("  -> Error on .txt deleted !!\n");
     }
