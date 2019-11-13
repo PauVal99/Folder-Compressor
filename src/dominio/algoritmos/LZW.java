@@ -5,11 +5,30 @@ import java.lang.Math;
 
 import src.persistencia.*;
 
+/**
+ * Esta clase representa el algoritmo de compresión y descompresión LZW.
+ * Se encarga de comprimir y descomprimir archivos. Guarda los códigos en un número de bytes variable para augmentar la eficiencia.
+ * 
+ * @author Pau Val
+ */
+
 public class LZW extends Algorithm
 {
+    /** Número de bytes con los que se representa un código, se va actualizando en la ejecución. */
     private int nBytes = 1;
+
+    /** Tamaño total del diccionario, se va actualizando en la ejecución. */
     private int dictSize = 128;
 
+    /**
+     * Comprime todo el texto del archivo representado por uncompressed.
+     * Inicialmente escribe los códigos en un byte, cuando no es suficiente hace una marca y augmenta el numero de bytes.
+     * 
+     * @param uncompressed archivo a comprimir
+     * @return array de bytes con el texto comprimido (no es legible, hay que descomprimirlo)
+     * 
+     * @see src.persistencia.UncompressedFile
+     */
     public byte[] compress(UncompressedFile uncompressed)
     {
         Map<String,Integer> dictionary = new HashMap<String,Integer>();
@@ -39,6 +58,15 @@ public class LZW extends Algorithm
         return result;
     }
     
+    /**
+     * Descomprime el archivo representado por compressed.
+     * Inicialmente lee los códigos en un byte, cuando recive una marca augmenta el numero de bytes.
+     * 
+     * @param compressed archivo a descomprimir
+     * @return array de bytes con el texto descomprimido
+     * 
+     * @see src.persistencia.CompressedFile
+     */
     public byte[] decompress(CompressedFile compressed) {
         Map<Integer,String> dictionary = new HashMap<Integer,String>();
         for (int i = 0; i < dictSize; i++)
@@ -48,26 +76,30 @@ public class LZW extends Algorithm
         String w = "" + (char)byteArrayToInt(compressed.readContent(nBytes));
         StringBuilder result = new StringBuilder(w);
         while((bc = compressed.readContent(nBytes)).length != 0){
-            int k = byteArrayToInt(bc);
-            if(k == 0) {nBytes++; continue;}
-            String entry = "";
-            if (dictionary.containsKey(k))
-                entry = dictionary.get(k);
-            else if (k == dictSize)
-                entry = w + w.charAt(0);
-            else
-                throw new IllegalArgumentException("Bad compressed k: " + k);
- 
-            result.append(entry);
-
-            dictionary.put(dictSize++, w + entry.charAt(0));
- 
-            w = entry;
+            int cod = byteArrayToInt(bc);
+            if(cod == 0) {
+                nBytes++; 
+                continue;
+            }
+            String act = "";
+            if (dictionary.containsKey(cod))
+                act = dictionary.get(cod);
+            else if (cod == dictSize)
+                act = w + w.charAt(0); 
+            result.append(act);
+            dictionary.put(dictSize++, w + act.charAt(0));
+            w = act;
         }
 
         return result.toString().getBytes();
     }
 
+    /**
+     * Convierte un entero en los bytes que se representa un código en el momento de la ejecución.
+     * 
+     * @param n entero a convertir
+     * @return array de bytes que se representa un código
+     */
     private byte[] intToByteArray(int n)
     {
         byte[] buffer = new byte[nBytes];
@@ -75,6 +107,14 @@ public class LZW extends Algorithm
         return buffer;
     }
 
+    /**
+     * Convierte un array de bytes en un código con nBytes en el momento de la ejecución.
+     * 
+     * @param buffer array de bytes a convertir
+     * @return código
+     * 
+     * @see nBytes
+     */
     private int byteArrayToInt(byte[] buffer)
     {
         int n = 0;
@@ -85,6 +125,13 @@ public class LZW extends Algorithm
         return n;
     }
 
+    /**
+     * Concadena dos arrays de bytes.
+     * 
+     * @param a primer array de bytes
+     * @param b segundo array de bytes
+     * @return concadenación de a y b
+     */
     private byte[] concatenate(byte[] a, byte[] b) {
         int aLen = a.length;
         int bLen = b.length;
@@ -96,7 +143,11 @@ public class LZW extends Algorithm
         return c;
     }
 
-
+    /**
+     * Retorna el nombre de este algoritmo
+     * 
+     * @return nombre del algoritmo
+     */
     public String getName()
     {
         return "LZW";
