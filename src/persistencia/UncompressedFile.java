@@ -13,7 +13,7 @@ public class UncompressedFile extends File
     {
         super(pathName);
         try{
-            fileInputStream = new FileInputStream(this);
+            fileInputStream = new FileInputStream(new File(this.getPath()));
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
