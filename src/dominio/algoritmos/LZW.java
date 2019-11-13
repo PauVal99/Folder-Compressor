@@ -4,6 +4,7 @@ import java.util.*;
 import java.lang.Math;
 
 import src.persistencia.*;
+import src.dominio.ByteArrayHelper;
 
 /**
  * Esta clase representa el algoritmo de compresión y descompresión LZW.
@@ -11,7 +12,6 @@ import src.persistencia.*;
  * 
  * @author Pau Val
  */
-
 public class LZW extends Algorithm
 {
     /** Número de bytes con los que se representa un código, se va actualizando en la ejecución. */
@@ -44,17 +44,17 @@ public class LZW extends Algorithm
                 w = wc;
             else {
                 if(dictionary.get(w) >= Math.pow(2,nBytes * 8)){ 
-                    result = concatenate(result, intToByteArray(0));
+                    result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(0,nBytes));
                     nBytes++;
                 }
-                result = concatenate(result, intToByteArray(dictionary.get(w)));
+                result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(dictionary.get(w),nBytes));
                 dictionary.put(wc, dictSize++);
                 w = "" + c;
             }
         }
 
         if (!w.equals(""))
-            result = concatenate(result, intToByteArray(dictionary.get(w)));
+            result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(dictionary.get(w),nBytes));
         return result;
     }
     
@@ -73,10 +73,10 @@ public class LZW extends Algorithm
             dictionary.put(i, "" + (char)i);
 
         byte[] bc;
-        String w = "" + (char)byteArrayToInt(compressed.readContent(nBytes));
+        String w = "" + (char) ByteArrayHelper.byteArrayToInt(compressed.readContent(nBytes));
         StringBuilder result = new StringBuilder(w);
         while((bc = compressed.readContent(nBytes)).length != 0){
-            int cod = byteArrayToInt(bc);
+            int cod = ByteArrayHelper.byteArrayToInt(bc);
             if(cod == 0) {
                 nBytes++; 
                 continue;
@@ -92,55 +92,6 @@ public class LZW extends Algorithm
         }
 
         return result.toString().getBytes();
-    }
-
-    /**
-     * Convierte un entero en los bytes que se representa un código en el momento de la ejecución.
-     * 
-     * @param n entero a convertir
-     * @return array de bytes que se representa un código
-     */
-    private byte[] intToByteArray(int n)
-    {
-        byte[] buffer = new byte[nBytes];
-        for(int i=0; i<nBytes; i++) buffer[i] = (byte) (n >>> (i * 8));
-        return buffer;
-    }
-
-    /**
-     * Convierte un array de bytes en un código con nBytes en el momento de la ejecución.
-     * 
-     * @param buffer array de bytes a convertir
-     * @return código
-     * 
-     * @see nBytes
-     */
-    private int byteArrayToInt(byte[] buffer)
-    {
-        int n = 0;
-        for (int i = 0; i < buffer.length; i++) {
-            int a = ((buffer[i] & 0xff)) * (int) Math.pow(2,i * 8);
-            n = n + a;
-        }
-        return n;
-    }
-
-    /**
-     * Concadena dos arrays de bytes.
-     * 
-     * @param a primer array de bytes
-     * @param b segundo array de bytes
-     * @return concadenación de a y b
-     */
-    private byte[] concatenate(byte[] a, byte[] b) {
-        int aLen = a.length;
-        int bLen = b.length;
-
-        byte[] c = new byte[aLen + bLen];
-        System.arraycopy(a, 0, c, 0, aLen);
-        System.arraycopy(b, 0, c, aLen, bLen);
-
-        return c;
     }
 
     /**
