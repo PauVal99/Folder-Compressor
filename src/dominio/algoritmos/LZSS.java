@@ -7,17 +7,14 @@ import src.persistencia.*;
 public class LZSS extends Algorithm {
 
     private static final int WINDOW = 4096;
-    //private static final int MAX_MATCH_LENGHT = 18;
+    private static final int MAX_MATCH_LENGHT = 18;
 
     public byte[] compress(UncompressedFile decompressed) 
     {    
-        // Inicializacion de datos
-        String dec = "";
-        char c;
-        while ( (c=decompressed.readChar()) != 0 ) {
-            dec += c ;
-        }
-        CharSequence src = dec; //Secuencia de chars a comprimir
+        String file = ""; char c;
+        while ( (c=decompressed.readChar()) != 0 ) file += c ;
+
+        CharSequence src = file; //Secuencia de chars a comprimir
         int n = src.length();    //Medida de los chars
         BitSet match = new BitSet();  // flag --> conjunto de bits inicializados a false
         StringBuilder out = new StringBuilder(); // chars y pair<offset,lenght> de retorno
@@ -70,17 +67,7 @@ public class LZSS extends Algorithm {
             }
             size++;
         }
-
-        String res = out.toString();
-        byte[] b_result = res.getBytes();
-        byte[] bytes2 = match.toByteArray();
-        byte[] compressed = intToByteArray(size);
-        //byte[] bitsSize = intToByteArray(match.length());
-        //compressed = concatenate(compressed, bitsSize);
-        compressed = concatenate(compressed, bytes2);
-        compressed = concatenate(compressed, b_result);
- 
-        return compressed;
+        return getCompressedBytes(out.toString(), match.length(), match, size);
     }
 
     public byte[] decompress(CompressedFile compressedBytes) 
@@ -90,15 +77,17 @@ public class LZSS extends Algorithm {
 
         byte[] rec_size = readBytes(result,0, 4);
         int n = byteArrayToInt(rec_size); 
-        //byte[] bits_size = readBytes(result,4, 8);
-        //int y = byteArrayToInt(bits_size);
-        int bset_size = n / 8 + (((n) % 8 == 0) ? 0 : 1);  //calculo de bytes pertenecientes al BitSet
-        byte[] bset = readBytes(result, 4, bset_size);
+        byte[] bits_size = readBytes(result,4, 8);
+        int y = byteArrayToInt(bits_size);
+        int bset_size = y / 8 + (((y) % 8 == 0) ? 0 : 1);  //calculo de bytes pertenecientes al BitSet
+        byte[] bset = readBytes(result, 8, bset_size);
         BitSet match = byteToBits(bset);
-        byte[] bstring = readBytes(result, bset_size+4, result.length-(bset_size+4));
+        byte[] bstring = readBytes(result, bset_size+8, result.length-(bset_size+8));
         String decomp = new String(bstring);
+
         StringBuilder src = new StringBuilder(); src = src.append(decomp);
         StringBuilder out = new StringBuilder();
+
         int index = 0;
         for(int i = 0; i < n; i++){
             if(match.get(i)){
@@ -118,10 +107,22 @@ public class LZSS extends Algorithm {
         return ult.getBytes();
     }
 
+    private byte[] getCompressedBytes(String res, int sizeBits, BitSet match, int size) 
+    {
+        byte[] bitsSize = intToByteArray(sizeBits);
+        byte[] bytes2 = match.toByteArray();
+        byte[] b_result = res.getBytes();
+        byte[] compressed = intToByteArray(size);
+        compressed = concatenate(compressed, bitsSize);
+        compressed = concatenate(compressed, bytes2);
+        compressed = concatenate(compressed, b_result);
+        return compressed;
+    }
+
     private static int getMatchedLen(CharSequence src, int i1, int i2, int end)
     {
-        int n = Math.min(i2 - i1, end - i2);
-        //int n = Math.min(n_aux, 32);
+        int n_aux = Math.min(i2 - i1, end - i2);
+        int n = Math.min(n_aux, MAX_MATCH_LENGHT);
         for(int i = 0; i < n; i++){
             if(src.charAt(i1++) != src.charAt(i2++)) return i;
         }
@@ -166,7 +167,7 @@ public class LZSS extends Algorithm {
         return res;
     }
 
-    public static BitSet byteToBits(byte[] bytearray)
+    private static BitSet byteToBits(byte[] bytearray)
     {
         BitSet returnValue = new BitSet(bytearray.length*8);
         ByteBuffer  byteBuffer = ByteBuffer.wrap(bytearray);

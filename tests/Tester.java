@@ -8,10 +8,13 @@ import src.dominio.*;
 import src.persistencia.*;
 
 public class Tester {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
 
     public void test(String file, String alg_name) 
     {
-        System.out.print("\tTest with algorithm:"+alg_name+", File:"+file+".txt\n");
+        System.out.print("\nTest with algorithm:"+alg_name+", File:"+file+".txt\n");
         String originalFile = "data/"+file+".txt" ;
         String compressedFile = "data/compressed/"+alg_name+"/"+file;
         String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".txt";
@@ -44,15 +47,28 @@ public class Tester {
         File compressedDestinationFile = new File(fileUncompressed);
         Decompressor decompressor = new Decompressor(compressedFileToTest, compressedDestinationFile);
         decompressor.decompress();
-        compressedFileToTest.delete();
+        //if(compressedFileToTest.delete()) System.out.print("  -> Compressed file deleted !!\n");
+        //else System.out.print("  -> Error on file deleted !!\n");
     }
 
     private void comprovation(UncompressedFile original, UncompressedFile result, String file)
     {
         System.out.print("\nResult:\n");
-        if (!Arrays.equals(original.readAll(),result.readAll())) System.out.print(file+".txt test failed.\n\n");
-        else System.out.print("Test Passed! Algorithm is working good!\n\n");
-        result.delete();
+        if (!Arrays.equals(original.readAll(),result.readAll())) System.out.print(ANSI_RED +file+".txt test failed.\n" + ANSI_RESET);
+        else System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
+        //if(result.delete()) System.out.print("  -> Uncompressed file deleted !!\n");
+        //else System.out.print("  -> Error on .txt deleted !!\n");
+    }
+
+    public void clean(String file, String alg_name)
+    {
+        String pathCompressedFile = "data/compressed/"+alg_name+"/"+file;
+        File compressedFile = new File(pathCompressedFile);
+        compressedFile.delete();
+
+        String pathDecompressedFile =  "data/compressed/"+alg_name+"/"+file+".txt";
+        File decompressedFile = new File(pathDecompressedFile);
+        decompressedFile.delete();
     }
 
 }
