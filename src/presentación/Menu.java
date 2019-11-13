@@ -7,6 +7,7 @@ import java.util.Arrays;
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
 import src.persistencia.*;
+import tests.TestMenu;
 
 public class Menu
 {
@@ -52,7 +53,8 @@ public class Menu
 
     private void runTest()
     {
-
+        TestMenu menutest = new TestMenu();
+        menutest.start();
     }
 
     private String readAlgorithm()
