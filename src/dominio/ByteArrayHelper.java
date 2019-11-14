@@ -15,12 +15,9 @@ public class ByteArrayHelper
      * @return concadenación de a y b
      */
     public static byte[] concatenate(byte[] a, byte[] b) {
-        int aLen = a.length;
-        int bLen = b.length;
-
-        byte[] c = new byte[aLen + bLen];
-        System.arraycopy(a, 0, c, 0, aLen);
-        System.arraycopy(b, 0, c, aLen, bLen);
+        byte[] c = new byte[a.length + b.length];
+        System.arraycopy(a, 0, c, 0, a.length);
+        System.arraycopy(b, 0, c, a.length, b.length);
 
         return c;
     }

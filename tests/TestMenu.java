@@ -32,7 +32,7 @@ public class TestMenu {
     private void testLZW()
     {
         LZWTester lzwtester = new LZWTester();
-        //lzwtester.testVoid();
+        lzwtester.testVoid();
         lzwtester.testLine();
         lzwtester.testAscii();
         lzwtester.test4kb();
@@ -42,7 +42,7 @@ public class TestMenu {
     private void testLZ78()
     {
         LZ78Tester lz78tester = new LZ78Tester();
-        //lz78tester.testVoid();
+        lz78tester.testVoid();
         lz78tester.testLine();
         lz78tester.testAscii();
         lz78tester.test4kb();
@@ -52,7 +52,7 @@ public class TestMenu {
     private void testLZSS()
     {
         LZSSTester lzsstester = new LZSSTester();
-        //lzsstester.testVoid();
+        lzsstester.testVoid();
         lzsstester.testLine();
         lzsstester.testAscii();
         lzsstester.test4kb();

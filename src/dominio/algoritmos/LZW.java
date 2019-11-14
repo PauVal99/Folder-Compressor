@@ -20,6 +20,9 @@ public class LZW extends Algorithm
     /** Tamaño total del diccionario, se va actualizando en la ejecución. */
     private int dictSize = 128;
 
+    /** Tamaño maximo de un entero, se va actualizando en la ejecución. */
+    private int maxInt = 256;
+
     /**
      * Comprime todo el texto del archivo representado por uncompressed.
      * Inicialmente escribe los códigos en un byte, cuando no es suficiente hace una marca y augmenta el numero de bytes.
@@ -43,9 +46,10 @@ public class LZW extends Algorithm
             if (dictionary.containsKey(wc))
                 w = wc;
             else {
-                if(dictionary.get(w) >= Math.pow(2,nBytes * 8)){ 
+                if(dictionary.get(w) >= maxInt){ 
                     result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(0,nBytes));
                     nBytes++;
+                    maxInt = (int) Math.pow(2,nBytes * 8);
                 }
                 result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(dictionary.get(w),nBytes));
                 dictionary.put(wc, dictSize++);
