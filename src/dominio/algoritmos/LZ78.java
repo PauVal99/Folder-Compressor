@@ -47,7 +47,7 @@ public class LZ78 extends Algorithm{
             }
         }
          if(found){ //!current.equals("")
-              result = ByteArrayHelper.concatenate(result ,ByteArrayHelper.intToByteArray(key,3));
+              result = ByteArrayHelper.concatenate(result ,ByteArrayHelper.intToByteArray(0,3));
               byte[] aux = {(byte)current.charAt(0)};
               result = ByteArrayHelper.concatenate(result,aux);
             //  System.out.print("\ny" + (byte) current.charAt(0) + "\nx");
