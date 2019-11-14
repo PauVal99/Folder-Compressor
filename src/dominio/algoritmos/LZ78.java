@@ -2,8 +2,26 @@ package src.dominio.algoritmos;
 
 import java.util.*;
 import src.persistencia.*;
+import src.dominio.ByteArrayHelper;
+
+/**
+ * Esta clase representa el algoritmo de compresión y descompresión LZ78.
+ * Se encarga de comprimir y descomprimir archivos. Usando parejas de enteros y caracteres donde los primeros referencian a los segundos.
+ * 
+ * @author Pol Aguilar
+ */
 
 public class LZ78 extends Algorithm{
+
+     /**
+     * Comprime todo el texto del archivo representado por uncompressed.
+     * Se va leyendo y tratando cada caracter de uno en uno.
+     * 
+     * @param uncompressed archivo a comprimir
+     * @return array de bytes con el texto comprimido (no es legible, hay que descomprimirlo)
+     * 
+     * @see src.persistencia.UncompressedFile
+     */
     public byte[] compress(UncompressedFile uncompressed){
         byte[] result = new byte[0];
         HashMap<String, Integer> codeWord = new HashMap<String, Integer>();
@@ -19,9 +37,9 @@ public class LZ78 extends Algorithm{
                 found = true;
             }
             else {
-                result = concatenate(result ,intToByteArray(key));
+                result = ByteArrayHelper.concatenate(result , ByteArrayHelper.intToByteArray(key,3));
                 byte[] aux = {(byte) c};
-                result = concatenate(result, aux);
+                result = ByteArrayHelper.concatenate(result, aux);
                // System.out.print(c + " ");
                 codeWord.put(current,codeWord.size()+1);
                 key = 0;
@@ -29,14 +47,24 @@ public class LZ78 extends Algorithm{
             }
         }
          if(found){ //!current.equals("")
-              result = concatenate(result ,intToByteArray(key));
+              result = ByteArrayHelper.concatenate(result ,ByteArrayHelper.intToByteArray(0,3));
               byte[] aux = {(byte)current.charAt(0)};
-              result = concatenate(result, aux);
+              result = ByteArrayHelper.concatenate(result,aux);
             //  System.out.print("\ny" + (byte) current.charAt(0) + "\nx");
-         }
+         } 
 
         return result;
     }
+
+  /**
+     * Descomprime el archivo representado por compressed.
+     * Lee enteros y caracteres y los trata con un dictionary para descomprimirlo.
+     * 
+     * @param compressed archivo a descomprimir
+     * @return array de bytes con el texto descomprimido
+     * 
+     * @see src.persistencia.CompressedFile
+     */
 
     public byte[] decompress(CompressedFile compressed){
         ArrayList<String> dictionary = new ArrayList<String>();
@@ -44,9 +72,9 @@ public class LZ78 extends Algorithm{
         char last;
         byte[] pair;
         while((pair = compressed.readContent(4)).length != 0) {
-            first = byteArrayToInt(pair);
+            byte[] convert = Arrays.copyOfRange(pair,0,2);
+            first = ByteArrayHelper.byteArrayToInt(convert);
             last = (char) pair[3];
-         //   if(last == '.')
             if(first == 0){
                 dictionary.add(last+"");
             }
@@ -62,34 +90,11 @@ public class LZ78 extends Algorithm{
         return sb.toString().getBytes();
     }
 
-    private byte[] intToByteArray(int n)
-    {
-        byte[] buffer = new byte[3];
-        for(int i=0; i<3; i++) buffer[i] = (byte) (n >>> (i * 8));
-        return buffer;
-    }
-
-    private int byteArrayToInt(byte[] buffer)
-    {
-        int n = 0;
-        for (int i = 0; i < 3; i++) {
-            int a = ((buffer[i] & 0xff)) * (int) Math.pow(2,i * 8);
-            n = n + a;
-        }
-        return n;
-    }
-
-    private byte[] concatenate(byte[] a, byte[] b) {
-        int aLen = a.length;
-        int bLen = b.length;
-
-        byte[] c = new byte[aLen + bLen];
-        System.arraycopy(a, 0, c, 0, aLen);
-        System.arraycopy(b, 0, c, aLen, bLen);
-
-        return c;
-    }
-
+     /**
+     * Retorna el nombre de este algoritmo
+     * 
+     * @return nombre del algoritmo
+     */
 
     public String getName()
     {

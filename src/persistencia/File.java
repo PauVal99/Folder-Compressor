@@ -83,7 +83,7 @@ public class File extends java.io.File
             }
         }
         catch (IOException e){
-            e.printStackTrace();
+            return new byte[0];
         }
         return bytes;
     }
