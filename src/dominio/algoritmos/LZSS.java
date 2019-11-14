@@ -3,6 +3,7 @@ package src.dominio.algoritmos;
 import java.util.*;
 import java.nio.ByteBuffer;
 import src.persistencia.*;
+import src.dominio.ByteArrayHelper;
 
 public class LZSS extends Algorithm {
 
@@ -79,6 +80,7 @@ public class LZSS extends Algorithm {
         int n = byteArrayToInt(rec_size); 
         byte[] bits_size = readBytes(result,4, 8);
         int y = byteArrayToInt(bits_size);
+        System.out.print(y+"\n");
         int bset_size = y / 8 + (((y) % 8 == 0) ? 0 : 1);  //calculo de bytes pertenecientes al BitSet
         byte[] bset = readBytes(result, 8, bset_size);
         BitSet match = byteToBits(bset);
@@ -109,13 +111,13 @@ public class LZSS extends Algorithm {
 
     private byte[] getCompressedBytes(String res, int sizeBits, BitSet match, int size) 
     {
-        byte[] bitsSize = intToByteArray(sizeBits);
+        byte[] bitsSize = ByteArrayHelper.intToByteArray(sizeBits,4);
         byte[] bytes2 = match.toByteArray();
         byte[] b_result = res.getBytes();
-        byte[] compressed = intToByteArray(size);
-        compressed = concatenate(compressed, bitsSize);
-        compressed = concatenate(compressed, bytes2);
-        compressed = concatenate(compressed, b_result);
+        byte[] compressed = ByteArrayHelper.intToByteArray(size,4);
+        compressed = ByteArrayHelper.concatenate(compressed, bitsSize);
+        compressed = ByteArrayHelper.concatenate(compressed, bytes2);
+        compressed = ByteArrayHelper.concatenate(compressed, b_result);
         return compressed;
     }
 
@@ -129,16 +131,6 @@ public class LZSS extends Algorithm {
         return 0;
     }
 
-    private byte[] intToByteArray(int i)
-    {
-        byte[] buffer = new byte[4];
-        buffer[0] = (byte) (i >> 0);
-        buffer[1] = (byte) (i >> 8);
-        buffer[2] = (byte) (i >> 16);
-        buffer[3] = (byte) (i >> 24);
-        return buffer;
-    }
-
     private int byteArrayToInt(byte[] buffer)
     {
         int i = 0;
@@ -149,17 +141,9 @@ public class LZSS extends Algorithm {
         return i;
     }
 
-    private byte[] concatenate(byte[] a, byte[] b) {
-        int aLen = a.length;
-        int bLen = b.length;
-        byte[] c = new byte[aLen + bLen];
-        System.arraycopy(a, 0, c, 0, aLen);
-        System.arraycopy(b, 0, c, aLen, bLen);
-        return c;
-    }
-
     private static byte[] readBytes(byte[] a, int ini, int nbytes)
     {
+        System.out.print(a.length+" "+ini+" "+nbytes+"\n");
         byte[] res = new byte[nbytes];
         for (int i=ini; i<nbytes+ini; i++) {
             res[i-ini] = a[i];
