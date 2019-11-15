@@ -1,33 +1,44 @@
 package src.dominio.algoritmos;
 
 import java.util.*;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import src.persistencia.*;
 import src.dominio.ByteArrayHelper;
 
 public class LZSS extends Algorithm {
 
-    private static final int WINDOW = 4096;
+    /**
+     *
+     */
+    private static final int WINDOW = 8192;
     private static final int MAX_MATCH_LENGHT = 18;
 
-    public byte[] compress(UncompressedFile decompressed) 
-    {    
+    public byte[] compress(UncompressedFile decompressed) {
+        byte[] compressedComplete = new byte[0];
         String file = ""; char c;
-        while ( (c=decompressed.readChar()) != 0 ) file += c ;
-
-        CharSequence src = file; //Secuencia de chars a comprimir
-        int n = src.length();    //Medida de los chars
-        BitSet match = new BitSet();  // flag --> conjunto de bits inicializados a false
+        while ((c = decompressed.readChar()) != 0) file += c;
+        
+        CharSequence src = file; // Secuencia de chars a comprimir
+        int n = src.length(); // Medida de los chars
+        BitSet match = new BitSet(); // flag --> conjunto de bits inicializados a false
         StringBuilder out = new StringBuilder(); // chars y pair<offset,lenght> de retorno
         int size = 0;
-        Map<Character, List<Integer>> pos_ini = new HashMap<>();  // diccionario para almacenar los chars recientemente vistos
+        Map<Character, List<Integer>> pos_ini = new HashMap<>(); // diccionario para almacenar los chars recientemente vistos
 
         for (int i = 0; i < n; i++) {
             char act = src.charAt(i);
-            boolean found = false; int inici = 0; int matchLen = 0;
+            boolean found = false;
+            int inici = 0;
+            int matchLen = 0;
             List<Integer> positions = pos_ini.get(act);
 
-            if (positions != null) {
+            if (positions == null) {
+                positions = new LinkedList<>(); // lista de positions vacia
+                positions.add(i); // agregamos la primera posicion
+                pos_ini.put(act, positions); // agregamos al diccionario el char con su lista de positions
+
+            } else {
                 Iterator<Integer> it = positions.iterator();
                 while (it.hasNext()) {
                     int p = it.next();
@@ -37,8 +48,8 @@ public class LZSS extends Algorithm {
                     }
                     int len = getMatchedLen(src, p + 1, i + 1, n) + 1;
                     if (len > matchLen) {
-                        inici = i - p;   //puntero inicial del match
-                        matchLen = len;  //numero de matchs
+                        inici = i - p; // puntero inicial del match
+                        matchLen = len; // numero de matchs
                     }
                     found = true;
                 }
@@ -52,12 +63,7 @@ public class LZSS extends Algorithm {
                     }
                     q.add(j);
                 }
-            } else{
-                    positions = new LinkedList<>();  //lista de positions vacia
-                    positions.add(i);                //agregamos la primera posicion
-                    pos_ini.put(act, positions);     //agregamos al diccionario el char con su lista de positions
             }
-
             if (found && matchLen > 1) {
                 match.set(size);
                 out.append((char) inici).append((char) matchLen);
@@ -68,39 +74,41 @@ public class LZSS extends Algorithm {
             }
             size++;
         }
-        return getCompressedBytes(out.toString(), match.length(), match, size);
+        try {
+            compressedComplete = getCompressedBytes(out.toString(), match.length(), match, size);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return compressedComplete;
     }
 
-    public byte[] decompress(CompressedFile compressedBytes) 
-    {
-        //Recuperacion de los datos para comprimir
-        byte[] result = compressedBytes.readAll();
-
-        byte[] rec_size = readBytes(result,0, 4);
-        int n = byteArrayToInt(rec_size); 
-        byte[] bits_size = readBytes(result,4, 8);
-        int y = byteArrayToInt(bits_size);
-        System.out.print(y+"\n");
-        int bset_size = y / 8 + (((y) % 8 == 0) ? 0 : 1);  //calculo de bytes pertenecientes al BitSet
-        byte[] bset = readBytes(result, 8, bset_size);
+    public byte[] decompress(CompressedFile compressedBytes) {
+        byte[] rec_size = compressedBytes.readContent(4);
+        int n = fromByteArray(rec_size);
+        byte[] bits_size = compressedBytes.readContent(4);
+        int y = fromByteArray(bits_size);
+        int bset_size = y / 8 + (((y) % 8 == 0) ? 0 : 1);
+        byte[] sizeString = compressedBytes.readContent(4);
+        int x = fromByteArray(sizeString);
+        byte[] bset = compressedBytes.readContent(bset_size);
         BitSet match = byteToBits(bset);
-        byte[] bstring = readBytes(result, bset_size+8, result.length-(bset_size+8));
+        byte[] bstring = compressedBytes.readContent(x);
         String decomp = new String(bstring);
 
-        StringBuilder src = new StringBuilder(); src = src.append(decomp);
+        StringBuilder src = new StringBuilder();
+        src = src.append(decomp);
         StringBuilder out = new StringBuilder();
 
         int index = 0;
-        for(int i = 0; i < n; i++){
-            if(match.get(i)){
+        for (int i = 0; i < n; i++) {
+            if (match.get(i)) {
                 int start = src.charAt(index++);
                 int matchedLen = src.charAt(index++);
                 int s = out.length() - start;
                 int e = s + matchedLen;
-                for(; s < e; s++){
+                for (; s < e; s++)
                     out.append(out.charAt(s));
-                }
-            } else{
+            } else {
                 out.append(src.charAt(index++));
             }
         }
@@ -109,15 +117,17 @@ public class LZSS extends Algorithm {
         return ult.getBytes();
     }
 
-    private byte[] getCompressedBytes(String res, int sizeBits, BitSet match, int size) 
+    private byte[] getCompressedBytes(String res, int sizeBits, BitSet match, int size) throws UnsupportedEncodingException 
     {
-        byte[] bitsSize = ByteArrayHelper.intToByteArray(sizeBits,4);
-        byte[] bytes2 = match.toByteArray();
-        byte[] b_result = res.getBytes();
-        byte[] compressed = ByteArrayHelper.intToByteArray(size,4);
-        compressed = ByteArrayHelper.concatenate(compressed, bitsSize);
-        compressed = ByteArrayHelper.concatenate(compressed, bytes2);
-        compressed = ByteArrayHelper.concatenate(compressed, b_result);
+        byte[] sizeMatch = fromInttoByteArray(sizeBits);
+        byte[] bytesMatch = match.toByteArray();
+        byte[] bytesString = res.getBytes("UTF-8"); System.out.print("Size String: "+ res.length() + "   Size bytesString: "+bytesString.length+"\n\n");
+        byte[] sizeBytesString = fromInttoByteArray(bytesString.length);
+        byte[] compressed = fromInttoByteArray(size);
+        compressed = ByteArrayHelper.concatenate(compressed, sizeMatch);
+        compressed = ByteArrayHelper.concatenate(compressed,sizeBytesString);
+        compressed = ByteArrayHelper.concatenate(compressed, bytesMatch);
+        compressed = ByteArrayHelper.concatenate(compressed, bytesString);
         return compressed;
     }
 
@@ -125,13 +135,13 @@ public class LZSS extends Algorithm {
     {
         int n_aux = Math.min(i2 - i1, end - i2);
         int n = Math.min(n_aux, MAX_MATCH_LENGHT);
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n; i++) {
             if(src.charAt(i1++) != src.charAt(i2++)) return i;
         }
         return 0;
     }
 
-    private int byteArrayToInt(byte[] buffer)
+    /*private int byteArrayToInt(byte[] buffer)
     {
         int i = 0;
         i += buffer[0] &  0xFF;
@@ -139,16 +149,19 @@ public class LZSS extends Algorithm {
         i += buffer[2] << 16;
         i += buffer[3] << 24;
         return i;
+    }*/
+
+    public static byte[] fromInttoByteArray(int value) {
+        return new byte[] {
+                (byte)(value >> 24), (byte)(value >> 16), (byte)(value >> 8), (byte)value
+        };
     }
 
-    private static byte[] readBytes(byte[] a, int ini, int nbytes)
-    {
-        System.out.print(a.length+" "+ini+" "+nbytes+"\n");
-        byte[] res = new byte[nbytes];
-        for (int i=ini; i<nbytes+ini; i++) {
-            res[i-ini] = a[i];
-        }
-        return res;
+    private static int fromByteArray(byte[] bytes) {
+        return ((bytes[0] & 0xFF) << 24) |
+                ((bytes[1] & 0xFF) << 16) |
+                ((bytes[2] & 0xFF) << 8 ) |
+                ((bytes[3] & 0xFF) << 0 );
     }
 
     private static BitSet byteToBits(byte[] bytearray)
