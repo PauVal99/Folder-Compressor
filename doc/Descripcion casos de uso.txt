@@ -1,25 +1,25 @@
 Caso de uso : Compress
 
-1.Ejecuta Programa.
+1.El usuario ejecuta el Programa.
 
-2.Opción Compress.
+2.El usuario elije la opción Compress.
 
-3.Introduce archivo a comprimir.
+3.El usuario introduce archivo a comprimir.
 
-4.Introduce carpeta destino.
+4.El usuario introduce la carpeta destino.
 
-5.Introduce nombre para el fichero comprimido.
+5.El usuario introduce el nombre del fichero comprimido.
 
-6.Especifica algoritmo usado para la compresión.
+6.El usuario especifica el algoritmo usado para la compresión.
 
-7.Ver estadísticas.
+7.El usuario ve las estadísticas.
 
 Escenarios excepcionales:
 
--No es archivo o no existe:
+-El archivo a comprimir no es archivo o no existe:
 1.Volver al paso 3.
 
--La carpeta destino no es una carpeta:
+-La carpeta destino no es una carpeta o no existe:
 1.Volver al paso 4.
 
 -El nombre del fichero comprimido ya existe:
@@ -30,19 +30,19 @@ Escenarios excepcionales:
 
 Caso de uso : Decompress
 
-1.Ejecuta Programa.
+1.El usuario ejecuta el Programa.
 
-2.Opción Uncompress.
+2.El usuario elije la opción de descomprimir.
 
-3.Introduce archivo comprimido. 
+3.El usuario introduce el archivo comprimido. 
 
-4.Introduce carpeta destino.
+4.El usuario introduce la carpeta destino.
 
-5.Ver estadísticas.
+5.El usuario ve las estadísticas.
 
 Escenarios excepcionales: 
 
--No es un archivo comprimido o no es archivo:
+-El archivo no es un archivo comprimido o no es archivo:
 1.Volver al paso 3.
 
 -El fichero ya existe en la carpeta destino:
@@ -52,10 +52,10 @@ Escenarios excepcionales:
 
 Caso de uso : Run tests
 
-1.Ejecuta Programa.
+1.El usuario ejecuta el Programa.
 
-2.Opción Run tests.
+2.El usuario elije la opción Run tests.
 
-3.Elije algoritmo con el que hacer los tests o hacer el test de todos los algoritmos.
+3.El usuario elije algoritmo con el que hacer los tests o hacer el test de todos los algoritmos.
 
-4.Ver resultados y estadísticas.  
+4.El usuario ve los resultados y estadísticas.  
