@@ -14,27 +14,32 @@ public class LZ78Tester {
     public void testVoid() 
     {
        tester.test("void","LZ78");
+       tester.clean("void","LZ78");
     } 
 
     public void testLine()
     {
         tester.test("line","LZ78");
+        tester.clean("line","LZ78");
 
     }
 
     public void testAscii()
     {
         tester.test("ascii","LZ78");
+        tester.clean("ascii","LZ78");
     }
 
     public void test4kb()
     {
         tester.test("4kb","LZ78");
+        tester.clean("4kb","LZ78");
     }
 
     public void test8kb()
     {
         tester.test("8kb","LZ78");
+        tester.clean("8kb","LZ78");
     }
 
 }

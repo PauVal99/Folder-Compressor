@@ -3,6 +3,8 @@ package src.dominio.algoritmos;
 import java.util.*;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+
 import src.persistencia.*;
 import src.dominio.ByteArrayHelper;
 
@@ -14,7 +16,7 @@ import src.dominio.ByteArrayHelper;
 */
 
 public class LZSS extends Algorithm {
-    
+
     /** Tamaño de la ventana corrediza */
     private static final int WINDOW = 4096;
     /** Tamaño máximo de coincidencia - lookahead */
@@ -31,10 +33,9 @@ public class LZSS extends Algorithm {
      */
     public byte[] compress(UncompressedFile decompressed) {
         byte[] compressedComplete = new byte[0];
-        String aux = ""; char c;
-        while ((c = decompressed.readChar()) != 0) 
-            aux += c;
-            
+
+        byte[] arxiu = decompressed.readAll();
+        String aux = new String (arxiu, StandardCharsets.UTF_8);
         CharSequence file = aux;
         int n = file.length();
         BitSet match = new BitSet();
@@ -108,6 +109,9 @@ public class LZSS extends Algorithm {
      */
     public byte[] decompress(CompressedFile compressedBytes) {
         byte[] rec_size = compressedBytes.readContent(4);
+            
+            //if (rec_size == null) return new byte[0];
+
         int n = fromByteArray(rec_size);
         byte[] bits_size = compressedBytes.readContent(4);
         int y = fromByteArray(bits_size);
@@ -118,25 +122,26 @@ public class LZSS extends Algorithm {
         BitSet match = byteToBits(bset);
         byte[] bstring = compressedBytes.readContent(x);
         String decomp = new String(bstring);
+        //String fromut8 = convertFromUTF8(decomp);
 
-        StringBuilder src = new StringBuilder();
-        src = src.append(decomp);
-        StringBuilder out = new StringBuilder();
+        StringBuilder decompressedString = new StringBuilder();
+        decompressedString = decompressedString.append(decomp);
+        StringBuilder result = new StringBuilder();
 
         int index = 0;
         for (int i = 0; i < n; i++) {
             if (match.get(i)) {
-                int start = src.charAt(index++);
-                int matchedLen = src.charAt(index++);
-                int s = out.length() - start;
+                int start = decompressedString.charAt(index++);
+                int matchedLen = decompressedString.charAt(index++);
+                int s = result.length() - start;
                 int e = s + matchedLen;
                 for (; s < e; s++)
-                    out.append(out.charAt(s));
+                    result.append(result.charAt(s));
             } else {
-                out.append(src.charAt(index++));
+                result.append(decompressedString.charAt(index++));
             }
         }
-        String ult = out.toString();
+        String ult = result.toString();
 
         return ult.getBytes();
     }

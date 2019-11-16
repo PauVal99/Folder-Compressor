@@ -11,10 +11,13 @@ public class Tester {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String CYAN_BOLD = "\033[1;36m";
+    public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";
 
     public void test(String file, String alg_name) 
     {
-        System.out.print("\nTest with algorithm:"+alg_name+", File:"+file+".txt\n");
+        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+file+".txt\n" + ANSI_RESET);
         String originalFile = "data/"+file+".txt" ;
         String compressedFile = "data/compressed/"+alg_name+"/"+file;
         String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".txt";
