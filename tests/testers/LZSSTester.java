@@ -13,34 +13,51 @@ public class LZSSTester {
 
     public void testVoid() 
     {
-       tester.test("void","LZSS");
-       tester.clean("void","LZSS");
-       
+       tester.test("void","LZSS");     
     } 
 
     public void testLine()
     {
         tester.test("line","LZSS");
-        tester.clean("line","LZSS");
-
     }
 
-    public void testAscii()
+    public void testChars()
     {
-        tester.test("ascii","LZSS");
-        tester.clean("ascii","LZSS");
+        tester.test("chars","LZSS");
     }
 
     public void test4kb()
     {
         tester.test("4kb","LZSS");
-        tester.clean("4kb","LZSS");
     }
 
     public void test8kb()
     {
         tester.test("8kb","LZSS");
-        tester.clean("8kb","LZSS");
     }
 
+    public void test6mb()
+    {
+        tester.test("6mb","LZSS");
+    }
+
+    public void test15mb()
+    {
+        tester.test("15mb","LZSS");
+    }
+
+    public void testCatala()
+    {
+        tester.test("catala","LZSS");
+    }
+
+    public void testEspañol()
+    {
+        tester.test("español","LZSS");
+    }
+
+    public void testEnglish()
+    {
+        tester.test("english","LZSS");
+    }
 }

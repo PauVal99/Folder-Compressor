@@ -20,14 +20,11 @@ public class LZ78Tester {
     public void testLine()
     {
         tester.test("line","LZ78");
-        tester.clean("line","LZ78");
-
     }
 
-    public void testAscii()
+    public void testChars()
     {
-        tester.test("ascii","LZ78");
-        tester.clean("ascii","LZ78");
+        tester.test("chars","LZ78");
     }
 
     public void test4kb()
@@ -42,4 +39,28 @@ public class LZ78Tester {
         tester.clean("8kb","LZ78");
     }
 
+    public void test6mb()
+    {
+        tester.test("6mb","LZ78");
+    }
+
+    public void test15mb()
+    {
+        tester.test("15mb","LZ78");
+    }
+
+    public void testCatala()
+    {
+        tester.test("catala","LZ78");
+    }
+
+    public void testEspañol()
+    {
+        tester.test("español","LZ78");
+    }
+
+    public void testEnglish()
+    {
+        tester.test("english","LZ78");
+    }
 }

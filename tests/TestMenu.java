@@ -34,9 +34,14 @@ public class TestMenu {
         LZWTester lzwtester = new LZWTester();
         lzwtester.testVoid();
         lzwtester.testLine();
-        lzwtester.testAscii();
+        lzwtester.testChars();
         lzwtester.test4kb();
         lzwtester.test8kb();
+        lzwtester.test6mb();
+        lzwtester.test15mb();
+        lzwtester.testCatala();
+        lzwtester.testEspañol();
+        lzwtester.testEnglish();
     }
 
     private void testLZ78()
@@ -44,9 +49,13 @@ public class TestMenu {
         LZ78Tester lz78tester = new LZ78Tester();
         lz78tester.testVoid();
         lz78tester.testLine();
-        lz78tester.testAscii();
+        lz78tester.testChars();
         lz78tester.test4kb();
         lz78tester.test8kb();
+        lz78tester.test15mb();
+        lz78tester.testCatala();
+        lz78tester.testEspañol();
+        lz78tester.testEnglish();
     }
 
     private void testLZSS()
@@ -54,9 +63,13 @@ public class TestMenu {
         LZSSTester lzsstester = new LZSSTester();
         lzsstester.testVoid();
         lzsstester.testLine();
-        lzsstester.testAscii();
+        lzsstester.testChars();
         lzsstester.test4kb();
         lzsstester.test8kb();
+        lzsstester.test15mb();
+        lzsstester.testCatala();
+        lzsstester.testEspañol();
+        lzsstester.testEnglish();
     }
 
     private void testJPEG()
