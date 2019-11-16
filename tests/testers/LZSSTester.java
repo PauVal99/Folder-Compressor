@@ -13,7 +13,7 @@ public class LZSSTester {
 
     public void testVoid() 
     {
-       tester.test("void","LZSS");
+       tester.test("void","LZSS");     
     } 
 
     public void testLine()

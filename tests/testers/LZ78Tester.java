@@ -14,6 +14,7 @@ public class LZ78Tester {
     public void testVoid() 
     {
        tester.test("void","LZ78");
+       tester.clean("void","LZ78");
     } 
 
     public void testLine()
@@ -29,11 +30,13 @@ public class LZ78Tester {
     public void test4kb()
     {
         tester.test("4kb","LZ78");
+        tester.clean("4kb","LZ78");
     }
 
     public void test8kb()
     {
         tester.test("8kb","LZ78");
+        tester.clean("8kb","LZ78");
     }
 
     public void test6mb()
