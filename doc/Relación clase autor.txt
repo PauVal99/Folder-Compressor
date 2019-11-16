@@ -13,6 +13,7 @@ algoritmos:
   LZSS: Sebastian Acurio
   LZW: Pau Val
   JPEG: Bartomeu Perelló
+  HuffTree: Bartomeu Perelló
 Actor: Pau Val
 ByteArrayHelper: Pol Aguilar
 Compressor: Pau Val
