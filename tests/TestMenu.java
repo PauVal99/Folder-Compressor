@@ -52,6 +52,7 @@ public class TestMenu {
         lz78tester.testChars();
         lz78tester.test4kb();
         lz78tester.test8kb();
+        lz78tester.test6mb();
         lz78tester.test15mb();
         lz78tester.testCatala();
         lz78tester.testEspañol();
@@ -66,6 +67,7 @@ public class TestMenu {
         lzsstester.testChars();
         lzsstester.test4kb();
         lzsstester.test8kb();
+        lzsstester.test6mb();
         lzsstester.test15mb();
         lzsstester.testCatala();
         lzsstester.testEspañol();
