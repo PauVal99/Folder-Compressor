@@ -19,12 +19,11 @@ public class LZSSTester {
     public void testLine()
     {
         tester.test("line","LZSS");
-
     }
 
-    public void testAscii()
+    public void testChars()
     {
-        tester.test("ascii","LZSS");
+        tester.test("chars","LZSS");
     }
 
     public void test4kb()
@@ -37,4 +36,28 @@ public class LZSSTester {
         tester.test("8kb","LZSS");
     }
 
+    public void test6mb()
+    {
+        tester.test("6mb","LZSS");
+    }
+
+    public void test15mb()
+    {
+        tester.test("15mb","LZSS");
+    }
+
+    public void testCatala()
+    {
+        tester.test("catala","LZSS");
+    }
+
+    public void testEspañol()
+    {
+        tester.test("español","LZSS");
+    }
+
+    public void testEnglish()
+    {
+        tester.test("english","LZSS");
+    }
 }
