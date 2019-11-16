@@ -63,7 +63,7 @@ public class TestMenu {
         LZSSTester lzsstester = new LZSSTester();
         lzsstester.testVoid();
         lzsstester.testLine();
-        lzsstester.testAscii();
+        lzsstester.testChars();
         lzsstester.test4kb();
         lzsstester.test8kb();
         lzsstester.test15mb();
