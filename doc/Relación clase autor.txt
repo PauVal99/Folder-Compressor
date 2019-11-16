@@ -1,0 +1,32 @@
+doc:
+  UML: Pol Aguilar
+  Descripción casos de uso : Pol Aguilar
+  Diagrama de casos de uso: Pol Aguilar
+  Descripcion Algoritmos:
+    LZ78: Pol Aguilar
+    LZSS: Sebastian Acurio
+    LZW: Pau Val
+    JPEG: Bartomeu Perelló
+algoritmos:
+  Algorithm: Pau Val
+  LZ78: Pol Aguilar
+  LZSS: Sebastian Acurio
+  LZW: Pau Val
+  JPEG: Bartomeu Perelló
+  HuffTree: Bartomeu Perelló
+Actor: Pau Val
+ByteArrayHelper: Pol Aguilar
+Compressor: Pau Val
+Decompressor: Pau Val
+CompressedFile : Pau Val
+File: Pau Val
+UncompressedFile: Pau Val
+Main : Pau Val
+Menu : Pau Val
+Tests:
+  Tester: Sebastian Acurio
+  TestMenu: Sebastian Acurio
+  LZ78Tester: Sebastian Acurio
+  LZSSTester: Sebastian Acurio
+  LZWTester: Sebastian Acurio
+  JPEGTester: Sebastian Acurio
