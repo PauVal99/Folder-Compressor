@@ -63,7 +63,7 @@ public class File extends java.io.File
     }
 
     /**
-     * Esta función lee el siguiente caracter sin leer del fichero.
+     * Esta función lee el siguiente caracter sin leer del fichero (representado por un byte).
      * 
      * @return siguiente caracter
      * 
@@ -73,7 +73,21 @@ public class File extends java.io.File
     {
         byte[] bc = readContent(1);
         if(bc.length == 0) return 0;
-        return new String(bc).charAt(0);
+        return (char) (bc[0] & 0xFF);
+    }
+
+    /**
+     * Esta función lee el siguiente byte sin leer del fichero.
+     * 
+     * @return siguiente byte
+     * 
+     * @see src.persistencia.File::readContent()
+     */
+    public byte readByte()
+    {
+        byte[] bc = readContent(1);
+        if(bc.length == 0) return 0;
+        return bc[0];
     }
 
     /**

@@ -40,10 +40,8 @@ public class Tester {
 
         compression(originalFile, compressedFile, alg_name);
         decompression(compressedFile, uncompressedFile);
-
-        UncompressedFile original = new UncompressedFile(originalFile);
-        original.delete();
-        UncompressedFile result = new UncompressedFile(uncompressedFile);
+        
+        File result = new File(uncompressedFile);
         result.delete();
         
         System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
