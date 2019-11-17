@@ -80,15 +80,15 @@ public class LZW extends Algorithm
         String w = "" + (char) ByteArrayHelper.byteArrayToInt(compressed.readContent(nBytes));
         StringBuilder result = new StringBuilder(w);
         while((bc = compressed.readContent(nBytes)).length != 0){
-            int cod = ByteArrayHelper.byteArrayToInt(bc);
-            if(cod == 0) {
+            int c = ByteArrayHelper.byteArrayToInt(bc);
+            if(c == 0) {
                 nBytes++; 
                 continue;
             }
             String act = "";
-            if (dictionary.containsKey(cod))
-                act = dictionary.get(cod);
-            else if (cod == dictSize)
+            if (dictionary.containsKey(c))
+                act = dictionary.get(c);
+            else if (c == dictSize)
                 act = w + w.charAt(0); 
             result.append(act);
             dictionary.put(dictSize++, w + act.charAt(0));

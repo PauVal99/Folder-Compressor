@@ -76,7 +76,6 @@ public class TestMenu {
 
     private void testJPEG()
     {
-        //tests del JPEG
         JPEGTester jpegtester= new JPEGTester();
         jpegtester.test1_4M();
         jpegtester.NOdiv64();

@@ -23,18 +23,19 @@ la ejecucción.
 La descompresión en pseudocódigo:
 
 1.Inicializar el diccionario con 256 entradas.
-2.w ← primer indice.
+2.w ← valor del primer indice.
 3.Añadir al resultado el valor de w.
-<old> ← <index>
-cod ← siguiente indice en la entrada.
-¿Existe cod en el diccionario?
+4.c ← siguiente indice en la entrada.
+5.¿Existe c en el diccionario?
     Si:
-        Write the string at <index> to the result.
-        B ← first byte of the string at <index>
-        Add <old>B to the dictionary.
+        6.act ← valor de c
     No:
-        B ← first byte of the string at <old>
-        Add <old>B to the dictionary.
-        Write the string for <old>B to the output.
-<old> ← <index>
-Si quedan índices en la entrada saltar al paso 5.
+        7.¿c tiene el valor del tamaño del diccionario?
+            Si:
+                8.act ← w concadenado con primer caracter de w
+9.Añadir al resultado el valor de act.
+10.añadir al diccionario w concadenado con primer caracter de w
+11.w ← act
+12.Si quedan índices en la entrada saltar al paso 5.
+
+Si se lee una marca descarta el indide actual i augmenta el numero de bytes.
