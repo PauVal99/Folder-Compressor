@@ -24,8 +24,8 @@ Test 7: 15mb.txt
 Test 8: catala.txt
     El test consiste en comprimir y descomprimir un archivo en catalán.
 
-Test 9: español.txt
-    El test consiste en comprimir y descomprimir un archivo en español.
+Test 9: espanol.txt
+    El test consiste en comprimir y descomprimir un archivo en espanol.
 
 Test 10: english.txt
     El test consiste en comprimir y descomprimir un archivo en inglés.

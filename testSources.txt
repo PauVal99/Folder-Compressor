@@ -1,0 +1,7 @@
+C:\Users\Pau\Code\Prop\tests\Main.java
+C:\Users\Pau\Code\Prop\tests\Tester.java
+C:\Users\Pau\Code\Prop\tests\TestMenu.java
+C:\Users\Pau\Code\Prop\tests\testers\JPEGTester.java
+C:\Users\Pau\Code\Prop\tests\testers\LZ78Tester.java
+C:\Users\Pau\Code\Prop\tests\testers\LZSSTester.java
+C:\Users\Pau\Code\Prop\tests\testers\LZWTester.java

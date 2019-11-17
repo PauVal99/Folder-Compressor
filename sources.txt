@@ -1,0 +1,16 @@
+C:\Users\Pau\Code\Prop\src\Main.java
+C:\Users\Pau\Code\Prop\src\dominio\Actor.java
+C:\Users\Pau\Code\Prop\src\dominio\ByteArrayHelper.java
+C:\Users\Pau\Code\Prop\src\dominio\Compressor.java
+C:\Users\Pau\Code\Prop\src\dominio\Decompressor.java
+C:\Users\Pau\Code\Prop\src\dominio\HuffTree.java
+C:\Users\Pau\Code\Prop\src\dominio\Pair.java
+C:\Users\Pau\Code\Prop\src\dominio\algoritmos\Algorithm.java
+C:\Users\Pau\Code\Prop\src\dominio\algoritmos\JPEG.java
+C:\Users\Pau\Code\Prop\src\dominio\algoritmos\LZ78.java
+C:\Users\Pau\Code\Prop\src\dominio\algoritmos\LZSS.java
+C:\Users\Pau\Code\Prop\src\dominio\algoritmos\LZW.java
+C:\Users\Pau\Code\Prop\src\persistencia\CompressedFile.java
+C:\Users\Pau\Code\Prop\src\persistencia\File.java
+C:\Users\Pau\Code\Prop\src\persistencia\UncompressedFile.java
+C:\Users\Pau\Code\Prop\src\presentacion\Menu.java

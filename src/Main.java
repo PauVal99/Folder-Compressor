@@ -1,6 +1,6 @@
 package src;
 
-import src.presentación.Menu;;
+import src.presentacion.Menu;;
 
 /**
  * Esta clase representa el inicio de ejecución de nuestro programa.
