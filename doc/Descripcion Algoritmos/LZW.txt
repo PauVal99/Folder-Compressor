@@ -1,0 +1,41 @@
+En este documento explicaré el funcionamiento del aloritmo LZW implementado:
+
+La compresión en pseudocódigo:
+
+1.Inicializar el diccionario con 256 entradas.
+2.w ← vacio
+3.c ← siguiente byte en el archivo.
+4.¿Esta w concadenado con c en el diccionario?
+    Si:
+        5.w ← w concadenado con c
+    No:
+        6.Añadir w concadenado con c al diccionario.
+        7.Añadir el indice de w al resultado.
+        8.w ← c
+9.Si quedan mas bytes en la entrada ir al paso 3.
+10.Añadir el indice de w al resultado.
+
+Se implementa una optimización donde los indices empiezan ocupando un byte.
+Si a añadir un indice al resultado ocupa mas de lo representable en un byte se 
+hace una marca y se augmenta el numero de bytes en uno. Asi hasta el fin de 
+la ejecucción.
+
+La descompresión en pseudocódigo:
+
+1.Inicializar el diccionario con 256 entradas.
+2.w ← valor del primer indice.
+3.Añadir al resultado el valor de w.
+4.c ← siguiente indice en la entrada.
+5.¿Existe c en el diccionario?
+    Si:
+        6.act ← valor de c
+    No:
+        7.¿c tiene el valor del tamaño del diccionario?
+            Si:
+                8.act ← w concadenado con primer caracter de w
+9.Añadir al resultado el valor de act.
+10.añadir al diccionario w concadenado con primer caracter de w
+11.w ← act
+12.Si quedan índices en la entrada saltar al paso 5.
+
+Si se lee una marca descarta el indide actual i augmenta el numero de bytes.

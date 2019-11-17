@@ -40,7 +40,7 @@ public class TestMenu {
         lzwtester.test6mb();
         lzwtester.test15mb();
         lzwtester.testCatala();
-        lzwtester.testEspañol();
+        lzwtester.testEspanol();
         lzwtester.testEnglish();
     }
 
@@ -55,7 +55,7 @@ public class TestMenu {
         lz78tester.test6mb();
         lz78tester.test15mb();
         lz78tester.testCatala();
-        lz78tester.testEspañol();
+        lz78tester.testEspanol();
         lz78tester.testEnglish();
     }
 
@@ -70,14 +70,16 @@ public class TestMenu {
         lzsstester.test6mb();
         lzsstester.test15mb();
         lzsstester.testCatala();
-        lzsstester.testEspañol();
+        lzsstester.testEspanol();
         lzsstester.testEnglish();
     }
 
     private void testJPEG()
     {
-        //LZWTester lzwtester = new LZWTester();
-        //tests del JPEG
+        JPEGTester jpegtester= new JPEGTester();
+        jpegtester.test1_4M();
+        jpegtester.NOdiv64();
+        jpegtester.test6M();
     }
 
     private void testAll()

@@ -30,6 +30,24 @@ public class Tester {
         comprovation(original, result, file);
     }
 
+    public void testJPEG(String file, String alg_name) 
+    {
+        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+file+".ppm\n" + ANSI_RESET);
+        String originalFile = "data/"+file+".ppm" ;
+        String compressedFile = "data/compressed/"+alg_name+"/"+file;
+        String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".ppm";
+
+        compression(originalFile, compressedFile, alg_name);
+        decompression(compressedFile, uncompressedFile);
+
+        UncompressedFile original = new UncompressedFile(originalFile);
+        original.delete();
+        UncompressedFile result = new UncompressedFile(uncompressedFile);
+        result.delete();
+        
+        System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
+    }
+
     private void compression(String fileOriginal, String fileCompressed, String algorithm)
     {
         System.out.print("Compression:\n");

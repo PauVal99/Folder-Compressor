@@ -1,30 +1,20 @@
 package tests.testers;
 
+import tests.Tester;
+
 public class JPEGTester {
+    private Tester tester;
 
-    public void testVoid() 
-    {
+    public JPEGTester(){ this.tester= new Tester();}
 
-    } 
-
-    public void testLine()
-    {
-
+    public void test1_4M() {
+        tester.testJPEG("1_4MB","JPEG");
     }
-
-    public void testAscii()
-    {
-
+    public void NOdiv64() {
+        tester.testJPEG("NOdiv64","JPEG");
     }
-
-    public void test4kb()
-    {
-
-    }
-
-    public void test8kb()
-    {
-        
+    public void test6M() {
+        tester.testJPEG("6M","JPEG");
     }
 
 }

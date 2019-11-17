@@ -51,9 +51,9 @@ public class LZWTester {
         tester.test("catala","LZW");
     }
 
-    public void testEspañol()
+    public void testEspanol()
     {
-        tester.test("español","LZW");
+        tester.test("espanol","LZW");
     }
 
     public void testEnglish()
