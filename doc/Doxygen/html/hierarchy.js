@@ -19,6 +19,6 @@ var hierarchy =
     ] ],
     [ "src.dominio.HuffTree", "classsrc_1_1dominio_1_1_huff_tree.html", null ],
     [ "src.Main", "classsrc_1_1_main.html", null ],
-    [ "src.presentación.Menu", "classsrc_1_1presentaci_xC3_xB3n_1_1_menu.html", null ],
+    [ "src.presentacion.Menu", "classsrc_1_1presentacion_1_1_menu.html", null ],
     [ "src.dominio.Pair< T, T1 >", "classsrc_1_1dominio_1_1_pair.html", null ]
 ];

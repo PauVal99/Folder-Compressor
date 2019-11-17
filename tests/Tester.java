@@ -18,6 +18,7 @@ public class Tester {
     public void test(String file, String alg_name) 
     {
         System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+file+".txt\n" + ANSI_RESET);
+
         String originalFile = "data/"+file+".txt" ;
         String compressedFile = "data/compressed/"+alg_name+"/"+file;
         String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".txt";
@@ -55,6 +56,7 @@ public class Tester {
         File uncompressedDestinationFile = new File(fileCompressed);
         Compressor compressor = new Compressor(uncompressedFileToTest,uncompressedDestinationFile, algorithm);
         compressor.compress();
+        uncompressedFileToTest.close();
     }
 
     private void decompression(String fileCompressed, String fileUncompressed)
@@ -68,8 +70,8 @@ public class Tester {
         File compressedDestinationFile = new File(fileUncompressed);
         Decompressor decompressor = new Decompressor(compressedFileToTest, compressedDestinationFile);
         decompressor.decompress();
-        //if(compressedFileToTest.delete()) System.out.print("  -> Compressed file deleted !!\n");
-        //else System.out.print("  -> Error on file deleted !!\n");
+        compressedFileToTest.close();
+        compressedFileToTest.delete();
     }
 
     private void comprovation(UncompressedFile original, UncompressedFile result, String file)
@@ -77,19 +79,8 @@ public class Tester {
         System.out.print("\nResult:\n");
         if (!Arrays.equals(original.readAll(),result.readAll())) System.out.print(ANSI_RED +file+".txt test failed.\n" + ANSI_RESET);
         else System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
-        //if(result.delete()) System.out.print("  -> Uncompressed file deleted !!\n");
-        //else System.out.print("  -> Error on .txt deleted !!\n");
+        original.close();
+        result.close();
+        result.delete();
     }
-
-    public void clean(String file, String alg_name)
-    {
-        String pathCompressedFile = "data/compressed/"+alg_name+"/"+file;
-        File compressedFile = new File(pathCompressedFile);
-        compressedFile.delete();
-
-        String pathDecompressedFile =  "data/compressed/"+alg_name+"/"+file+".txt";
-        File decompressedFile = new File(pathDecompressedFile);
-        decompressedFile.delete();
-    }
-
 }

@@ -37,6 +37,18 @@ public class File extends java.io.File
             e.printStackTrace();
         }
     }
+    /**
+     * Cierra el fileInputStream
+     */
+    public void close()
+    {
+        try{
+            fileInputStream.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Esta función lee todos los bytes del archivo.

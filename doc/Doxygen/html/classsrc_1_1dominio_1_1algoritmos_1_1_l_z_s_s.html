@@ -127,8 +127,8 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
-<tr class="memitem:add6d7e52913151e4b0913a89bbe3a64b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#add6d7e52913151e4b0913a89bbe3a64b">getMatchedLen</a> (CharSequence file, int matchPos, int charPos, int finalPos)</td></tr>
-<tr class="separator:add6d7e52913151e4b0913a89bbe3a64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a743d8dad062c306cb09a5f1c8c0e2860"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a743d8dad062c306cb09a5f1c8c0e2860">getMatchedLen</a> (CharSequence file, int matchPos, int charPos, int finalPosFile)</td></tr>
+<tr class="separator:a743d8dad062c306cb09a5f1c8c0e2860"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af27f5d7f2fd4e4bfda2d9b1fce276ba1"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#af27f5d7f2fd4e4bfda2d9b1fce276ba1">fromByteArray</a> (byte[] buffer)</td></tr>
 <tr class="separator:af27f5d7f2fd4e4bfda2d9b1fce276ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeaf6d4f21a494550de1b1ee4cd5d4b1"><td class="memItemLeft" align="right" valign="top">static BitSet&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#afeaf6d4f21a494550de1b1ee4cd5d4b1">byteToBits</a> (byte[] bytearray)</td></tr>
@@ -138,14 +138,14 @@ Static Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:ac84682c7e1e5d12162b7dcbc7f98de62"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#ac84682c7e1e5d12162b7dcbc7f98de62">WINDOW</a> = 4096</td></tr>
+<tr class="memitem:ac84682c7e1e5d12162b7dcbc7f98de62"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#ac84682c7e1e5d12162b7dcbc7f98de62">WINDOW</a> = 8192</td></tr>
 <tr class="separator:ac84682c7e1e5d12162b7dcbc7f98de62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94cc436db689cc4f5509e6cc010168c6"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a94cc436db689cc4f5509e6cc010168c6">MAX_MATCH_LENGHT</a> = 18</td></tr>
+<tr class="memitem:a94cc436db689cc4f5509e6cc010168c6"><td class="memItemLeft" align="right" valign="top">static final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a94cc436db689cc4f5509e6cc010168c6">MAX_MATCH_LENGHT</a> = 32</td></tr>
 <tr class="separator:a94cc436db689cc4f5509e6cc010168c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Esta clase representa el algoritmo de compresión y descompresión <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html">LZSS</a>. Se encarga de comprimir y descomprimir archivos. Devuelve una secuencia con el tamaño, los bits que serviran de flag y los caracteres comprimidos en bytes</p>
-<dl class="section author"><dt>Author</dt><dd>Sebastian Acurio </dd></dl>
+<div class="textblock"><p>Esta clase representa el algoritmo de compresión y descompresión <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html">LZSS</a>. Se encarga de comprimir y descomprimir archivos. Devuelve una secuencia de bytes con el tamaño, los bits que serviran de flag y los caracteres comprimidos</p>
+<dl class="section author"><dt>Author</dt><dd>Sebastian Acurio Navas </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="afeaf6d4f21a494550de1b1ee4cd5d4b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afeaf6d4f21a494550de1b1ee4cd5d4b1">&#9670;&nbsp;</a></span>byteToBits()</h2>
@@ -203,7 +203,7 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>array de bytes con el texto comprimido (no es legible, hay que descomprimirlo)</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array de bytes con la información del texto comprimido (no es legible, hay que descomprimirlo)</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_uncompressed_file.html">src.persistencia.UncompressedFile</a> </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#aa9948769764de4cd170f0a24d15a328e">src.dominio.algoritmos.Algorithm</a>.</p>
@@ -225,7 +225,7 @@ Static Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Descomprime el archivo representado por compressedBytes. Inicialmente lee los bytes en un cierto orden para recuperar la información y proceder a la descompresión</p>
+<p>Descomprime el archivo representado por compressedBytes. Inicialmente lee los bytes en un cierto orden para recuperar la información necesaria y proceder a la descompresión</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">compressedBytes</td><td>archivo a descomprimir </td></tr>
@@ -233,7 +233,9 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array de bytes con el texto descomprimido</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html">src.persistencia.CompressedFile</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html">src.persistencia.CompressedFile</a> </dd>
+<dd>
+<a class="el" href="classsrc_1_1persistencia_1_1_file.html">src.persistencia.File</a> </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a660da7979451f05cf0831e42c7f8eb48">src.dominio.algoritmos.Algorithm</a>.</p>
 
@@ -352,7 +354,7 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construye la cadena de bytes con la información necesaria para la descompresion</p>
+<p>Construye el array de bytes con la información necesaria para la posterior descompresion</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">resultantString</td><td>cadena de caracteres comprimidos </td></tr>
@@ -362,13 +364,12 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>cadena de bytes con la información necesaria para la descompresión</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1dominio_1_1_byte_array_helper.html">src.dominio.ByteArrayHelper</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>cadena de bytes con la información necesaria para la descompresión </dd></dl>
 
 </div>
 </div>
-<a id="add6d7e52913151e4b0913a89bbe3a64b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add6d7e52913151e4b0913a89bbe3a64b">&#9670;&nbsp;</a></span>getMatchedLen()</h2>
+<a id="a743d8dad062c306cb09a5f1c8c0e2860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743d8dad062c306cb09a5f1c8c0e2860">&#9670;&nbsp;</a></span>getMatchedLen()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,7 +399,7 @@ Static Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>finalPos</em>&#160;</td>
+          <td class="paramname"><em>finalPosFile</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -418,7 +419,7 @@ Static Private Attributes</h2></td></tr>
     <tr><td class="paramname">file</td><td>secuencia de carácteres donde buscaremos las coincidecias </td></tr>
     <tr><td class="paramname">matchPos</td><td>posición de una coincidencia </td></tr>
     <tr><td class="paramname">charPos</td><td>posición del carácter actual </td></tr>
-    <tr><td class="paramname">finalPos</td><td>última posición de carácteres </td></tr>
+    <tr><td class="paramname">finalPosFile</td><td>última posición de carácteres </td></tr>
   </table>
   </dd>
 </dl>
@@ -480,7 +481,7 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Retorna cierto si es el bit es 1 o falso si es 0</p>
+<p>Función que retorna el valor boolea del bit</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">b</td><td>byte del cual obtener valores </td></tr>
@@ -503,7 +504,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final int src.dominio.algoritmos.LZSS.MAX_MATCH_LENGHT = 18</td>
+          <td class="memname">final int src.dominio.algoritmos.LZSS.MAX_MATCH_LENGHT = 32</td>
         </tr>
       </table>
   </td>
@@ -526,7 +527,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final int src.dominio.algoritmos.LZSS.WINDOW = 4096</td>
+          <td class="memname">final int src.dominio.algoritmos.LZSS.WINDOW = 8192</td>
         </tr>
       </table>
   </td>
