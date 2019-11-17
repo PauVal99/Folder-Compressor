@@ -29,3 +29,14 @@ Test 9: español.txt
 
 Test 10: english.txt
     El test consiste en comprimir y descomprimir un archivo en inglés.
+
+Drivers utilizados para el testing del algoritmo JPEG:
+
+Test 1: 1_4MB.ppm
+    El test consiste en comprimir y descomprimir una imagen en formato ppm de un tamaño de 1.4Megabytes que es divisble en submatrices de 8x8.
+
+Test 2: Nodiv64.ppm
+    El test consiste en comprimir y descomprimir una imagen en formato ppm en el cual no se puede dividir la imagen en submatrices de 8x8 y comprobar que se ejecuta igualmente.
+
+Test 3: 6MB.ppm
+    El test consiste en comprimir y descomprimir una imagen en formato ppm de un tamaño mayor para comprobar que con imagenes de mayor tamaño el programa sigue funcionando.

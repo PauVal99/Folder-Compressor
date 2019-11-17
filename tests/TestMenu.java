@@ -76,8 +76,11 @@ public class TestMenu {
 
     private void testJPEG()
     {
-        //LZWTester lzwtester = new LZWTester();
         //tests del JPEG
+        JPEGTester jpegtester= new JPEGTester();
+        jpegtester.test1_4M();
+        jpegtester.NOdiv64();
+        jpegtester.test6M();
     }
 
     private void testAll()

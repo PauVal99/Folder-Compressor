@@ -32,10 +32,10 @@ public class Tester {
 
     public void testJPEG(String file, String alg_name) 
     {
-        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+file+".txt\n" + ANSI_RESET);
-        String originalFile = "data/"+file+".txt" ;
+        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+file+".ppm\n" + ANSI_RESET);
+        String originalFile = "data/"+file+".ppm" ;
         String compressedFile = "data/compressed/"+alg_name+"/"+file;
-        String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".txt";
+        String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".ppm";
 
         compression(originalFile, compressedFile, alg_name);
         decompression(compressedFile, uncompressedFile);
