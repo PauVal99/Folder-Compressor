@@ -63,20 +63,6 @@ public class File extends java.io.File
     }
 
     /**
-     * Esta función lee el siguiente caracter sin leer del fichero (representado por un byte).
-     * 
-     * @return siguiente caracter
-     * 
-     * @see src.persistencia.File::readContent()
-     */
-    public char readChar()
-    {
-        byte[] bc = readContent(1);
-        if(bc.length == 0) return 0;
-        return (char) (bc[0] & 0xFF);
-    }
-
-    /**
      * Esta función lee el siguiente byte sin leer del fichero.
      * 
      * @return siguiente byte
