@@ -1,0 +1,31 @@
+A continuación se explican los tests realizados con JUnit, se prueva la classe src.dominio.ByteArrayHelper:
+
+testIntToByteArrayOneByte
+    El test comprueva que se realiza la conversion de un numero a un byte array de una posicion.    
+
+testIntToByteArrayTwoBytes
+    El test comprueva que se realiza la conversion de un numero a un byte array de dos posiciones.    
+
+testIntToByteArrayTwoBytes
+    El test comprueva que se realiza la conversion de un numero a un byte array de tres posiciones.    
+
+testIntToByteArrayBigInt
+    El test comprueva que se realiza la conversion de un numero mayor de un byte a un byte array de dos posiciones.    
+
+testIntToByteArrayBiggerInt
+    El test comprueva que se realiza la conversion de un numero de 4 bytes a un byte array de quatro posiciones.    
+
+testByteArrayToIntOneByte
+    El test comprueva que se realiza la conversion de un array de un byte a un entero.    
+
+testByteArrayToIntTwoBytes
+    El test comprueva que se realiza la conversion de un array de dos byte a un entero.    
+
+testByteArrayToIntThreeBytes
+    El test comprueva que se realiza la conversion de un array de tres byte a un entero.    
+
+testByteArrayToIntBigInt
+    El test comprueva que se realiza la conversion de un array de dos byte (con valor) a un entero.    
+
+testByteArrayToIntBigInt
+    El test comprueva que se realiza la conversion de un array de quatro byte (con valor) a un entero.    

@@ -135,6 +135,8 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Esta clase representa un actor que hara funciones tanto de compresión como descompresión. Contiene funciones necesarias para obtener estadísticas o escribir en los archivos de destino.</p>
 <dl class="section author"><dt>Author</dt><dd>Pau Val </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00021">21</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaaa89089c471e8a3a4e59efad7aba5eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaaa89089c471e8a3a4e59efad7aba5eb">&#9670;&nbsp;</a></span>Actor()</h2>
@@ -173,6 +175,12 @@ Protected Attributes</h2></td></tr>
 <dd>
 src.dominio.Actor::setAlgortihm() </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00048">48</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        this.<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">destinationFile</a> = <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">destinationFile</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        this.<a class="code" href="classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230">algorithm</a> = <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a5db7d765149f61a97350f2f7719b6645">setAlgorithm</a>(algorithmName);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -200,6 +208,11 @@ src.dominio.Actor::setAlgortihm() </dd></dl>
 </div><div class="memdoc">
 <p>Guarda el inicio de una ejecución </p>
 
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00057">57</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a1c9cdd501c52e6bcadc7c31b892c1ecf">startTime</a> = System.currentTimeMillis();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aceb2cc5a79e8fbd7e862fee7a4956d2d"></a>
@@ -229,6 +242,12 @@ src.dominio.Actor::setAlgortihm() </dd></dl>
 <dd>
 java.util.Date </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00068">68</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#af4a718335c21583e70b7559019d41c67">stopTime</a> = System.currentTimeMillis();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        System.out.print(<span class="stringliteral">&quot;Done in &quot;</span> + (<span class="keyword">new</span> SimpleDateFormat(<span class="stringliteral">&quot;mm &#39;minute(s)&#39; ss &#39;second(s)&#39; SSS &#39;milliseconds&#39;&quot;</span>)).format(<span class="keyword">new</span> Date(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#af4a718335c21583e70b7559019d41c67">stopTime</a> - <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a1c9cdd501c52e6bcadc7c31b892c1ecf">startTime</a>)) + <span class="stringliteral">&quot;.\n&quot;</span>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a5db7d765149f61a97350f2f7719b6645"></a>
@@ -264,6 +283,15 @@ java.util.Date </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>instancia del algoritmo</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html">src.dominio.algoritmos.Algorithm</a> </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00100">100</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span>(algorithmName.equals(<span class="stringliteral">&quot;LZ78&quot;</span>)) <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html">LZ78</a>();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(algorithmName.equals(<span class="stringliteral">&quot;LZSS&quot;</span>)) <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html">LZSS</a>();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(algorithmName.equals(<span class="stringliteral">&quot;LZW&quot;</span>)) <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html">LZW</a>();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(algorithmName.equals(<span class="stringliteral">&quot;JPEG&quot;</span>)) <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html">JPEG</a>();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html">LZW</a>();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a31bbd87d4ec0b3d79d6bb91de5d61197"></a>
@@ -300,6 +328,15 @@ java.util.Date </dd></dl>
 <dd>
 java.nio.file.StandardOpenOption </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00083">83</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {   </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">try</span>{</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            Files.write(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">destinationFile</a>.toPath(), bytes, StandardOpenOption.APPEND, StandardOpenOption.CREATE);}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">catch</span> (IOException e){</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            System.out.print(<span class="stringliteral">&quot;Error writing in destination file.&quot;</span>);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -323,6 +360,8 @@ java.nio.file.StandardOpenOption </dd></dl>
 </table>
 </div><div class="memdoc">
 <p>Algotirmo con el que se realizará la acción </p>
+
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00037">37</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
 
 </div>
 </div>
@@ -348,6 +387,8 @@ java.nio.file.StandardOpenOption </dd></dl>
 <p>Archivo de destino</p>
 <dl class="section see"><dt>See also</dt><dd>java.io.File </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00034">34</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
+
 </div>
 </div>
 <a id="a1c9cdd501c52e6bcadc7c31b892c1ecf"></a>
@@ -370,6 +411,8 @@ java.nio.file.StandardOpenOption </dd></dl>
 </table>
 </div><div class="memdoc">
 <p>Inicio de la ejecución </p>
+
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00024">24</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
 
 </div>
 </div>
@@ -394,13 +437,24 @@ java.nio.file.StandardOpenOption </dd></dl>
 </div><div class="memdoc">
 <p>Fin de la ejecución </p>
 
+<p class="definition">Definition at line <a class="el" href="_actor_8java_source.html#l00027">27</a> of file <a class="el" href="_actor_8java_source.html">Actor.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_actor_8java.html">Actor.java</a></li>
+<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_actor_8java_source.html">Actor.java</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_l_z_w_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html">src.dominio.algoritmos.LZW</a></div><div class="ttdef"><b>Definition:</b> <a href="_l_z_w_8java_source.html#l00016">LZW.java:16</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html">src.dominio.algoritmos.JPEG</a></div><div class="ttdef"><b>Definition:</b> <a href="_j_p_e_g_8java_source.html#l00017">JPEG.java:17</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a838141a43ea35abb7a2d3357490a6ec2"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">src.dominio.Actor.destinationFile</a></div><div class="ttdeci">File destinationFile</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00034">Actor.java:34</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a1c9cdd501c52e6bcadc7c31b892c1ecf"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a1c9cdd501c52e6bcadc7c31b892c1ecf">src.dominio.Actor.startTime</a></div><div class="ttdeci">long startTime</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00024">Actor.java:24</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html">src.dominio.algoritmos.LZSS</a></div><div class="ttdef"><b>Definition:</b> <a href="_l_z_s_s_8java_source.html#l00018">LZSS.java:18</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_abbb29b4c1328835356a083fd465a5230"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230">src.dominio.Actor.algorithm</a></div><div class="ttdeci">Algorithm algorithm</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00037">Actor.java:37</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_af4a718335c21583e70b7559019d41c67"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#af4a718335c21583e70b7559019d41c67">src.dominio.Actor.stopTime</a></div><div class="ttdeci">long stopTime</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00027">Actor.java:27</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a5db7d765149f61a97350f2f7719b6645"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a5db7d765149f61a97350f2f7719b6645">src.dominio.Actor.setAlgorithm</a></div><div class="ttdeci">Algorithm setAlgorithm(String algorithmName)</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00100">Actor.java:100</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_l_z78_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html">src.dominio.algoritmos.LZ78</a></div><div class="ttdef"><b>Definition:</b> <a href="_l_z78_8java_source.html#l00016">LZ78.java:16</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

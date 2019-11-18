@@ -105,6 +105,8 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Esta clase contiene funciones auxiliares para byte arrays.</p>
 <dl class="section author"><dt>Author</dt><dd>Pol Aguilar </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_byte_array_helper_8java_source.html#l00008">8</a> of file <a class="el" href="_byte_array_helper_8java_source.html">ByteArrayHelper.java</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4f94ed470254f025b46406f295a626de"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f94ed470254f025b46406f295a626de">&#9670;&nbsp;</a></span>byteArrayToInt()</h2>
@@ -138,6 +140,16 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>entero </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_byte_array_helper_8java_source.html#l00046">46</a> of file <a class="el" href="_byte_array_helper_8java_source.html">ByteArrayHelper.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">int</span> n = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; buffer.length; i++) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordtype">int</span> a = ((buffer[i] &amp; 0xff)) * (int) Math.pow(2,i * 8);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            n = n + a;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> n;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a1a1efcfcae124436578a2ac7460a7579"></a>
@@ -183,6 +195,15 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>concadenación de a y b </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_byte_array_helper_8java_source.html#l00017">17</a> of file <a class="el" href="_byte_array_helper_8java_source.html">ByteArrayHelper.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                         {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">byte</span>[] c = <span class="keyword">new</span> <span class="keywordtype">byte</span>[a.length + b.length];</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        System.arraycopy(a, 0, c, 0, a.length);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        System.arraycopy(b, 0, c, a.length, b.length);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">return</span> c;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a5e509d1bc21993f2d90e076b4523c67f"></a>
@@ -228,10 +249,17 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array de bytes que se representa n </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_byte_array_helper_8java_source.html#l00032">32</a> of file <a class="el" href="_byte_array_helper_8java_source.html">ByteArrayHelper.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">byte</span>[] buffer = <span class="keyword">new</span> <span class="keywordtype">byte</span>[nBytes];</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i&lt;nBytes; i++) buffer[i] = (<span class="keywordtype">byte</span>) (n &gt;&gt;&gt; (i * 8));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> buffer;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_byte_array_helper_8java.html">ByteArrayHelper.java</a></li>
+<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_byte_array_helper_8java_source.html">ByteArrayHelper.java</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

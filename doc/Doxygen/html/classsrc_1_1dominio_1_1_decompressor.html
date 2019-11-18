@@ -142,6 +142,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Esta clase representa un actor de descompresión. Su cometido es llamar al algoritmo requerido y escribir el resultado en el fichero de destino.</p>
 <dl class="section author"><dt>Author</dt><dd>Pau Val </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_decompressor_8java_source.html#l00015">15</a> of file <a class="el" href="_decompressor_8java_source.html">Decompressor.java</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae577115a1197de5c66419ab9133b1a23"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae577115a1197de5c66419ab9133b1a23">&#9670;&nbsp;</a></span>Decompressor()</h2>
@@ -180,6 +182,12 @@ Additional Inherited Members</h2></td></tr>
 <dd>
 <a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html">src.persistencia.CompressedFile</a> </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_decompressor_8java_source.html#l00033">33</a> of file <a class="el" href="_decompressor_8java_source.html">Decompressor.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        super(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">destinationFile</a>, <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>.<a class="code" href="classsrc_1_1persistencia_1_1_compressed_file.html#a5b158c3cfa6abc2ac4d78c26189a6e2c">getAlgorithm</a>());</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        this.compressedFile = <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -199,6 +207,14 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Realiza la acción de descomprimir un fichero con los parametros de la constructora. Se encaraga de recojer las estadísticas y escribir el resultado. </p>
 
+<p class="definition">Definition at line <a class="el" href="_decompressor_8java_source.html#l00043">43</a> of file <a class="el" href="_decompressor_8java_source.html">Decompressor.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a6f0393757e7750b93c77fc317e342035">initStadistics</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">byte</span>[] b = <a class="code" href="classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230">algorithm</a>.decompress(<a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a31bbd87d4ec0b3d79d6bb91de5d61197">writeInDestiantionFile</a>(b);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#aceb2cc5a79e8fbd7e862fee7a4956d2d">printStadistics</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -224,13 +240,22 @@ Additional Inherited Members</h2></td></tr>
 <p>Representa el fichero a descomprimir</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html">src.persistencia.CompressedFile</a> </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_decompressor_8java_source.html#l00022">22</a> of file <a class="el" href="_decompressor_8java_source.html">Decompressor.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_decompressor_8java.html">Decompressor.java</a></li>
+<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_decompressor_8java_source.html">Decompressor.java</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html_a5e0e941f2760c7d6c8cacfa556327f63"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">src.dominio.Decompressor.compressedFile</a></div><div class="ttdeci">CompressedFile compressedFile</div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00022">Decompressor.java:22</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a31bbd87d4ec0b3d79d6bb91de5d61197"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a31bbd87d4ec0b3d79d6bb91de5d61197">src.dominio.Actor.writeInDestiantionFile</a></div><div class="ttdeci">void writeInDestiantionFile(byte[] bytes)</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00083">Actor.java:83</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a838141a43ea35abb7a2d3357490a6ec2"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">src.dominio.Actor.destinationFile</a></div><div class="ttdeci">File destinationFile</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00034">Actor.java:34</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_abbb29b4c1328835356a083fd465a5230"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230">src.dominio.Actor.algorithm</a></div><div class="ttdeci">Algorithm algorithm</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00037">Actor.java:37</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_aceb2cc5a79e8fbd7e862fee7a4956d2d"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#aceb2cc5a79e8fbd7e862fee7a4956d2d">src.dominio.Actor.printStadistics</a></div><div class="ttdeci">void printStadistics()</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00068">Actor.java:68</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a6f0393757e7750b93c77fc317e342035"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a6f0393757e7750b93c77fc317e342035">src.dominio.Actor.initStadistics</a></div><div class="ttdeci">void initStadistics()</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00057">Actor.java:57</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_compressed_file_html_a5b158c3cfa6abc2ac4d78c26189a6e2c"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_compressed_file.html#a5b158c3cfa6abc2ac4d78c26189a6e2c">src.persistencia.CompressedFile.getAlgorithm</a></div><div class="ttdeci">String getAlgorithm()</div><div class="ttdef"><b>Definition:</b> <a href="_compressed_file_8java_source.html#l00103">CompressedFile.java:103</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

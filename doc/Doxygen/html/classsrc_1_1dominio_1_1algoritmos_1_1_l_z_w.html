@@ -124,6 +124,8 @@ Private Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Esta clase representa el algoritmo de compresión y descompresión <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html">LZW</a>. Se encarga de comprimir y descomprimir archivos. Guarda los códigos en un número de bytes variable para augmentar la eficiencia.</p>
 <dl class="section author"><dt>Author</dt><dd>Pau Val </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_l_z_w_8java_source.html#l00016">16</a> of file <a class="el" href="_l_z_w_8java_source.html">LZW.java</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a463e61a89ae70cf5c003811c6fc08908"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a463e61a89ae70cf5c003811c6fc08908">&#9670;&nbsp;</a></span>byteToChar()</h2>
@@ -157,6 +159,11 @@ Private Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>caracter que representa b </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_l_z_w_8java_source.html#l00147">147</a> of file <a class="el" href="_l_z_w_8java_source.html">LZW.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">return</span> (<span class="keywordtype">char</span>) (b &amp; 0xFF);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="accfa7cf4a7a4b38190fdfd9a7a50f05b"></a>
@@ -191,6 +198,11 @@ Private Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>byte con que se representa c </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_l_z_w_8java_source.html#l00136">136</a> of file <a class="el" href="_l_z_w_8java_source.html">LZW.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">return</span> (<span class="keywordtype">byte</span>) (c &amp; 0xFF);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a3f55f98d674e1da4a760103752ddfd40"></a>
@@ -220,6 +232,41 @@ Private Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#aa9948769764de4cd170f0a24d15a328e">src.dominio.algoritmos.Algorithm</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_l_z_w_8java_source.html#l00027">27</a> of file <a class="el" href="_l_z_w_8java_source.html">LZW.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">int</span> nBytes = 1;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">int</span> dictSize = 256;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">int</span> maxInt = 256;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        Map&lt;String,Integer&gt; dic = <span class="keyword">new</span> HashMap&lt;String,Integer&gt;();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; dictSize; i++){</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            dic.put(<span class="stringliteral">&quot;&quot;</span> + (<span class="keywordtype">char</span>) i, i);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        String w = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        ByteArrayOutputStream result = <span class="keyword">new</span> ByteArrayOutputStream();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">byte</span> b;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">while</span>((b = uncompressed.<a class="code" href="classsrc_1_1persistencia_1_1_file.html#ac235b723c83143de3db32379c2e2f8cc">readByte</a>()) != 0){</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            String wc = w + <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a463e61a89ae70cf5c003811c6fc08908">byteToChar</a>(b);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">if</span> (dic.containsKey(wc))</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                w = wc;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                <span class="keywordflow">if</span>(dic.get(w) &gt;= maxInt){ </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#aa6eefb2e8bc8778b5a86164ff5d07fb9">write</a>(result,nBytes,0);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    nBytes++;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    maxInt = (int) Math.pow(2,nBytes * 8);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#aa6eefb2e8bc8778b5a86164ff5d07fb9">write</a>(result,nBytes,dic.get(w));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                dic.put(wc, dictSize++);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                w = <span class="stringliteral">&quot;&quot;</span> + <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a463e61a89ae70cf5c003811c6fc08908">byteToChar</a>(b);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (!w.equals(<span class="stringliteral">&quot;&quot;</span>))</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#aa6eefb2e8bc8778b5a86164ff5d07fb9">write</a>(result,nBytes,dic.get(w));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> result.toByteArray();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aeec1303635a49a8880453ebe5a470087"></a>
@@ -249,6 +296,48 @@ Private Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a660da7979451f05cf0831e42c7f8eb48">src.dominio.algoritmos.Algorithm</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_l_z_w_8java_source.html#l00089">89</a> of file <a class="el" href="_l_z_w_8java_source.html">LZW.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                                        {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">int</span> nBytes = 1;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordtype">int</span> dictSize = 256;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        Map&lt;Integer,String&gt; dictionary = <span class="keyword">new</span> HashMap&lt;Integer,String&gt;();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; dictSize; i++)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            dictionary.put(i, <span class="stringliteral">&quot;&quot;</span> + (<span class="keywordtype">char</span>)i);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">byte</span>[] bc;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        bc = compressed.<a class="code" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">readContent</a>(nBytes);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">if</span>(bc.length == 0) <span class="keywordflow">return</span> <span class="keyword">new</span> <span class="keywordtype">byte</span>[0];</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        String w = <span class="stringliteral">&quot;&quot;</span> + (char) (ByteArrayHelper.byteArrayToInt(bc) &amp; 0xFF);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        ByteArrayOutputStream result = <span class="keyword">new</span> ByteArrayOutputStream();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        result.write((<span class="keywordtype">byte</span>) ByteArrayHelper.byteArrayToInt(bc));</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">while</span>((bc = compressed.<a class="code" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">readContent</a>(nBytes)).length != 0){</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordtype">int</span> cod = ByteArrayHelper.byteArrayToInt(bc);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">if</span>(cod == 0) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                nBytes++; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            String act = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> (dictionary.containsKey(cod))</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                act = dictionary.get(cod);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cod == dictSize)</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                act = w + w.charAt(0);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">try</span>{</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="keywordflow">for</span>(<span class="keywordtype">char</span> c: act.toCharArray()) result.write(<a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#accfa7cf4a7a4b38190fdfd9a7a50f05b">charToByte</a>(c));</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">catch</span>(Exception e){</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                e.printStackTrace();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            dictionary.put(dictSize++, w + act.charAt(0));</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            w = act;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">return</span> result.toByteArray();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a39bcc3f43dc475c4b9f2aa617f75885c"></a>
@@ -270,6 +359,11 @@ Private Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#abf0df4305ef73cd0d313123d03ac072a">src.dominio.algoritmos.Algorithm</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_l_z_w_8java_source.html#l00157">157</a> of file <a class="el" href="_l_z_w_8java_source.html">LZW.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;LZW&quot;</span>;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aa6eefb2e8bc8778b5a86164ff5d07fb9"></a>
@@ -321,13 +415,29 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_l_z_w_8java_source.html#l00069">69</a> of file <a class="el" href="_l_z_w_8java_source.html">LZW.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">try</span>{</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            b.write(ByteArrayHelper.intToByteArray(n, nBytes));</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">catch</span>(Exception e)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            e.printStackTrace();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Pau/Code/Prop/src/dominio/algoritmos/<a class="el" href="_l_z_w_8java.html">LZW.java</a></li>
+<li>C:/Users/Pau/Code/Prop/src/dominio/algoritmos/<a class="el" href="_l_z_w_8java_source.html">LZW.java</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_ac235b723c83143de3db32379c2e2f8cc"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#ac235b723c83143de3db32379c2e2f8cc">src.persistencia.File.readByte</a></div><div class="ttdeci">byte readByte()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00072">File.java:72</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_l_z_w_html_aa6eefb2e8bc8778b5a86164ff5d07fb9"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#aa6eefb2e8bc8778b5a86164ff5d07fb9">src.dominio.algoritmos.LZW.write</a></div><div class="ttdeci">void write(ByteArrayOutputStream b, int nBytes, int n)</div><div class="ttdef"><b>Definition:</b> <a href="_l_z_w_8java_source.html#l00069">LZW.java:69</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_l_z_w_html_accfa7cf4a7a4b38190fdfd9a7a50f05b"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#accfa7cf4a7a4b38190fdfd9a7a50f05b">src.dominio.algoritmos.LZW.charToByte</a></div><div class="ttdeci">byte charToByte(char c)</div><div class="ttdef"><b>Definition:</b> <a href="_l_z_w_8java_source.html#l00136">LZW.java:136</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_l_z_w_html_a463e61a89ae70cf5c003811c6fc08908"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a463e61a89ae70cf5c003811c6fc08908">src.dominio.algoritmos.LZW.byteToChar</a></div><div class="ttdeci">char byteToChar(byte b)</div><div class="ttdef"><b>Definition:</b> <a href="_l_z_w_8java_source.html#l00147">LZW.java:147</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a516ffce5b85a48f036cfa961c05becbe"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">src.persistencia.File.readContent</a></div><div class="ttdeci">byte[] readContent(int nBytes)</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00087">File.java:87</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
