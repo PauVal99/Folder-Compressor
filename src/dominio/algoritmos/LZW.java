@@ -1,6 +1,7 @@
 package src.dominio.algoritmos;
 
 import java.util.*;
+import java.io.ByteArrayOutputStream;
 import java.lang.Math;
 
 import src.persistencia.*;
@@ -14,15 +15,6 @@ import src.dominio.ByteArrayHelper;
  */
 public class LZW extends Algorithm
 {
-    /** Número de bytes con los que se representa un código, se va actualizando en la ejecución. */
-    private int nBytes = 1;
-
-    /** Tamaño total del diccionario, se va actualizando en la ejecución. */
-    private int dictSize = 128;
-
-    /** Tamaño maximo de un entero, se va actualizando en la ejecución. */
-    private int maxInt = 256;
-
     /**
      * Comprime todo el texto del archivo representado por uncompressed.
      * Inicialmente escribe los códigos en un byte, cuando no es suficiente hace una marca y augmenta el numero de bytes.
@@ -34,34 +26,57 @@ public class LZW extends Algorithm
      */
     public byte[] compress(UncompressedFile uncompressed)
     {
-        Map<String,Integer> dictionary = new HashMap<String,Integer>();
-        for (int i = 0; i < dictSize; i++)
-            dictionary.put("" + (char)i, i);
+        int nBytes = 1;
+        int dictSize = 256;
+        int maxInt = 256;
+
+        Map<String,Integer> dic = new HashMap<String,Integer>();
+        for (int i = 0; i < dictSize; i++){
+            dic.put("" + (char) i, i);
+        }
 
         String w = "";
-        byte[] result = new byte[0];
-        char c;
-        while((c = uncompressed.readChar()) != 0){
-            String wc = w + c;
-            if (dictionary.containsKey(wc))
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        byte b;
+        while((b = uncompressed.readByte()) != 0){
+            String wc = w + byteToChar(b);
+            if (dic.containsKey(wc))
                 w = wc;
             else {
-                if(dictionary.get(w) >= maxInt){ 
-                    result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(0,nBytes));
+                if(dic.get(w) >= maxInt){ 
+                    write(result,nBytes,0);
                     nBytes++;
                     maxInt = (int) Math.pow(2,nBytes * 8);
                 }
-                result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(dictionary.get(w),nBytes));
-                dictionary.put(wc, dictSize++);
-                w = "" + c;
+                write(result,nBytes,dic.get(w));
+                dic.put(wc, dictSize++);
+                w = "" + byteToChar(b);
             }
         }
 
         if (!w.equals(""))
-            result = ByteArrayHelper.concatenate(result, ByteArrayHelper.intToByteArray(dictionary.get(w),nBytes));
-        return result;
+            write(result,nBytes,dic.get(w));
+        return result.toByteArray();
     }
     
+    /**
+     * Escribe en el byte array el entero n representdo por nBytes
+     * 
+     * @param b instancia de la clase ByteArrayOutputStream
+     * @param nBytes numero de bytes con los que se representa n
+     * @param n entero a escribir
+     */
+    private void write(ByteArrayOutputStream b, int nBytes, int n)
+    {
+        try{
+            b.write(ByteArrayHelper.intToByteArray(n, nBytes));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Descomprime el archivo representado por compressed.
      * Inicialmente lee los códigos en un byte, cuando recive una marca augmenta el numero de bytes.
@@ -72,30 +87,66 @@ public class LZW extends Algorithm
      * @see src.persistencia.CompressedFile
      */
     public byte[] decompress(CompressedFile compressed) {
+        int nBytes = 1;
+        int dictSize = 256;
+
         Map<Integer,String> dictionary = new HashMap<Integer,String>();
         for (int i = 0; i < dictSize; i++)
             dictionary.put(i, "" + (char)i);
 
         byte[] bc;
-        String w = "" + (char) ByteArrayHelper.byteArrayToInt(compressed.readContent(nBytes));
-        StringBuilder result = new StringBuilder(w);
+        bc = compressed.readContent(nBytes);
+        if(bc.length == 0) return new byte[0];
+
+        String w = "" + (char) (ByteArrayHelper.byteArrayToInt(bc) & 0xFF);
+
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        result.write((byte) ByteArrayHelper.byteArrayToInt(bc));
+
         while((bc = compressed.readContent(nBytes)).length != 0){
-            int c = ByteArrayHelper.byteArrayToInt(bc);
-            if(c == 0) {
+            int cod = ByteArrayHelper.byteArrayToInt(bc);
+            if(cod == 0) {
                 nBytes++; 
                 continue;
             }
             String act = "";
-            if (dictionary.containsKey(c))
-                act = dictionary.get(c);
-            else if (c == dictSize)
-                act = w + w.charAt(0); 
-            result.append(act);
+            if (dictionary.containsKey(cod))
+                act = dictionary.get(cod);
+            else if (cod == dictSize)
+                act = w + w.charAt(0);
+            try{
+                for(char c: act.toCharArray()) result.write(charToByte(c));
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
             dictionary.put(dictSize++, w + act.charAt(0));
             w = act;
         }
 
-        return result.toString().getBytes();
+        return result.toByteArray();
+    }
+
+    /**
+     * Convierte un caracter en un byte (solo guarda la parte baja)
+     * 
+     * @param c caracter a convertir
+     * @return byte con que se representa c
+     */
+    private byte charToByte(char c)
+    {
+        return (byte) (c & 0xFF);
+    }
+
+    /**
+     * Convierte un byte en un caracter sin extension de signo
+     * 
+     * @param b byte a convertir
+     * @return caracter que representa b
+     */
+    private char byteToChar(byte b)
+    {
+        return (char) (b & 0xFF);
     }
 
     /**

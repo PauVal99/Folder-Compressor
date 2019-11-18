@@ -18,9 +18,9 @@ import src.persistencia.*;
 public class LZSS extends Algorithm {
 
     /** Tamaño de la ventana corrediza */
-    private static final int WINDOW = 8192;
+    private static final int WINDOW = 4096;
     /** Tamaño máximo de coincidencia - lookahead */
-    private static final int MAX_MATCH_LENGHT = 32;
+    private static final int MAX_MATCH_LENGHT = 18;
 
     /**
      * Comprime todo el texto del archivo representado por decompressed.

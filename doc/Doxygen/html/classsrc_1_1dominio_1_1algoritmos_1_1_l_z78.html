@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('classsrc_1_1dominio_1_1algoritmos_1_1_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">src.dominio.algoritmos.LZ78 Class Reference</div>  </div>
@@ -110,11 +111,70 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a78719f3183f886574fa44028962f2a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a080102572280e44eae8fccadbcc630be"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a080102572280e44eae8fccadbcc630be">getName</a> ()</td></tr>
 <tr class="separator:a080102572280e44eae8fccadbcc630be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a91e9a64d5fae3fe43faa9e6cba97ed07"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a91e9a64d5fae3fe43faa9e6cba97ed07">charToByte</a> (char c)</td></tr>
+<tr class="separator:a91e9a64d5fae3fe43faa9e6cba97ed07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df7d500d989e3b8c0180a60ce2aeba4"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a6df7d500d989e3b8c0180a60ce2aeba4">byteToChar</a> (byte b)</td></tr>
+<tr class="separator:a6df7d500d989e3b8c0180a60ce2aeba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Esta clase representa el algoritmo de compresión y descompresión <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html">LZ78</a>. Se encarga de comprimir y descomprimir archivos. Usando parejas de enteros y caracteres donde los primeros referencian a los segundos.</p>
 <dl class="section author"><dt>Author</dt><dd>Pol Aguilar </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6df7d500d989e3b8c0180a60ce2aeba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6df7d500d989e3b8c0180a60ce2aeba4">&#9670;&nbsp;</a></span>byteToChar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char src.dominio.algoritmos.LZ78.byteToChar </td>
+          <td>(</td>
+          <td class="paramtype">byte&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91e9a64d5fae3fe43faa9e6cba97ed07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e9a64d5fae3fe43faa9e6cba97ed07">&#9670;&nbsp;</a></span>charToByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">byte src.dominio.algoritmos.LZ78.charToByte </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad74d25fe32a2772dc5ec1f006d9bf4ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad74d25fe32a2772dc5ec1f006d9bf4ab">&#9670;&nbsp;</a></span>compress()</h2>
 
@@ -139,7 +199,6 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array de bytes con el texto comprimido (no es legible, hay que descomprimirlo)</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_uncompressed_file.html">src.persistencia.UncompressedFile</a> </dd></dl>
-<p>current.equals("")</p>
 
 <p>Reimplemented from <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#aa9948769764de4cd170f0a24d15a328e">src.dominio.algoritmos.Algorithm</a>.</p>
 

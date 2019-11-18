@@ -1,6 +1,8 @@
 package src.dominio.algoritmos;
 
 import java.util.*;
+import java.io.ByteArrayOutputStream;
+
 import src.persistencia.*;
 import src.dominio.ByteArrayHelper;
 
@@ -23,37 +25,46 @@ public class LZ78 extends Algorithm{
      * @see src.persistencia.UncompressedFile
      */
     public byte[] compress(UncompressedFile uncompressed){
-        byte[] result = new byte[0];
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
         HashMap<String, Integer> codeWord = new HashMap<String, Integer>();
         String current ="";
         int key = 0;
-        char c;
+        byte b;
         boolean found = false;
-        while((c = uncompressed.readChar()) != 0){
-            current += c;
+        while((b = uncompressed.readByte()) != 0){
+            current += byteToChar(b);
             found = false;
             if(codeWord.containsKey(current)){
                 key = codeWord.get(current);
                 found = true;
             }
             else {
-                result = ByteArrayHelper.concatenate(result , ByteArrayHelper.intToByteArray(key,3));
-                byte[] aux = {(byte) c};
-                result = ByteArrayHelper.concatenate(result, aux);
-               // System.out.print(c + " ");
+                try{
+                result.write(ByteArrayHelper.intToByteArray(key,4));
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+                result.write(b);
                 codeWord.put(current,codeWord.size()+1);
                 key = 0;
                 current = "";
             }
         }
-         if(found){ //!current.equals("")
-              result = ByteArrayHelper.concatenate(result ,ByteArrayHelper.intToByteArray(0,3));
-              byte[] aux = {(byte)current.charAt(0)};
-              result = ByteArrayHelper.concatenate(result,aux);
-            //  System.out.print("\ny" + (byte) current.charAt(0) + "\nx");
-         } 
+        
+        if(found){
+            try{
+                result.write(ByteArrayHelper.intToByteArray(0,4));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            result.write(charToByte(current.charAt(0)));
+         }
 
-        return result;
+        return result.toByteArray();
     }
 
   /**
@@ -71,10 +82,10 @@ public class LZ78 extends Algorithm{
         int first;
         char last;
         byte[] pair;
-        while((pair = compressed.readContent(4)).length != 0) {
-            byte[] convert = Arrays.copyOfRange(pair,0,2);
+        while((pair = compressed.readContent(5)).length != 0) {
+            byte[] convert = Arrays.copyOfRange(pair,0,3);
             first = ByteArrayHelper.byteArrayToInt(convert);
-            last = (char) pair[3];
+            last = byteToChar(pair[4]);
             if(first == 0){
                 dictionary.add(last+"");
             }
@@ -82,12 +93,22 @@ public class LZ78 extends Algorithm{
                 dictionary.add(dictionary.get(first-1)+last);
             }
         }
-        StringBuilder sb = new StringBuilder();
-        for(String d : dictionary){
-            sb.append(d);
-         //   System.out.print(d + " ");
-        }
-        return sb.toString().getBytes();
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        for(String d : dictionary)
+            for(char c : d.toCharArray())
+                result.write(charToByte(c));
+
+        return result.toByteArray();
+    }
+
+    private byte charToByte(char c)
+    {
+        return (byte) (c & 0xFF);
+    }
+
+    private char byteToChar(byte b)
+    {
+        return (char) (b & 0xFF);
     }
 
      /**
@@ -95,7 +116,6 @@ public class LZ78 extends Algorithm{
      * 
      * @return nombre del algoritmo
      */
-
     public String getName()
     {
         return "LZ78";

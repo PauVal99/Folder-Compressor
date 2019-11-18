@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('classsrc_1_1dominio_1_1algoritmos_1_1_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">src.dominio.algoritmos.LZW Class Reference</div>  </div>
@@ -112,19 +112,87 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a39bcc3f43dc475c4b9f2aa617f75885c"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a39bcc3f43dc475c4b9f2aa617f75885c">getName</a> ()</td></tr>
 <tr class="separator:a39bcc3f43dc475c4b9f2aa617f75885c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:af7980d4ebd678393a7eb18fb706ee2ab"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#af7980d4ebd678393a7eb18fb706ee2ab">nBytes</a> = 1</td></tr>
-<tr class="separator:af7980d4ebd678393a7eb18fb706ee2ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3474c9dd1a756f9cb94891d7a378ae8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a3474c9dd1a756f9cb94891d7a378ae8c">dictSize</a> = 128</td></tr>
-<tr class="separator:a3474c9dd1a756f9cb94891d7a378ae8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d30923687d7f3cb11ef9bd117429c28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a9d30923687d7f3cb11ef9bd117429c28">maxInt</a> = 256</td></tr>
-<tr class="separator:a9d30923687d7f3cb11ef9bd117429c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aa6eefb2e8bc8778b5a86164ff5d07fb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#aa6eefb2e8bc8778b5a86164ff5d07fb9">write</a> (ByteArrayOutputStream b, int nBytes, int n)</td></tr>
+<tr class="separator:aa6eefb2e8bc8778b5a86164ff5d07fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accfa7cf4a7a4b38190fdfd9a7a50f05b"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#accfa7cf4a7a4b38190fdfd9a7a50f05b">charToByte</a> (char c)</td></tr>
+<tr class="separator:accfa7cf4a7a4b38190fdfd9a7a50f05b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a463e61a89ae70cf5c003811c6fc08908"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a463e61a89ae70cf5c003811c6fc08908">byteToChar</a> (byte b)</td></tr>
+<tr class="separator:a463e61a89ae70cf5c003811c6fc08908"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Esta clase representa el algoritmo de compresión y descompresión <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html">LZW</a>. Se encarga de comprimir y descomprimir archivos. Guarda los códigos en un número de bytes variable para augmentar la eficiencia.</p>
 <dl class="section author"><dt>Author</dt><dd>Pau Val </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a463e61a89ae70cf5c003811c6fc08908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a463e61a89ae70cf5c003811c6fc08908">&#9670;&nbsp;</a></span>byteToChar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char src.dominio.algoritmos.LZW.byteToChar </td>
+          <td>(</td>
+          <td class="paramtype">byte&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Convierte un byte en un caracter sin extension de signo</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>byte a convertir </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>caracter que representa b </dd></dl>
+
+</div>
+</div>
+<a id="accfa7cf4a7a4b38190fdfd9a7a50f05b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accfa7cf4a7a4b38190fdfd9a7a50f05b">&#9670;&nbsp;</a></span>charToByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">byte src.dominio.algoritmos.LZW.charToByte </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Convierte un caracter en un byte (solo guarda la parte baja)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>caracter a convertir </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>byte con que se representa c </dd></dl>
+
+</div>
+</div>
 <a id="a3f55f98d674e1da4a760103752ddfd40"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f55f98d674e1da4a760103752ddfd40">&#9670;&nbsp;</a></span>compress()</h2>
 
@@ -204,9 +272,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3474c9dd1a756f9cb94891d7a378ae8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3474c9dd1a756f9cb94891d7a378ae8c">&#9670;&nbsp;</a></span>dictSize</h2>
+<a id="aa6eefb2e8bc8778b5a86164ff5d07fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6eefb2e8bc8778b5a86164ff5d07fb9">&#9670;&nbsp;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,53 +282,27 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int src.dominio.algoritmos.LZW.dictSize = 128</td>
+          <td class="memname">void src.dominio.algoritmos.LZW.write </td>
+          <td>(</td>
+          <td class="paramtype">ByteArrayOutputStream&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Tamaño total del diccionario, se va actualizando en la ejecución. </p>
-
-</div>
-</div>
-<a id="a9d30923687d7f3cb11ef9bd117429c28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d30923687d7f3cb11ef9bd117429c28">&#9670;&nbsp;</a></span>maxInt</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">int src.dominio.algoritmos.LZW.maxInt = 256</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nBytes</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Tamaño maximo de un entero, se va actualizando en la ejecución. </p>
-
-</div>
-</div>
-<a id="af7980d4ebd678393a7eb18fb706ee2ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7980d4ebd678393a7eb18fb706ee2ab">&#9670;&nbsp;</a></span>nBytes</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">int src.dominio.algoritmos.LZW.nBytes = 1</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -270,7 +311,15 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Número de bytes con los que se representa un código, se va actualizando en la ejecución. </p>
+<p>Escribe en el byte array el entero n representdo por nBytes</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>instancia de la clase ByteArrayOutputStream </td></tr>
+    <tr><td class="paramname">nBytes</td><td>numero de bytes con los que se representa n </td></tr>
+    <tr><td class="paramname">n</td><td>entero a escribir </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
