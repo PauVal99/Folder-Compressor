@@ -1,4 +1,4 @@
-package src.dominio;
+package src.dominio.huff;
 
 import java.util.*;
 

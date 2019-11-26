@@ -1,7 +1,7 @@
 package src.dominio.algoritmos;
 
-import src.dominio.HuffTree;
-import src.dominio.Pair;
+import src.dominio.huff.HuffTree;
+import src.dominio.huff.Pair;
 import src.persistencia.CompressedFile;
 import src.persistencia.UncompressedFile;
 

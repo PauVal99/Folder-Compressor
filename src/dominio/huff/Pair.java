@@ -1,4 +1,4 @@
-package src.dominio;
+package src.dominio.huff;
 
 /**
  * Esta clase es el clasico Pair con su respectiva Clave y Valor
