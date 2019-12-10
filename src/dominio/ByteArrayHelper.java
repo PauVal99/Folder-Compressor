@@ -8,21 +8,6 @@ package src.dominio;
 public class ByteArrayHelper 
 {
     /**
-     * Concadena dos arrays de bytes.
-     * 
-     * @param a primer array de bytes
-     * @param b segundo array de bytes
-     * @return concadenación de a y b
-     */
-    public static byte[] concatenate(byte[] a, byte[] b) {
-        byte[] c = new byte[a.length + b.length];
-        System.arraycopy(a, 0, c, 0, a.length);
-        System.arraycopy(b, 0, c, a.length, b.length);
-
-        return c;
-    }
-
-    /**
      * Convierte un entero en los nBytes.
      * 
      * @param n entero a convertir
