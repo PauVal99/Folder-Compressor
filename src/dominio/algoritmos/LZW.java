@@ -37,8 +37,9 @@ public class LZW extends Algorithm
 
         String w = "";
         ByteArrayOutputStream result = new ByteArrayOutputStream();
-        byte b;
-        while((b = uncompressed.readByte()) != 0){
+        byte[] bc = {}; byte b;
+        while((bc = uncompressed.readContent(1)).length != 0){
+            b = bc[0];
             String wc = w + byteToChar(b);
             if (dic.containsKey(wc))
                 w = wc;
