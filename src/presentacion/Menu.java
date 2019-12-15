@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
-import src.persistencia.*;
 import tests.TestMenu;
 
 /**
@@ -48,42 +47,32 @@ public class Menu
     }
 
     /**
-     * Representa la petición de comprimir un archivo. Pregunta por el archivo a comprimir, su carpeta de destino, el nombre del archivo comprimido y el algoritmo con que se desea comprimir.
+     * Representa la petición de comprimir un archivo. Pregunta por el archivo o carpeta a comprimir, su carpeta de destino y el algoritmo con que se desea comprimir.
      */
     private void compress()
     {
-        UncompressedFile uncompressedFile = new UncompressedFile(readFile("Please enter the file path: ").getPath());
-        File destinationFolder = readFolder("Please enter the destination folder: ");
-        File destinationFile = readCompressDestinationFile(uncompressedFile, destinationFolder);
+        File source = readFileOrFolder("Please enter a file/folder path: ");
+        File destination = readFolder("Please enter the destination folder path: ");
         String algorithm = readAlgorithm();
 
-        Compressor compressor = new Compressor(uncompressedFile,destinationFile,algorithm);
+        Compressor compressor = new Compressor(source, destination, algorithm);
         compressor.compress();
     }
     
     /**
      * Representa la petición de descomprimir un archivo. Pregunta por el archivo comprimido y su carpeta de destino.
-     * Si el archivo indicado no fue comprimido por este programa o esta corrupto lo indicará y acabara la ejecución.
      */
     private void decompress()
     {
-        try{
-            CompressedFile compressedFile = new CompressedFile(readFile("Please enter the file path: ").getPath());
-            File destinationFolder = readFolder("Please enter the destination folder: ");
-            File destinationFile = readDecompressDestinationFile(compressedFile, destinationFolder);
-            Decompressor decompressor = new Decompressor(compressedFile,destinationFile);
-            decompressor.decompress();
-        }
-        catch(Exception e){
-            System.out.print(e.getMessage());
-        }
-
+        File source = readFile("Please enter the compressed file path: ");
+        File destination = readFolder("Please enter the destination folder path: ");
+        Decompressor decompressor = new Decompressor(source, destination);
+        decompressor.decompress();
     }
 
     /**
      * Representa la acción de ejecutar los drivers preparados.
-     * Crea una nueva instancia del menu de los tests.
-     * 
+     * Inicia el propio menu de los drivers.
      * 
      * @see tests/TestMenu.java
      */
@@ -94,13 +83,13 @@ public class Menu
     }
 
     /**
-     * Esta función muestra los posibles algoritmos de compression (incluyendo la opción de automatico) y espera hasta tener uno valido.
+     * Esta función muestra los posibles algoritmos de compressión (incluyendo la opción de automático) y espera hasta tener uno válido.
      * 
      * @return un string con el nombre del algoritmo seleccionado
      */
     private String readAlgorithm()
     {
-        String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", ""};
+        String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", "lz78", "lzss", "lzw", "jpeg", ""};
         String algorithm = console.readLine("Especify the algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         while(!Arrays.asList(possibleAlgorithms).contains(algorithm)) algorithm = console.readLine("Invalid algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         if(algorithm.equals("")) algorithm = "auto";
@@ -108,53 +97,23 @@ public class Menu
     }
 
     /**
-     * Esta función lee el nombre del fichero a comprimir, si existe pregunta por otro repetidamente.
-     * Si no se especifica el nombre se le da el original (sin la extensión), de la misma manera si ya existe se pregunta por otro nombre. 
+     * Esta función pregunta por una carpeta o un fichero, si no existe pregunta por otro repetidamente.
      * 
-     * @param file fichero a comprimir
-     * @param folder carpeta de destino
-     * @return una instancia de la classe File que representa el fichero de destino
+     * @param message mensaje con el que se preguntara por la carpeta
+     * @return una instancia de la clase File que representa la carpeta o el archivo
      * 
      * @see java.io.File
-     * @see persistencia.UncompressedFile
      */
-    private File readCompressDestinationFile(UncompressedFile file, File folder)
+    private File readFileOrFolder(String message)
     {
-        String name = console.readLine("Please enter the name of the compressed file (enter for same name): ");
-        if(name.equals("")) name = file.getFileName();
-        File destinationFile = new File(folder.toString() + File.separator + name);
-        while(destinationFile.exists()){
-            name = console.readLine("File already exists. Please enter a valid name (enter for same name): ");
-            if(name.equals("")) name = file.getFileName();
-            destinationFile = new File(folder.toString() + File.separator + name);
-        }
-        return destinationFile;
+        File f = new File(console.readLine(message));
+        while(!f.exists())
+            f = new File(console.readLine("File or folder not found. Please insert a valid file/folder path: "));
+        return f;
     }
 
     /**
-     * Esta función retorna una intancia de File que representa el archivo ya descomprimido.
-     * Si el nombre original del archivo a descomprimir ya existe en la carpeta de destino pregunta por un nombre nuevo.
-     * 
-     * @param file fichero comprimido
-     * @param folder carpeta de destino
-     * @return una instancia de la classe File que representa el fichero de destino
-     * 
-     * @see java.io.File
-     * @see persistencia.CompressedFile
-     */
-    private File readDecompressDestinationFile(CompressedFile file, File folder)
-    {
-        File destinationFile = new File(folder.toString() + File.separator + file.getOriginalName());
-        String newName = null;
-        while(destinationFile.exists()){
-            newName = console.readLine("File to decompress already exists. Please insert a new name: ");
-            destinationFile = new File(folder.toString() + File.separator + newName + file.getOriginalExtension());
-        }
-        return destinationFile;
-    }
-
-    /**
-     * Esta función pregunta por una carpeta, si ya existe pregunta por otra repetidamente.
+     * Esta función pregunta por una carpeta, si no existe pregunta por otra repetidamente.
      * 
      * @param message mensaje con el que se preguntara por la carpeta
      * @return una instancia de la clase File que representa la carpeta
@@ -170,7 +129,7 @@ public class Menu
     }
 
     /**
-     * Esta función pregunta por un ficher, si ya existe pregunta por otro repetidamente.
+     * Esta función pregunta por un fichero, si no existe pregunta por otro repetidamente.
      * 
      * @param message mensaje con el que se preguntara por el fichero
      * @return una instancia de la clase File que representa el fichero
@@ -179,11 +138,9 @@ public class Menu
      */
     private File readFile(String message)
     {
-        String path = console.readLine(message);
-        File file = new File(path);
+        File file = new File(console.readLine(message));
         while(!file.exists() || !file.isFile()){
-            path = console.readLine("File not found. Please insert a valid file: ");
-            file = new File(path);
+            file = new File(console.readLine("File not found. Please insert a valid file: "));
         }
         return file;
     }
