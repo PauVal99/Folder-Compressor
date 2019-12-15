@@ -5,7 +5,7 @@ package src.dominio;
  * 
  * @author Pol Aguilar
  */
-public class ByteArrayHelper 
+public class IntegerToByteHelper 
 {
     /**
      * Convierte un entero en los nBytes.
