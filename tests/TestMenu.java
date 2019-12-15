@@ -42,6 +42,8 @@ public class TestMenu {
         lzwtester.testCatala();
         lzwtester.testEspanol();
         lzwtester.testEnglish();
+        lzwtester.testTxtFolder();
+        lzwtester.testMixedFolder();
     }
 
     private void testLZ78()
@@ -57,6 +59,8 @@ public class TestMenu {
         lz78tester.testCatala();
         lz78tester.testEspanol();
         lz78tester.testEnglish();
+        lz78tester.testTxtFolder();
+        lz78tester.testMixedFolder();
     }
 
     private void testLZSS()
@@ -72,6 +76,8 @@ public class TestMenu {
         lzsstester.testCatala();
         lzsstester.testEspanol();
         lzsstester.testEnglish();
+        lzsstester.testTxtFolder();
+        lzsstester.testMixedFolder();
     }
 
     private void testJPEG()
