@@ -75,10 +75,10 @@ public abstract class Actor
      */
     protected Algorithm getAlgorithm(String algorithmName)
     {
-        /*if(algorithmName.equals("LZ78")) return new LZ78();
+        if(algorithmName.equals("LZ78")) return new LZ78();
         else if(algorithmName.equals("LZSS")) return new LZSS();
         else if(algorithmName.equals("LZW")) return new LZW();
-        else if(algorithmName.equals("JPEG")) return new JPEG();*/
+        else if(algorithmName.equals("JPEG")) return new JPEG();
         return new LZW();
     }
 }
