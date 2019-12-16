@@ -9,20 +9,14 @@ import java.lang.Math;
 
 /**
  * Esta clase representa el algoritmo de compresión y descompresión LZW.
- * Se encarga de comprimir y descomprimir archivos. Guarda los códigos en un número de bytes variable para augmentar la eficiencia.
+ * Se encarga de comprimir y descomprimir bytes. Guarda los códigos en un número de bytes variable para augmentar la eficiencia.
  * 
  * @author Pau Val
  */
 public class LZW extends Algorithm
 {
     /**
-     * Comprime todo el texto del archivo representado por uncompressed.
-     * Inicialmente escribe los códigos en un byte, cuando no es suficiente hace una marca y augmenta el numero de bytes.
-     * 
-     * @param uncompressed archivo a comprimir
-     * @return array de bytes con el texto comprimido (no es legible, hay que descomprimirlo)
-     * 
-     * @see src.persistencia.UncompressedFile
+     * {@inheritDoc}
      */
     public ByteArrayOutputStream compress(ByteArrayInputStream input)
     {
@@ -65,13 +59,7 @@ public class LZW extends Algorithm
     }
 
     /**
-     * Descomprime el archivo representado por compressed.
-     * Inicialmente lee los códigos en un byte, cuando recive una marca augmenta el numero de bytes.
-     * 
-     * @param compressed archivo a descomprimir
-     * @return array de bytes con el texto descomprimido
-     * 
-     * @see src.persistencia.CompressedFile
+     * {@inheritDoc}
      */
     public ByteArrayOutputStream decompress(ByteArrayInputStream input)
     {
@@ -121,7 +109,7 @@ public class LZW extends Algorithm
     }
 
     /**
-     * Convierte un caracter en un byte (solo guarda la parte baja)
+     * Convierte un caracter en un byte (solo guarda la parte baja).
      * 
      * @param c caracter a convertir
      * @return byte con que se representa c
@@ -132,7 +120,7 @@ public class LZW extends Algorithm
     }
 
     /**
-     * Convierte un byte en un caracter sin extension de signo
+     * Convierte un byte en un caracter sin extension de signo.
      * 
      * @param b byte a convertir
      * @return caracter que representa b
@@ -143,9 +131,7 @@ public class LZW extends Algorithm
     }
 
     /**
-     * Retorna el nombre de este algoritmo
-     * 
-     * @return nombre del algoritmo
+     * {@inheritDoc}
      */
     public String getName()
     {

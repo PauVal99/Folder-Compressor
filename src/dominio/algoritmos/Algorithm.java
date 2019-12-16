@@ -4,35 +4,37 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Esta clase representa un algoritmo de compresión y descompresión.
- * Se encarga de comprimir y descomprimir archivos.
+ * Esta clase representa un algoritmo capaz de comprimir y descomprimir.
+ * Es una clase abstracta.
  * 
  * @author Pau Val
  */
 public abstract class Algorithm
 {
     /**
-     * Comprime el archivo uncompressedFile
+     * Comprime los bytes de input.
      * 
-     * @param uncompressedFile archivo a comprimir
-     * @return bytes comprimidos del archivo uncompressedFile
+     * @param input bytes a comprimir
+     * @return bytes comprimidos
      * 
-     * @see src.persistencia.UncompressedFile
+     * @see src.persistencia.ByteArrayInputStream
+     * @see src.persistencia.ByteArrayOutputStream
      */
     public abstract ByteArrayOutputStream compress(ByteArrayInputStream input);
 
     /**
-     * Descomprime el archivo compressedFile
+     * Descomprime los bytes de input.
      * 
-     * @param compressedFile archivo a descomprimir
-     * @return bytes descomprimidos del archivo compressedFile
+     * @param input bytes a descomprimir
+     * @return bytes descomprimidos
      * 
-     * @see src.persistencia.CompressedFile
+     * @see src.persistencia.ByteArrayInputStream
+     * @see src.persistencia.ByteArrayOutputStream
      */
     public abstract ByteArrayOutputStream decompress(ByteArrayInputStream input);
 
     /**
-     * Retorna el nombre del algoritmo
+     * Retorna el nombre del algoritmo.
      * 
      * @return nombre del algoritmo
      */

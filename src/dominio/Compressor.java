@@ -15,12 +15,8 @@ import java.io.ByteArrayOutputStream;
  * 
  * @author Pau Val
  */
-
 public class Compressor extends Actor
 {
-    /** Tamaño original del archivo a comprimir */
-    private long originalSize;
-
     private Algorithm algorithm;
 
     private FileOutputStream destinationWritter;
@@ -59,9 +55,9 @@ public class Compressor extends Actor
     public void compress()
     {
         try{
-            initCompressStadistics();
+            initStadistics();
             recursiveCompression(source);
-            printCompressStadistics();
+            printStadistics();
             destinationWritter.close();
         }
         catch(Exception e){
@@ -101,19 +97,21 @@ public class Compressor extends Actor
     }
 
     /**
-     * Crea una cabezera con el nombre del archivo original y el nombre del algoritmo usado para la compresión.
-     * @return string "atributo:valor\n"
+     * Crea la cabezera de una carpeta comprimida con su tipo y path relativo.
+     * 
+     * @return string acabado en un salto de línea
      */
     private String getFolderHeader(File file)
     {
-        String header = "folder"                 + ";" +
-                        getRelativePath(file)    + "\n" ;
+        String header = "folder"              + ";" +
+                        getRelativePath(file) + "\n" ;
         return header;
     }
 
     /**
-     * Crea una cabezera con el nombre del archivo original y el nombre del algoritmo usado para la compresión.
-     * @return string "atributo:valor\n"
+     * Crea la cabezera de un fichero comprimido con su tipo, path relativo, nombre con extensión y tamaño comprimido.
+     * 
+     * @return string acabado en un salto de línea
      */
     private String getFileHeader(File file, int compressedLength)
     {
@@ -124,34 +122,28 @@ public class Compressor extends Actor
         return header;
     }
 
+    /**
+     * Retorna el path relativo a la carpeta raíz.
+     * 
+     * @param file archivo del cual se quiere saber su ruta relativa
+     * @return path relativo a la carpeta raíz
+     */
     private String getRelativePath(File file)
     {
         return source.getName() + file.getPath().replace(source.getPath(), "");
     }
 
     /**
-     * Recoje el momento en que se inicia la compresión y el tamaño del archivo a comprimir.
+     * Imprime por pantalla el tiempo transcurrido, el tampaño de source, el tamaño de destination y el ratio de compresión.
+     * Redefine el metodo printStadistics de Actor.
      * 
-     * @see src.dominio.Actor::initStadistics()
+     * @see src.dominio.Actor.printStadistics()
      */
-    private void initCompressStadistics()
+    protected void printStadistics()
     {
-        initStadistics();
-        originalSize = source.getSize();
-    }
-
-    /**
-     * Recoje el momento en que se acaba la compresión y el tamaño del archivo resultante.
-     * 
-     * @param long tamaño del archivo comprimido
-     * 
-     * @see src.dominio.Actor::printStadistics()
-     */
-    private void printCompressStadistics()
-    {
-        printStadistics();
-        System.out.print("Original size was "+originalSize+" bytes.\n");
-        System.out.print("Compressed size is "+destination.length()+" bytes.\n");
-        System.out.print("Compress ratio is "+((float)destination.getSize()/(float)originalSize)+" bytes.\n");
+        super.printStadistics();
+        System.out.print("Original size was "+source.getSize()+" bytes.\n");
+        System.out.print("Compressed size is "+destination.getSize()+" bytes.\n");
+        System.out.print("Compress ratio is "+((float)destination.getSize()/(float)source.getSize())+" bytes.\n");
     }
 }

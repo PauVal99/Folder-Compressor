@@ -12,7 +12,6 @@ import java.util.Date;
  * 
  * @author Pau Val
  */
-
 public abstract class Actor
 {
     /** Inicio de la ejecución */

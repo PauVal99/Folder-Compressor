@@ -14,11 +14,10 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * Esta clase representa un actor de descompresión.
- * Su cometido es llamar al algoritmo requerido y escribir el resultado en el fichero de destino.
+ * Su cometido es llamar al algoritmo descompressor requerido y escribir el resultado en el fichero de destino.
  * 
  * @author Pau Val
  */
-
 public class Decompressor extends Actor
 {
     /**
