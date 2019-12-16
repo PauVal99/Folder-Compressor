@@ -1,15 +1,10 @@
 package src.dominio;
 
-import java.io.File;
-import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
+import src.persistencia.File;
+import src.dominio.algoritmos.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import src.dominio.algoritmos.*;
 
 /**
  * Esta clase representa un actor que hara funciones tanto de compresión como descompresión.
@@ -18,7 +13,7 @@ import src.dominio.algoritmos.*;
  * @author Pau Val
  */
 
-public class Actor
+public abstract class Actor
 {
     /** Inicio de la ejecución */
     protected long startTime;
@@ -26,15 +21,14 @@ public class Actor
     /** Fin de la ejecución */
     protected long stopTime;
 
+    protected File source;
+
     /**
      * Archivo de destino
      * 
-     * @see java.io.File
+     * @see src.persistencia.File
      */
-    protected File destinationFile;
-
-    /** Algotirmo con el que se realizará la acción */
-    protected Algorithm algorithm;
+    protected File destination;
 
     /**
      * Construye un Actor.
@@ -42,13 +36,13 @@ public class Actor
      * @param destinationFile archivo de destino
      * @param algorithmName nombre del algoritmo a usar
      * 
-     * @see java.io.File
+     * @see src.persistencia.File
      * @see src.dominio.Actor::setAlgortihm()
      */
-    public Actor(File destinationFile, String algorithmName)
+    public Actor(File source, File destination)
     {
-        this.destinationFile = destinationFile;
-        this.algorithm = setAlgorithm(algorithmName);
+        this.source = source;
+        this.destination = destination;
     }
 
     /**
@@ -72,24 +66,6 @@ public class Actor
     }
 
     /**
-     * Escribe en el fichero de destino un array de bytes. Los bytes se escriben al final del archivo.
-     * Si el archivo no existe lo crea.
-     * 
-     * @param bytes array de bytes a escribir
-     * 
-     * @see java.nio.file.Files
-     * @see java.nio.file.StandardOpenOption
-     */
-    protected void writeInDestiantionFile(byte[] bytes)
-    {   
-        try{
-            Files.write(destinationFile.toPath(), bytes, StandardOpenOption.APPEND, StandardOpenOption.CREATE);}
-        catch (IOException e){
-            System.out.print("Error writing in destination file.");
-        }
-    }
-
-    /**
      * Del nombre de un algoritmo se retorna una instancia de la clase del algoritmo.
      * 
      * @param algorithmName nombre del algoritmo
@@ -97,12 +73,12 @@ public class Actor
      * 
      * @see src.dominio.algoritmos.Algorithm
      */
-    protected Algorithm setAlgorithm(String algorithmName)
+    protected Algorithm getAlgorithm(String algorithmName)
     {
-        if(algorithmName.equals("LZ78")) return new LZ78();
+        /*if(algorithmName.equals("LZ78")) return new LZ78();
         else if(algorithmName.equals("LZSS")) return new LZSS();
         else if(algorithmName.equals("LZW")) return new LZW();
-        else if(algorithmName.equals("JPEG")) return new JPEG();
+        else if(algorithmName.equals("JPEG")) return new JPEG();*/
         return new LZW();
     }
 }

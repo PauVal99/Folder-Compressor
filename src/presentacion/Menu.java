@@ -1,12 +1,12 @@
 package src.presentacion;
 
-import java.io.File;
-import java.io.Console;
-import java.util.Arrays;
-
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
+import src.persistencia.File;
 import tests.TestMenu;
+
+import java.io.Console;
+import java.util.Arrays;
 
 /**
  * Esta clase representa la interfaz por consola.
@@ -102,7 +102,7 @@ public class Menu
      * @param message mensaje con el que se preguntara por la carpeta
      * @return una instancia de la clase File que representa la carpeta o el archivo
      * 
-     * @see java.io.File
+     * @see src.persistencia.File
      */
     private File readFileOrFolder(String message)
     {
@@ -118,7 +118,7 @@ public class Menu
      * @param message mensaje con el que se preguntara por la carpeta
      * @return una instancia de la clase File que representa la carpeta
      * 
-     * @see java.io.File
+     * @see src.persistencia.File
      */
     private File readFolder(String message)
     {
@@ -134,7 +134,7 @@ public class Menu
      * @param message mensaje con el que se preguntara por el fichero
      * @return una instancia de la clase File que representa el fichero
      * 
-     * @see java.io.File
+     * @see src.persistencia.File
      */
     private File readFile(String message)
     {

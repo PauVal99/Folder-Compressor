@@ -1,10 +1,11 @@
 package tests;
 
-import java.io.File;
+import src.persistencia.File;
+import src.dominio.Compressor;
+import src.dominio.Decompressor;
+
 import java.nio.file.Files;
 import java.util.Arrays;
-
-import src.dominio.*;
 
 public class Tester {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -20,7 +21,7 @@ public class Tester {
 
         File source = new File("data/"+sourceName);
         File compressFolder = new File("data/compressed/"+alg_name);
-        File compressedFile = new File("data/compressed/"+alg_name+"/"+getFileName(source)+".cmprss");
+        File compressedFile = new File("data/compressed/"+alg_name+"/"+source.getFileName()+".cmprss");
         File result = new File("data/compressed/"+alg_name+"/"+sourceName);
 
         System.out.print(CYAN_BOLD_BRIGHT + "Compress:\n" + ANSI_RESET);
@@ -35,7 +36,7 @@ public class Tester {
         else System.out.print(ANSI_RED +sourceName+" test failed.\n" + ANSI_RESET);
 
         compressedFile.delete();
-        delete(result);
+        result.delete();
     }
 
     public void testJPEG(String sourceName)
@@ -44,7 +45,7 @@ public class Tester {
 
         File source = new File("data/"+sourceName);
         File compressFolder = new File("data/compressed/JPEG");
-        File compressedFile = new File("data/compressed/JPEG/"+getFileName(source)+".cmprss");
+        File compressedFile = new File("data/compressed/JPEG/"+source.getFileName()+".cmprss");
         File result = new File("data/compressed/JPEG/"+sourceName);
 
         System.out.print(CYAN_BOLD_BRIGHT + "Compress:\n" + ANSI_RESET);
@@ -58,7 +59,7 @@ public class Tester {
         System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
 
         compressedFile.delete();
-        delete(result);
+        result.delete();
     }
 
     private static boolean contentEquals(File expected, File given)
@@ -82,26 +83,5 @@ public class Tester {
             }
         }
         return equals;
-    }
-
-    private static String getFileName(File file)
-    {
-        String name = file.getName();
-        int pos = name.lastIndexOf(".");
-        if (pos > 0) {
-            name = name.substring(0, pos);
-        }
-        return name;
-    }
-
-    private static void delete(File file)
-    {
-        File[] contents = file.listFiles();
-        if (contents != null) {
-            for (File f : contents) {
-                delete(f);
-            }
-        }
-        file.delete();
     }
 }

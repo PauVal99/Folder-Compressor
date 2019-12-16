@@ -1,11 +1,11 @@
 package src.dominio.algoritmos;
 
+import src.dominio.IntegerToByteHelper;
+
 import java.util.*;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.Math;
-
-import src.persistencia.*;
-import src.dominio.ByteArrayHelper;
 
 /**
  * Esta clase representa el algoritmo de compresión y descompresión LZW.
@@ -24,7 +24,7 @@ public class LZW extends Algorithm
      * 
      * @see src.persistencia.UncompressedFile
      */
-    public byte[] compress(UncompressedFile uncompressed)
+    public ByteArrayOutputStream compress(ByteArrayInputStream input)
     {
         int nBytes = 1;
         int dictSize = 256;
@@ -35,47 +35,33 @@ public class LZW extends Algorithm
             dic.put("" + (char) i, i);
         }
 
-        String w = "";
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        byte[] bc = {}; byte b;
-        while((bc = uncompressed.readContent(1)).length != 0){
-            b = bc[0];
-            String wc = w + byteToChar(b);
-            if (dic.containsKey(wc))
-                w = wc;
-            else {
-                if(dic.get(w) >= maxInt){ 
-                    write(result,nBytes,0);
-                    nBytes++;
-                    maxInt = (int) Math.pow(2,nBytes * 8);
-                }
-                write(result,nBytes,dic.get(w));
-                dic.put(wc, dictSize++);
-                w = "" + byteToChar(b);
-            }
-        }
-
-        if (!w.equals(""))
-            write(result,nBytes,dic.get(w));
-        return result.toByteArray();
-    }
-    
-    /**
-     * Escribe en el byte array el entero n representdo por nBytes
-     * 
-     * @param b instancia de la clase ByteArrayOutputStream
-     * @param nBytes numero de bytes con los que se representa n
-     * @param n entero a escribir
-     */
-    private void write(ByteArrayOutputStream b, int nBytes, int n)
-    {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
         try{
-            b.write(ByteArrayHelper.intToByteArray(n, nBytes));
+            String w = "";
+            byte b;
+            while((b = (byte) (input.read() & 0xFF)) != -1){
+                String wc = w + byteToChar(b);
+                if (dic.containsKey(wc))
+                    w = wc;
+                else {
+                    if(dic.get(w) >= maxInt){ 
+                        output.write(IntegerToByteHelper.intToByteArray(0, nBytes));
+                        nBytes++;
+                        maxInt = (int) Math.pow(2,nBytes * 8);
+                    }
+                    output.write(IntegerToByteHelper.intToByteArray(dic.get(w), nBytes));
+                    dic.put(wc, dictSize++);
+                    w = "" + byteToChar(b);
+                }
+            }
+
+            if (!w.equals(""))
+                output.write(IntegerToByteHelper.intToByteArray(dic.get(w), nBytes));
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
+        return output;
     }
 
     /**
@@ -87,7 +73,8 @@ public class LZW extends Algorithm
      * 
      * @see src.persistencia.CompressedFile
      */
-    public byte[] decompress(CompressedFile compressed) {
+    public ByteArrayOutputStream decompress(ByteArrayInputStream input)
+    {
         int nBytes = 1;
         int dictSize = 256;
 
@@ -95,37 +82,42 @@ public class LZW extends Algorithm
         for (int i = 0; i < dictSize; i++)
             dictionary.put(i, "" + (char)i);
 
-        byte[] bc;
-        bc = compressed.readContent(nBytes);
-        if(bc.length == 0) return new byte[0];
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try{
+            byte[] bc = new byte[nBytes];
+            int r = input.read(bc);
+            if(r == -1) return output;
 
-        String w = "" + (char) (ByteArrayHelper.byteArrayToInt(bc) & 0xFF);
+            String w = "" + (char) (IntegerToByteHelper.byteArrayToInt(bc) & 0xFF);
 
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        result.write((byte) ByteArrayHelper.byteArrayToInt(bc));
+            output.write((byte) IntegerToByteHelper.byteArrayToInt(bc));
 
-        while((bc = compressed.readContent(nBytes)).length != 0){
-            int cod = ByteArrayHelper.byteArrayToInt(bc);
-            if(cod == 0) {
-                nBytes++; 
-                continue;
+            while((r = input.read(bc)) != -1){
+                int cod = IntegerToByteHelper.byteArrayToInt(bc);
+                if(cod == 0) {
+                    nBytes++;
+                    bc = new byte[nBytes];
+                    continue;
+                }
+                String act = "";
+                if (dictionary.containsKey(cod))
+                    act = dictionary.get(cod);
+                else if (cod == dictSize)
+                    act = w + w.charAt(0);
+                try{
+                    for(char c: act.toCharArray()) output.write(charToByte(c));
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                dictionary.put(dictSize++, w + act.charAt(0));
+                w = act;
             }
-            String act = "";
-            if (dictionary.containsKey(cod))
-                act = dictionary.get(cod);
-            else if (cod == dictSize)
-                act = w + w.charAt(0);
-            try{
-                for(char c: act.toCharArray()) result.write(charToByte(c));
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-            dictionary.put(dictSize++, w + act.charAt(0));
-            w = act;
         }
-
-        return result.toByteArray();
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return output;
     }
 
     /**

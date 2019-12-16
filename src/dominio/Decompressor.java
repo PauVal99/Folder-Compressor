@@ -1,9 +1,16 @@
 package src.dominio;
 
-import java.io.File;
-
-import src.persistencia.*;
 import src.dominio.Actor;
+import src.dominio.algoritmos.Algorithm;
+
+import src.persistencia.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.lang.Integer;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 /**
  * Esta clase representa un actor de descompresión.
@@ -14,26 +21,18 @@ import src.dominio.Actor;
 
 public class Decompressor extends Actor
 {
-    /** 
-     * Representa el fichero a descomprimir
-     * 
-     * @see src.persistencia.CompressedFile
-     */
-    private CompressedFile compressedFile;
-
     /**
      * Construye un Compressor.
      * 
      * @param compressedFile archivo a descomprimir
      * @param destinationFile archivo de destino
      * 
-     * @see java.io.File
+     * @see src.persistencia.File
      * @see src.persistencia.CompressedFile
      */
-    public Decompressor(CompressedFile compressedFile, File destinationFile)
+    public Decompressor(File source, File destination)
     {
-        super(destinationFile, compressedFile.getAlgorithm());
-        this.compressedFile = compressedFile;
+        super(source, destination);
     }
 
     /**
@@ -43,8 +42,45 @@ public class Decompressor extends Actor
     public void decompress()
     {
         initStadistics();
-        byte[] b = algorithm.decompress(compressedFile);
-        writeInDestiantionFile(b);
+        decompressSource();
         printStadistics();
+    }
+
+    private void decompressSource(){
+        try{
+            FileInputStream fileInputStream = new FileInputStream(source.getPath());
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(source.getPath()));
+            String paramsLine;
+            while((paramsLine = bufferedReader.readLine()) != null){
+                fileInputStream.skip((paramsLine+"\n").getBytes().length);
+                String[] params = paramsLine.split(";");
+                String type = params[0];
+                String path = params[1];
+                if(type.equals("folder")){
+                    File folder = new File(destination.getPath() + File.separator + path);
+                    folder.mkdirs();
+                }
+                else{
+                    File dest = new File(destination.getPath() + File.separator + path);
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    Algorithm algorithm = getAlgorithm(params[2]);
+                    int size = Integer.parseInt(params[3]);
+
+                    byte[] decom = new byte[size];
+                    fileInputStream.read(decom);
+                    ByteArrayInputStream bais = new ByteArrayInputStream(decom);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bufferedReader.skip((new String(decom)).toCharArray().length);
+                    baos = algorithm.decompress(bais);
+                    fos.write(baos.toByteArray());
+                    fos.close();
+                }
+            }
+            fileInputStream.close();
+            bufferedReader.close();
+        }
+        catch(Exception e){
+            System.out.print(e.getMessage());
+        }
     }
 }

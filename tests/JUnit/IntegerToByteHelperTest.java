@@ -1,9 +1,9 @@
 package tests.JUnit;
 
+import src.dominio.IntegerToByteHelper;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import src.dominio.IntegerToByteHelper;
 
 public class IntegerToByteHelperTest {
   @Test
