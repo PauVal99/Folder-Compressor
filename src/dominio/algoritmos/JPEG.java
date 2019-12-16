@@ -26,7 +26,7 @@ public class JPEG extends Algorithm
      * @see src.persistencia.UncompressedFile
      */
     @Override
-    public byte[] compress(UncompressedFile uncompressed)
+    public ByteArrayOutputStream compress(ByteArrayInputStream input
     {
         byte[] data= uncompressed.readAll();
 
