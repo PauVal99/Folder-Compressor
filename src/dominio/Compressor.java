@@ -1,11 +1,11 @@
 package src.dominio;
 
 import src.persistencia.File;
+import src.dominio.FileCompressor;
 import src.dominio.Actor;
 import src.dominio.algoritmos.Algorithm;
 
 import java.io.FileOutputStream;
-import java.io.ByteArrayOutputStream;
 
 /**
  * Esta clase representa un actor de compresión.
@@ -22,56 +22,64 @@ public class Compressor extends Actor
     /**
      * Construye un Compressor.
      * 
-     * @param uncompressed archivo o carpeta a comprimir
-     * @param destinationFile archivo de destino
+     * @param source archivo o carpeta a comprimir
+     * @param destinationFolder carpeta de destino
      * @param algorithmName nombre del algoritmo a usar
      * 
      * @see src.persistencia.File
-     * @see src.persistencia.UncompressedFile
      */
     public Compressor(File source, File destinationFolder, String algorithmName)
     {
         super(source, getDestinationFile(destinationFolder, source.getFileName()));
         try{
             this.destinationWritter = new FileOutputStream(this.destination);
+            this.algorithm = getAlgorithm(algorithmName);
         }
         catch(Exception e){
-            System.out.println("Error in file " + this.destination.getPath());
+            System.out.println("Error opening stream in file " + this.destination.getPath());
         }
-        this.algorithm = getAlgorithm(algorithmName);
-    }
-
-    private static File getDestinationFile(File destinationFolder, String name)
-    {
-        return new File(destinationFolder.getPath() + File.separator + name + ".cmprss");
     }
 
     /**
-     * Realiza la acción de comprimir un fichero con los parametros de la constructora.
-     * Se encaraga de recojer las estadísticas, escribir la cabecera del archivo comprimido y escribir el resultado.
+     * Retorna el archivo destino de esta compresión. Se construye con la carpeta de destino mas el nombre del source y la extensión .cmprss.
+     * 
+     * @param destinationFolder carpeta de destino
+     * @param fileName nombre del archivo a generar
+     * @return ruta del destino de la compresión
+     */
+    private static File getDestinationFile(File destinationFolder, String fileName)
+    {
+        return new File(destinationFolder.getPath() + File.separator + fileName + ".cmprss");
+    }
+
+    /**
+     * Realiza la acción de comprimir un fichero o carpeta con los parametros de la constructora.
+     * Se encaraga de recojer las estadísticas.
      */
     public void compress()
     {
         try{
             initStadistics();
             recursiveCompression(source);
-            printStadistics();
+            setStadistics();
             destinationWritter.close();
         }
         catch(Exception e){
-            System.out.println("Error closing fos.");
+            System.out.println("Error compressing: " + source.getPath());
         }
     }
 
+    /**
+     * Metodo recursivo que comprime una estructura de carpetas.
+     * 
+     * @param file Archivo o carpeta a comprimir
+     * @throws Exception En caso de error en la lectura o escritura de un fichero o carpeta
+     */
     private void recursiveCompression(File file) throws Exception
     {
-        if(file.isFile()){
-            FileCompressor fileCompressor = new FileCompressor(file, algorithm);
-            ByteArrayOutputStream compressedBytes = fileCompressor.compress();
-            destinationWritter.write(getFileHeader(file, compressedBytes.toByteArray().length).getBytes());
-            destinationWritter.write(compressedBytes.toByteArray());
-        } else {
-            destinationWritter.write(getFolderHeader(file).getBytes());
+        FileCompressor fileCompressor = new FileCompressor(file, algorithm, getRelativePath(file));
+        destinationWritter.write(fileCompressor.compress().toByteArray());
+        if(file.isDirectory()){
             File[] folderList = file.listFiles();
             for(File f: folderList){
                 recursiveCompression(f);
@@ -80,36 +88,10 @@ public class Compressor extends Actor
     }
 
     /**
-     * Crea la cabezera de una carpeta comprimida con su tipo y path relativo.
-     * 
-     * @return string acabado en un salto de línea
-     */
-    private String getFolderHeader(File file)
-    {
-        String header = "folder"              + ";" +
-                        getRelativePath(file) + "\n" ;
-        return header;
-    }
-
-    /**
-     * Crea la cabezera de un fichero comprimido con su tipo, path relativo, nombre con extensión y tamaño comprimido.
-     * 
-     * @return string acabado en un salto de línea
-     */
-    private String getFileHeader(File file, int compressedLength)
-    {
-        String header = "file"                + ";" +
-                        getRelativePath(file) + ";" +
-                        algorithm.getName()   + ";" +
-                        compressedLength      + "\n" ;
-        return header;
-    }
-
-    /**
-     * Retorna el path relativo a la carpeta raíz.
+     * Retorna la ruta relativa del fichero parametro i el source de la compresión.
      * 
      * @param file archivo del cual se quiere saber su ruta relativa
-     * @return path relativo a la carpeta raíz
+     * @return ruta relativa al source
      */
     private String getRelativePath(File file)
     {
@@ -117,14 +99,14 @@ public class Compressor extends Actor
     }
 
     /**
-     * Imprime por pantalla el tiempo transcurrido, el tampaño de source, el tamaño de destination y el ratio de compresión.
+     * Guarda el tiempo transcurrido, el tampaño de source, el tamaño de destination y el ratio de compresión.
      * Redefine el metodo printStadistics de Actor.
      * 
      * @see src.dominio.Actor.printStadistics()
      */
-    protected void printStadistics()
+    protected void setStadistics()
     {
-        super.printStadistics();
+        super.setStadistics();
         System.out.print("Original size was "+source.getSize()+" bytes.\n");
         System.out.print("Compressed size is "+destination.getSize()+" bytes.\n");
         System.out.print("Compress ratio is "+((float)destination.getSize()/(float)source.getSize())+" bytes.\n");

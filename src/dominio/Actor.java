@@ -58,7 +58,7 @@ public abstract class Actor
      * @see java.text.SimpleDateFormat
      * @see java.util.Date
      */
-    protected void printStadistics()
+    protected void setStadistics()
     {
         stopTime = System.currentTimeMillis();
         System.out.print("Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stopTime - startTime)) + ".\n");
