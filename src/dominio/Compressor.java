@@ -4,9 +4,7 @@ import src.persistencia.File;
 import src.dominio.Actor;
 import src.dominio.algoritmos.Algorithm;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 /**
@@ -68,7 +66,8 @@ public class Compressor extends Actor
     private void recursiveCompression(File file) throws Exception
     {
         if(file.isFile()){
-            ByteArrayOutputStream compressedBytes = compressFile(file);
+            FileCompressor fileCompressor = new FileCompressor(file, algorithm);
+            ByteArrayOutputStream compressedBytes = fileCompressor.compress();
             destinationWritter.write(getFileHeader(file, compressedBytes.toByteArray().length).getBytes());
             destinationWritter.write(compressedBytes.toByteArray());
         } else {
@@ -78,22 +77,6 @@ public class Compressor extends Actor
                 recursiveCompression(f);
             }
         }
-    }
-
-    private ByteArrayOutputStream compressFile(File file){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            byte[] read = new byte[(int) file.length()];
-            fis.read(read);
-            ByteArrayInputStream bais = new ByteArrayInputStream(read);
-            baos = algorithm.compress(bais);
-            fis.close();
-        }
-        catch(Exception e){
-            System.out.print("Error reading file:" + file.getPath());
-        }
-        return baos;
     }
 
     /**

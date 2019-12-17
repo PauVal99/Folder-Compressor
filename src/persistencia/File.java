@@ -35,6 +35,20 @@ public class File extends java.io.File
     }
 
     /**
+     * Retorna el nombre sin la extensión del fichero.
+     * 
+     * @return nombre sin la extensión del fichero
+     */
+    public String getExtension()
+    {
+        String extension = getName();
+        int pos = extension.lastIndexOf(".");
+        if (pos > 0)
+            extension = extension.substring(pos+1, extension.length()-1);
+        return extension;
+    }
+
+    /**
      * Retorna el tamaño del fichero o de la suma de sus ficheros si es una carpeta.
      * 
      * @return tamaño del fichero
