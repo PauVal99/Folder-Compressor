@@ -53,9 +53,9 @@ public class Menu
     {
         File source = readFileOrFolder("Please enter a file/folder path: ");
         File destination = readFolder("Please enter the destination folder path: ");
-        String algorithm = readAlgorithm();
+        String algorithmName = readAlgorithm();
 
-        Compressor compressor = new Compressor(source, destination, algorithm);
+        Compressor compressor = new Compressor(source, destination, algorithmName);
         compressor.compress();
     }
     
@@ -74,7 +74,7 @@ public class Menu
      * Representa la acción de ejecutar los drivers preparados.
      * Inicia el propio menu de los drivers.
      * 
-     * @see tests/TestMenu.java
+     * @see tests.TestMenu
      */
     private void runTest()
     {
@@ -106,10 +106,10 @@ public class Menu
      */
     private File readFileOrFolder(String message)
     {
-        File f = new File(console.readLine(message));
-        while(!f.exists())
-            f = new File(console.readLine("File or folder not found. Please insert a valid file/folder path: "));
-        return f;
+        File file = new File(console.readLine(message));
+        while(!file.exists())
+            file = new File(console.readLine("File or folder not found. Please insert a valid file/folder path: "));
+        return file;
     }
 
     /**
