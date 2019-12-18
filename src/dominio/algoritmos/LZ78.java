@@ -3,7 +3,6 @@ package src.dominio.algoritmos;
 import java.util.*;
 import java.io.ByteArrayOutputStream;
 import src.dominio.IntegerToByteHelper;
-import src.persistencia.*;
 import java.io.ByteArrayInputStream;
 
 /**
@@ -16,13 +15,13 @@ import java.io.ByteArrayInputStream;
 public class LZ78 extends Algorithm{
 
      /**
-     * Comprime todo el texto del archivo representado por uncompressed.
+     * Comprime todo el texto del archivo representado por el input.
      * Se va leyendo y tratando cada caracter de uno en uno.
      * 
-     * @param uncompressed archivo a comprimir
-     * @return array de bytes con el texto comprimido (no es legible, hay que descomprimirlo)
+     * @param input ByteArrayInputStream con el archivo a comprimir
+     * @return ByteArrayOutputStream con el texto comprimido (no es legible, hay que descomprimirlo)
      * 
-     * @see src.persistencia.UncompressedFile
+     *  
      */
     public ByteArrayOutputStream compress(ByteArrayInputStream input){
         ByteArrayOutputStream result = new ByteArrayOutputStream();
@@ -68,13 +67,13 @@ public class LZ78 extends Algorithm{
     }
 
   /**
-     * Descomprime el archivo representado por compressed.
+     * Descomprime el archivo representado por el input.
      * Lee enteros y caracteres y los trata con un dictionary para descomprimirlo.
      * 
-     * @param compressed archivo a descomprimir
-     * @return array de bytes con el texto descomprimido
+     * @param input ByteArrayInputStream con el archivo a descomprimir
+     * @return ByteArrayOutputStream con el texto descomprimido
      * 
-     * @see src.persistencia.CompressedFile
+     * 
      */
 
     public ByteArrayOutputStream  decompress(ByteArrayInputStream input){
@@ -109,7 +108,7 @@ public class LZ78 extends Algorithm{
         return result;
     }
 
-    private byte charToByte(char c)
+    private byte charToByte(char c) 
     {
         return (byte) (c & 0xFF);
     }
