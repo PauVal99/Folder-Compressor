@@ -7,8 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-import src.persistencia.*;
-
 /**
 * Esta clase representa el algoritmo de compresión y descompresión LZSS.
 * Se encarga de comprimir y descomprimir archivos. Devuelve una secuencia de bytes con el tamaño, los bits que serviran de flag y los caracteres comprimidos
@@ -137,6 +135,8 @@ public class LZSS extends Algorithm {
         byte[] bstring = new byte[x]; input.read(bstring, 0, x);
             String decomp = new String(bstring);
 
+            System.out.println(decomp);
+
         StringBuilder decompressedString = new StringBuilder();
         decompressedString = decompressedString.append(decomp);
         StringBuilder result = new StringBuilder();
@@ -168,9 +168,14 @@ public class LZSS extends Algorithm {
      * @return cadena de bytes con la información necesaria para la compresión
      *
      */
-    private byte[] readInput(ByteArrayInputStream input) throws IOException {
+    private byte[] readInput(ByteArrayInputStream input){
         byte[] array = new byte[input.available()];
-        input.read(array);
+        try{
+            input.read(array);
+        }
+        catch(Exception e){
+            System.out.println("Error reading inputBytes");
+        };
 
         return array;
     }

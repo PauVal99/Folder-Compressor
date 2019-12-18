@@ -1,6 +1,7 @@
 package src;
 
-import src.presentacion.Menu;
+import src.presentacion.ConsoleMenu;
+import src.presentacion.GraphicMenu;
 
 /**
  * Esta clase representa el inicio de ejecución de nuestro programa.
@@ -15,8 +16,13 @@ public class Main {
      * @param args representa los parametros de entrada. No se espera ninguno.
      */
     public static void main(String[] args) {
-        Menu menu = new Menu();
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GraphicMenu().setVisible(true);
+            }
+        });
+        ConsoleMenu menu = new ConsoleMenu();
         menu.start();
     }
 }
-

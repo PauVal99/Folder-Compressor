@@ -15,7 +15,7 @@ import java.util.Arrays;
  * @author Pau Val
  */
 
-public class Menu
+public class ConsoleMenu
 {
     /**
      * Instancia de la clase Console, permite hacer llamadas de entrada y salida.
@@ -27,7 +27,7 @@ public class Menu
     /**
      * Constructora de la clase, inicializa Console.
      */
-    public Menu()
+    public ConsoleMenu()
     {
         console = System.console();
     }

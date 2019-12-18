@@ -1,6 +1,7 @@
 package src.dominio;
 
 import src.persistencia.File;
+import src.presentacion.GraphicMenu;
 import src.dominio.algoritmos.*;
 
 import java.text.SimpleDateFormat;
@@ -18,9 +19,11 @@ public abstract class Actor
     protected long startTime;
 
     /** Fin de la ejecución */
-    protected long stopTime;
+    protected long elapsedTime;
 
     protected File source;
+
+    private String timeExecution;
 
     /**
      * Archivo de destino
@@ -60,8 +63,15 @@ public abstract class Actor
      */
     protected void setStadistics()
     {
-        stopTime = System.currentTimeMillis();
-        System.out.print("Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stopTime - startTime)) + ".\n");
+        elapsedTime = System.currentTimeMillis() - startTime;
+        timeExecution = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(elapsedTime)) + ".\n";
+        System.out.print(timeExecution);
+        GraphicMenu.printDecompressStadistics(getTimeExec());
+    }
+
+    protected String getTimeExec()
+    {
+        return timeExecution;
     }
 
     /**

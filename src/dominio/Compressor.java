@@ -4,6 +4,7 @@ import src.persistencia.File;
 import src.dominio.FileCompressor;
 import src.dominio.Actor;
 import src.dominio.algoritmos.Algorithm;
+import src.presentacion.GraphicMenu;
 
 import java.io.FileOutputStream;
 
@@ -107,8 +108,13 @@ public class Compressor extends Actor
     protected void setStadistics()
     {
         super.setStadistics();
-        System.out.print("Original size was "+source.getSize()+" bytes.\n");
-        System.out.print("Compressed size is "+destination.getSize()+" bytes.\n");
-        System.out.print("Compress ratio is "+((float)destination.getSize()/(float)source.getSize())+" bytes.\n");
+        String ogsize = "Original size was "+source.getSize()+" bytes.\n";
+        String cmpsize = "Compressed size is "+destination.getSize()+" bytes.\n";
+        String cmpratio = "Compress ratio is "+((float)destination.getSize()/(float)source.getSize())+" bytes.\n";
+        System.out.print(ogsize);
+        System.out.print(cmpsize);
+        System.out.print(cmpratio);
+
+        GraphicMenu.printCompressStadistics(getTimeExec(), ogsize, cmpsize, cmpratio);
     }
 }
