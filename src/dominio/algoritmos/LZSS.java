@@ -27,7 +27,7 @@ public class LZSS extends Algorithm {
      * Comprime todo el texto del archivo representado por decompressed.
      * Inicialmente guarda el contendio del fichero como una secuencia de carácteres y lo recorre para buscar las coincidencias
      *
-     * @param inputOriginal archivo a comprimir
+     * @param input archivo a comprimir
      * @return array de bytes con la información del texto comprimido (no es legible, hay que descomprimirlo)
      *
      * @see src.persistencia.UncompressedFile
@@ -35,8 +35,6 @@ public class LZSS extends Algorithm {
     public ByteArrayOutputStream compress(ByteArrayInputStream input)
     {
         ByteArrayOutputStream compressedComplete = new ByteArrayOutputStream();
-        int emptyFile = input.read();
-        if(emptyFile == -1) return compressedComplete;
         
         byte[] fileBytes = readInput(input);
         String aux = new String (fileBytes, StandardCharsets.UTF_8);
@@ -119,8 +117,6 @@ public class LZSS extends Algorithm {
     public ByteArrayOutputStream decompress(ByteArrayInputStream input)
     {
         ByteArrayOutputStream decompressedFile = new ByteArrayOutputStream();
-        int emptyFile = input.read();
-        if(emptyFile == -1) return decompressedFile;
 
         byte[] intReader = new byte[4];
             input.read(intReader, 0, 4);
@@ -134,8 +130,6 @@ public class LZSS extends Algorithm {
             BitSet match = byteToBits(bset);
         byte[] bstring = new byte[x]; input.read(bstring, 0, x);
             String decomp = new String(bstring);
-
-            System.out.println(decomp);
 
         StringBuilder decompressedString = new StringBuilder();
         decompressedString = decompressedString.append(decomp);
