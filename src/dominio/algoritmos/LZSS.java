@@ -161,6 +161,13 @@ public class LZSS extends Algorithm {
         return decompressedFile;
     }
 
+    /**
+     * Construye el array de bytes con la información necesaria para la posterior descompresion
+     *
+     * @param input cadena de ByteArrayInputStream
+     * @return cadena de bytes con la información necesaria para la compresión
+     *
+     */
     private byte[] readInput(ByteArrayInputStream input) throws IOException {
         byte[] array = new byte[input.available()];
         input.read(array);
