@@ -40,46 +40,46 @@ public class Decompressor extends Actor
      */
     public void decompress()
     {
-        initStadistics();
-        decompressSource();
-        printStadistics();
-    }
-
-    private void decompressSource(){
         try{
-            FileInputStream fileInputStream = new FileInputStream(source.getPath());
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(source.getPath()));
-            String paramsLine;
-            while((paramsLine = bufferedReader.readLine()) != null){
-                fileInputStream.skip((paramsLine+"\n").getBytes().length);
-                String[] params = paramsLine.split(";");
-                String type = params[0];
-                String path = params[1];
-                if(type.equals("folder")){
-                    File folder = new File(destination.getPath() + File.separator + path);
-                    folder.mkdirs();
-                }
-                else{
-                    File dest = new File(destination.getPath() + File.separator + path);
-                    FileOutputStream fos = new FileOutputStream(dest);
-                    Algorithm algorithm = getAlgorithm(params[2]);
-                    int size = Integer.parseInt(params[3]);
-
-                    byte[] decom = new byte[size];
-                    fileInputStream.read(decom);
-                    ByteArrayInputStream bais = new ByteArrayInputStream(decom);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bufferedReader.skip((new String(decom)).toCharArray().length);
-                    baos = algorithm.decompress(bais);
-                    fos.write(baos.toByteArray());
-                    fos.close();
-                }
-            }
-            fileInputStream.close();
-            bufferedReader.close();
+            initStadistics();
+            decompressSource();
+            setStadistics();
         }
         catch(Exception e){
-            System.out.print(e.getMessage());
+            System.out.println("Error decompressing: " + source.getPath());
         }
+    }
+
+    private void decompressSource() throws Exception
+    {
+        FileInputStream compressedFileReader = new FileInputStream(source.getPath());
+        BufferedReader headerReader = new BufferedReader(new FileReader(source.getPath()));
+        String header;
+        while((header = headerReader.readLine()) != null){
+            compressedFileReader.skip((header+"\n").getBytes().length);
+            String[] camp = header.split(";");
+            String type = camp[0];
+            File file = new File(destination.getPath() + File.separator + camp[1]);
+            if(type.equals("folder")) {
+                file.mkdirs();
+            } else {
+                Algorithm algorithm = getAlgorithm(camp[2]);
+                int size = Integer.parseInt(camp[3]);
+
+                byte[] decom = new byte[size];
+                compressedFileReader.read(decom);
+
+                ByteArrayInputStream compressedFileBytes = new ByteArrayInputStream(decom);
+                ByteArrayOutputStream decompressedFileBytes = algorithm.decompress(compressedFileBytes);
+
+                FileOutputStream fileWritter = new FileOutputStream(file);
+                fileWritter.write(decompressedFileBytes.toByteArray());
+                fileWritter.close();
+
+                headerReader.skip((new String(decom)).toCharArray().length);
+            }
+        }
+        compressedFileReader.close();
+        headerReader.close();
     }
 }
