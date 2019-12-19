@@ -3,8 +3,11 @@ package src.presentacion;
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
 import src.persistencia.File;
+import src.persistencia.ActorStadistics;
 import tests.TestMenu;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.Console;
 import java.util.Arrays;
 
@@ -54,9 +57,15 @@ public class ConsoleMenu
         File source = readFileOrFolder("Please enter a file/folder path: ");
         File destination = readFolder("Please enter the destination folder path: ");
         String algorithmName = readAlgorithm();
+        int quality = 50;
+        if(algorithmName.equals("JPEG")) quality = readQuality();
 
-        Compressor compressor = new Compressor(source, destination, algorithmName);
-        compressor.compress();
+        Compressor compressor = new Compressor(source, destination, algorithmName, quality);
+        ActorStadistics stadistics = compressor.execute();
+
+        System.out.println("Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime())));
+        System.out.println("Compress velocity was "+stadistics.getVelocity()+" Mb/s");
+        System.out.println("Compression ratio is "+stadistics.getCompressRatio());
     }
     
     /**
@@ -67,7 +76,10 @@ public class ConsoleMenu
         File source = readFile("Please enter the compressed file path: ");
         File destination = readFolder("Please enter the destination folder path: ");
         Decompressor decompressor = new Decompressor(source, destination);
-        decompressor.decompress();
+        ActorStadistics stadistics = decompressor.execute();
+
+        System.out.println("Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime())));
+        System.out.println("Compress velocity was "+stadistics.getVelocity()+" Mb/s");
     }
 
     /**
@@ -89,11 +101,23 @@ public class ConsoleMenu
      */
     private String readAlgorithm()
     {
-        String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", "lz78", "lzss", "lzw", "jpeg", ""};
+        String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", ""};
         String algorithm = console.readLine("Especify the algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         while(!Arrays.asList(possibleAlgorithms).contains(algorithm)) algorithm = console.readLine("Invalid algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         if(algorithm.equals("")) algorithm = "auto";
         return algorithm;
+    }
+
+    /**
+     * Esta función lee la calidad con la que se quiere comprimir y espera hasta tener un valor válido.
+     * 
+     * @return calidad de compressión
+     */
+    private int readQuality()
+    {
+        int quality = Integer.parseInt(console.readLine("Please enter the quality for compression (0 - 100): "));
+        while(quality > 100 || quality < 0) quality = Integer.parseInt(console.readLine("Invalid quality. Please enter a valid quality (0 - 100): "));
+        return quality;
     }
 
     /**

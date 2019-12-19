@@ -1,11 +1,11 @@
-package src.dominio;
+package src.util;
 
 /**
  * Esta clase contiene funciones auxiliares para convertir enteros en byte arrays y a la inversa.
  * 
  * @author Pol Aguilar
  */
-public class IntegerToByteHelper 
+public class IntegerToByte
 {
     /**
      * Convierte un entero en n bytes.

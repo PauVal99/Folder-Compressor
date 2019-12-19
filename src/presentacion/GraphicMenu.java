@@ -3,6 +3,7 @@ package src.presentacion;
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
 import src.persistencia.File;
+import src.persistencia.ActorStadistics;
 
 import java.awt.Color;
 import javax.swing.JFileChooser;
@@ -10,6 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos botones
+ * 
+ * @author Sebastian Acurio y Pol Aguilar
+ */
 
 public class GraphicMenu extends javax.swing.JFrame {
 
@@ -17,13 +26,19 @@ public class GraphicMenu extends javax.swing.JFrame {
     private File destinationCompress = null;
     private File sourceDecompress = null;
     private File destinationDecompress = null;
-    private ErrorDialog message;
+    private InformationDialog message;
 
+    /**
+     * Crea un GraphicMenu
+     */
     public GraphicMenu() {
         initComponents();
         initialViewProperties();
     }
 
+    /**
+     * Inicia los componentes necesarios para crear la interfaz.
+     */               
     private void initComponents() {
 
         completePanel = new javax.swing.JPanel();
@@ -361,7 +376,11 @@ public class GraphicMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>
 
-    final void initialViewProperties() {
+    /**
+     * Define algunas propiedades de la interfaz
+     */
+
+    final void initialViewProperties(){
         compressForm.setVisible(false);
         qualityText.setVisible(false);
         selectQual.setVisible(false);
@@ -371,15 +390,29 @@ public class GraphicMenu extends javax.swing.JFrame {
         dstDecompressPath.setEditable(false);
     }
 
-    void setColor(JPanel option) {
-        option.setBackground(new Color(32, 38, 50));
+    /**
+     * Pone el color
+     * 
+     *  @param option Panel en que se cambia el color
+     */
+    void setColor(JPanel option){
+        option.setBackground(new Color(32,38,50));
     }
-
-    void resetColor(JPanel option) {
-        option.setBackground(new Color(32, 47, 90));
+    
+    /**
+     * Reinicia el color
+     * 
+     *  @param option Panel en que se reinicia el color
+     */
+    void resetColor(JPanel option){
+        option.setBackground(new Color(32,47,90));
     }
-
-    private void btnCompressMousePressed(java.awt.event.MouseEvent evt) {
+    
+   /** Pone la interfaz para comprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void btnCompressMousePressed(java.awt.event.MouseEvent evt) {                                         
         setColor(btnCompress);
         resetColor(btnDecompress);
         resetColor(btnInfo);
@@ -393,9 +426,13 @@ public class GraphicMenu extends javax.swing.JFrame {
         runCompressButton.setVisible(true);
         algText.setVisible(true);
         optionQuality();
-    }
+    }   
 
-    private void btnDecompressMousePressed(java.awt.event.MouseEvent evt) {
+    /** Pone la interfaz para descomprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */ 
+    private void btnDecompressMousePressed(java.awt.event.MouseEvent evt) {                                           
         setColor(btnDecompress);
         resetColor(btnCompress);
         resetColor(btnInfo);
@@ -410,40 +447,63 @@ public class GraphicMenu extends javax.swing.JFrame {
         srcCompressPath.setVisible(false);
         runCompressButton.setVisible(false);
         algText.setVisible(false);
-    }
+    }     
 
-    private void btnInfoMousePressed(java.awt.event.MouseEvent evt) {
+    /** Pone la interfaz de Additional Info
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void btnInfoMousePressed(java.awt.event.MouseEvent evt) {                                     
         setColor(btnInfo);
         resetColor(btnDecompress);
         resetColor(btnCompress);
         compressForm.setVisible(false);
         titulMode.setVisible(false);
-    }
+    }     
 
-    private void closeButtonMousePressed(java.awt.event.MouseEvent evt) {
+    /** Cierra la interfaz
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void closeButtonMousePressed(java.awt.event.MouseEvent evt) {                                         
         System.exit(0);
-    }
+    }        
 
-    private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if (sourceCompress == null || destinationCompress == null) {
-            message = new ErrorDialog(this, true);
+    /** Programa el boton run para comprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        if (sourceCompress == null || destinationCompress == null){
+            message = new InformationDialog(this,true);
             message.changeValueLabel2("Source or Destination path not selected propperly !");
             message.setVisible(true);
-        } else {
-            String alg = (String) selectAlg.getSelectedItem();
-            Compressor cmp = new Compressor(sourceCompress, destinationCompress, alg);
-            cmp.compress();
+        }
+        else{ 
+            String alg = (String)selectAlg.getSelectedItem();
+            Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg,Integer.parseInt((String)selectQual.getText()));
+            ActorStadistics stadistics = cmp.execute();
 
-            optionQuality();
-            selectQual.setText("");
+            String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
+            String ratio = "Compress velocity was "+stadistics.getVelocity()+" Mb/s";
+            String velocity = "Compression ratio is "+stadistics.getCompressRatio();
+
+            InformationDialog message = new InformationDialog(new JFrame(),true);
+            message.showResults(time,ratio,velocity,"");
+            message.setVisible(true);
+            
+            qualityText.setVisible(false); selectQual.setVisible(false);
             srcCompressPath.setText("Source Path");
             dstCompressPath.setText("Destination Path");
         }
-        sourceCompress = null;
-        destinationCompress = null;
-    }
+        sourceCompress = null; destinationCompress = null;
+    }    
 
-    private void srcCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+   /** Boton para buscar el archivo a comprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void srcCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Text Files", "txt");
@@ -457,11 +517,18 @@ public class GraphicMenu extends javax.swing.JFrame {
             sourceCompress = new File(fc.getSelectedFile().getPath());
             this.srcCompressPath.setText(sourceCompress.getAbsolutePath());
         }
-    }
+    }    
 
-    private void selectAlgActionPerformed(java.awt.event.ActionEvent evt) {
+    /** Boton para elegir la cualidad del JPEG
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void selectAlgActionPerformed(java.awt.event.ActionEvent evt) {                                          
         optionQuality();
-    }
+    }                                         
+    /** 
+     * Funcionalidad del boton para elegir la cualidad del JPEG
+    */
 
     private void optionQuality() {
         if ("auto".equals(selectAlg.getSelectedItem().toString())) {
@@ -473,7 +540,11 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
     }
 
-    private void dstCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    /** Boton para buscar directorios donde guardar el fichero comprimido
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void dstCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int select = fc.showOpenDialog(this);
@@ -482,9 +553,13 @@ public class GraphicMenu extends javax.swing.JFrame {
             destinationCompress = new File(fc.getSelectedFile().getPath());
             this.dstCompressPath.setText(destinationCompress.getAbsolutePath());
         }
-    }
+    }    
 
-    private void dstDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    /** Boton para guardar ficheros descomrpimidos en decompress
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void dstDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int select = fc.showOpenDialog(this);
@@ -495,7 +570,11 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
     }
 
-    private void srcDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    /** Boton para buscar ficheros comprimidos para descomprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void srcDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Compressed Files", "cmprss");
@@ -505,31 +584,32 @@ public class GraphicMenu extends javax.swing.JFrame {
             sourceDecompress = new File(fc.getSelectedFile().getPath());
             this.srcDecompressPath.setText(sourceDecompress.getAbsolutePath());
         }
-    }
-
-    private void runDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if (sourceDecompress == null || destinationDecompress == null) {
-            message = new ErrorDialog(this, true);
+    }                                                   
+ 
+    /** Boton run para el decompress
+    * 
+    *  @param evt evento que activa la funcion
+    */
+    private void runDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        if (sourceDecompress == null || destinationDecompress == null){
+            message = new InformationDialog(this,true);
             message.changeValueLabel2("Source or Destination path not selected propperly !");
             message.setVisible(true);
-        } else {
-            Decompressor cmp = new Decompressor(sourceDecompress, destinationDecompress);
-            cmp.decompress();
+        }
+        else{ 
+            Decompressor cmp = new Decompressor(sourceDecompress,destinationDecompress);
+            ActorStadistics stadistics = cmp.execute();
+
+            String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
+            String velocity = "Compression ratio is "+stadistics.getCompressRatio();
+
+            InformationDialog message = new InformationDialog(new JFrame(),true);
+            message.showResults(time,velocity,"","");
+            message.setVisible(true);
+
             srcDecompressPath.setText("Source Path");
             dstDecompressPath.setText("Destination Path");
         }
-    }
-
-    public static void printCompressStadistics(String time, String ogsize, String cmpsize, String cmpratio) {
-        ErrorDialog message = new ErrorDialog(new JFrame(), true);
-        message.showResults(time, ogsize, cmpsize, cmpratio);
-        message.setVisible(true);
-    }
-
-    public static void printDecompressStadistics(String time) {
-        ErrorDialog message = new ErrorDialog(new JFrame(), true);
-        message.changeValueLabel2(time);
-        message.setVisible(true);
     }
 
     // Variables declaration - do not modify

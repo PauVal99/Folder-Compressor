@@ -29,6 +29,8 @@ src:
     File: Pau Val
   presentación:
     Menu: Pau Val
+    ErrorDialog: Sebastian Acurio y Pol Aguilar
+    GraphicMenu : Sebastian Acruio y Pol Aguilar
   Main: Pau Val
 tests:
   JUnit:

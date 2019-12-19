@@ -17,23 +17,21 @@ public class Tester {
 
     public void test(String sourceName, String alg_name) 
     {
-        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+sourceName+"\n" + ANSI_RESET);
+        System.out.println(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+sourceName + ANSI_RESET);
 
         File source = new File("data/"+sourceName);
         File compressFolder = new File("data/compressed/"+alg_name);
         File compressedFile = new File("data/compressed/"+alg_name+"/"+source.getFileName()+".cmprss");
         File result = new File("data/compressed/"+alg_name+"/"+sourceName);
 
-        System.out.print(CYAN_BOLD_BRIGHT + "Compress:\n" + ANSI_RESET);
-        Compressor compressor = new Compressor(source, compressFolder, alg_name);
-        compressor.compress();
+        Compressor compressor = new Compressor(source, compressFolder, alg_name, 50);
+        compressor.execute();
 
-        System.out.print(CYAN_BOLD_BRIGHT + "Decompress:\n" + ANSI_RESET);
         Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
-        decompressor.decompress();
+        decompressor.execute();
 
-        if (contentEquals(source, result)) System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
-        else System.out.print(ANSI_RED +sourceName+" test failed.\n" + ANSI_RESET);
+        if (contentEquals(source, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
+        else System.out.println(ANSI_RED +sourceName+" test failed." + ANSI_RESET);
 
         compressedFile.delete();
         result.delete();
@@ -48,13 +46,11 @@ public class Tester {
         File compressedFile = new File("data/compressed/JPEG/"+source.getFileName()+".cmprss");
         File result = new File("data/compressed/JPEG/"+sourceName);
 
-        System.out.print(CYAN_BOLD_BRIGHT + "Compress:\n" + ANSI_RESET);
-        Compressor compressor = new Compressor(source, compressFolder, "JPEG");
-        compressor.compress();
+        Compressor compressor = new Compressor(source, compressFolder, "JPEG", 50);
+        compressor.execute();
 
-        System.out.print(CYAN_BOLD_BRIGHT + "Decompress:\n" + ANSI_RESET);
         Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
-        decompressor.decompress();
+        decompressor.execute();
 
         System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
 

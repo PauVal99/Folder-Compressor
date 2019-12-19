@@ -2,6 +2,9 @@ package src.dominio;
 
 import src.dominio.Actor;
 import src.dominio.algoritmos.Algorithm;
+import src.persistencia.ActorStadistics;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 
 import src.persistencia.File;
 import java.io.BufferedReader;
@@ -9,8 +12,6 @@ import java.io.FileReader;
 import java.lang.Integer;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 
 /**
  * Esta clase representa un actor de descompresión.
@@ -38,16 +39,19 @@ public class Decompressor extends Actor
      * Realiza la acción de descomprimir un fichero con los parametros de la constructora.
      * Se encaraga de recojer las estadísticas y escribir el resultado.
      */
-    public void decompress()
+    public ActorStadistics execute()
     {
+        ActorStadistics stadistics = new ActorStadistics();
+        stadistics.setStartTime(System.currentTimeMillis());
+        stadistics.setOriginalSize(source.getSize());
         try{
-            initStadistics();
             decompressSource();
-            setStadistics();
         }
         catch(Exception e){
             System.out.println("Error decompressing: " + source.getPath());
         }
+        stadistics.setStopTime(System.currentTimeMillis());
+        return stadistics;
     }
 
     private void decompressSource() throws Exception
@@ -69,8 +73,8 @@ public class Decompressor extends Actor
                 byte[] decom = new byte[size];
                 compressedFileReader.read(decom);
 
-                ByteArrayInputStream compressedFileBytes = new ByteArrayInputStream(decom);
-                ByteArrayOutputStream decompressedFileBytes = algorithm.decompress(compressedFileBytes);
+                InputBuffer compressedFileBytes = new InputBuffer(decom);
+                OutputBuffer decompressedFileBytes = algorithm.decompress(compressedFileBytes);
 
                 FileOutputStream fileWritter = new FileOutputStream(file);
                 fileWritter.write(decompressedFileBytes.toByteArray());

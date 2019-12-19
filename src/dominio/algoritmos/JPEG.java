@@ -2,9 +2,8 @@ package src.dominio.algoritmos;
 
 import src.dominio.huff.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 import java.util.*;
 
 /**
@@ -25,10 +24,15 @@ public class JPEG extends Algorithm
      *
      */
     @Override
-    public ByteArrayOutputStream compress(ByteArrayInputStream input)
+    public OutputBuffer compress(InputBuffer input)
     {
-
-        byte[] data= readAllinput(input);
+        byte[] data = new byte[0];
+        try{
+            data = input.readAll();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
         modQuant(Q);
 
@@ -292,7 +296,7 @@ public class JPEG extends Algorithm
         //GUARDAR CODI HUFF
         for (int j = 0; j < RES.size(); j++) rbyte[i++]= RES.get(j);
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        OutputBuffer output = new OutputBuffer();
         output.write(rbyte,0,rbs);
 
         return output;
@@ -307,10 +311,15 @@ public class JPEG extends Algorithm
      *
      */
     @Override
-    public ByteArrayOutputStream decompress(ByteArrayInputStream input)
+    public OutputBuffer decompress(InputBuffer input)
     {
-        byte[] data;
-        data = readAllinput(input);
+        byte[] data = new byte[0];
+        try{
+            data = input.readAll();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
         //RESTAURAR HASHMAP
         int it=0;
@@ -336,7 +345,7 @@ public class JPEG extends Algorithm
         w= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
         h= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
         Q= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
-        setQ(Q);
+        setQuality(Q);
         int imageSize=w*h;
 
         //RESTAURAR VALORS
@@ -578,7 +587,7 @@ public class JPEG extends Algorithm
             RES[pos++]=(byte)(B[i] & 0xFF);
         }
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        OutputBuffer output = new OutputBuffer();
         output.write(RES,0,RES.length);
 
         return output;
@@ -681,22 +690,6 @@ public class JPEG extends Algorithm
         }
     }
 
-    /** Funcion que retorna todo el contenido del fichero original
-     *
-     * @param input buffer de lectura
-     * @return array devuelve todo el contenido del buffer
-     */
-    private byte[] readAllinput(ByteArrayInputStream input){
-        byte[] array = new byte[input.available()];
-        try {
-            input.read(array);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return array;
-    }
-
     /** Funcion que modifica la matriz de cuantificación
      * @param Q Valor que indica el indice de calidad a comprimir
      * */
@@ -715,10 +708,10 @@ public class JPEG extends Algorithm
      *
      * @param Q
      */
-    public void setQ(int Q){
+    public void setQuality(int quality){
         if(Q < 30) this.Q=30;
         else if (Q > 100) this.Q=100;
-        this.Q=Q;
+        this.Q = quality;
     }
 
     /**
