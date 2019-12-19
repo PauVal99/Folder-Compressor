@@ -84,7 +84,7 @@ public class TestMenu {
     {
         JPEGTester jpegtester= new JPEGTester();
         jpegtester.test1_4M();
-        jpegtester.NOdiv64();
+        jpegtester.testN8();
         jpegtester.test6M();
     }
 

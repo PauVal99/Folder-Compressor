@@ -16,11 +16,11 @@ import java.util.*;
 public class JPEG extends Algorithm
 {
     /**
-     * Comprime el archivo ppm que es representado por el fichero uncompressed.
+     * Comprime el archivo ppm que es representado por el Objeto de persistencia input buffer.
      * Inicialmente se obtiene todos los datos de la imagen y separa la parte del "Header" de los valores de los píxeles.
      *
-     * @param input Buffer con los datos del archivo a comprimir.
-     * @return Buffer de bytes con la información necesaria para poder descomprimir la imagen introducida.
+     * @param input Objeto de donde se consiguen los datos del archivo a comprimir.
+     * @return OutputBuffer con la información necesaria para poder descomprimir la imagen introducida.
      *
      */
     @Override
@@ -306,8 +306,8 @@ public class JPEG extends Algorithm
      * Descomprime el fichero comprimido anteriormente para recuperar la imagen original.
      * Inicialmente se obtiene todos los datos del archivo comprimido y mediante Huffman se recuperan los datos comprimidos necesarios para recuperar la imagen original.
      *
-     * @param input Buffer con los datos del archivo a comprimir.
-     * @return Buffer de bytes con la estructura necesaria para ser reprentado como un archivo PPM.
+     * @param input Objeto de donde se consiguen los datos del archivo a descomprimir.
+     * @return OutputBuffer con la estructura necesaria para ser reprentado como un archivo PPM.
      *
      */
     @Override
@@ -646,7 +646,7 @@ public class JPEG extends Algorithm
 
     /** Funcion que reduce el tamaño del intput introducido mediante marcas.
      * @param res ArrayList que al final de la función contriene los valores de data comprimidos.
-     * @param data Array de shorts que necesita ser comprimido.
+     * @param data Matriz de shorts que necesita ser comprimido.
      * */
     private void simplify_res(ArrayList<Short> res, short[][] data) {
         ArrayList<Short> aux= new ArrayList<>();

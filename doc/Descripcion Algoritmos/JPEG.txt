@@ -2,9 +2,12 @@ Este documento explica el funcionamiento del algoritmo JPEG:
 
 Compresión:
 
-Al incicio de la compresion se recibe un UncompressedFile del cual se extrae toda la información en bytes y se guarda
-en un Array(Este sistema da problemas con algunos pixeles de la imagen final, en la proxima entrega se solucionará),
-aqui se procesa el header del PPM introducido obteniendo la version del archivo juntamente con el tamaño de la imgaen
+Al incicio de la compresion se recibe un InputBuffer del cual se extrae toda la información en bytes y se procede a 
+generar una matriz del mismo tamaño que el de la imagen original para poder realizar tosas las operaciones posteriores,
+acto seguido se procede a cambiar las matrices de quantificación para poder ajustar el ratio de calidad de la imagen.
+
+
+Acto seguido, se procesa el header del PPM introducido obteniendo la version del archivo juntamente con el tamaño de la imgaen
 y el valor máximo de los pixeles aunque siempre van a ser 255, sirve para poder encontrar la primera posicion de los
 datos. Durante este proceso se ignoran todos los comentarios que pueda tener la imagen, estos estan codificados con un
 # al inicio de este.
@@ -35,15 +38,15 @@ Ahora se procede a crear un TreeMap para guardar las frequencias de cada valor y
 arbol de Huffman, esta función devuelve un HashMap para que la posterior codificación de los datos procesados sea más
 eficiente.
 
-Una vez aplicado Huffman se procede a retornar un Array de bytes que representa el fichero comprimido.
+Una vez aplicado Huffman se procede a retornar un objeto OutputBuffer
 
 
 Descompresión:
 
-Se recibe un CompressedFile, se procede a obtener toda su información y a guardarla en un Array de bytes, acto seguido
-se lee y reconstruye el HashMap representando los valores de cada valor con su respectivo codigo para regenerar todos
-los datos comprimidos con Huffman, una vez restaurado, se obtiene el tamaño de la foto y se recuperan los datos de cada
-espacio de color en un Array(Como se ha explicado anteriormente este proceso produce errores en los piexeles)
+Se recibe un InputBuffer, se procede a obtener toda su información , acto seguido se lee y reconstruye el HashMap 
+representando los valores de cada valor con su respectivo codigo para regenerar todoslos datos comprimidos con Huffman, 
+una vez restaurado, se obtiene el tamaño de la foto y el factor de calidad para despues poder crear 3 matricees del tamaño
+original de la imagen para poder reconstruir cada espacio de color y llevar a cabo la descompresión.
 
 Finalmente se procede a realizar los mismos pasos que se han especificado anteriormente pero en orden inverso con sus
 operaciones complementarias,es decir:
@@ -61,6 +64,4 @@ Se le suma a cada elemento 128 para poder restuaturar su valor aproximado en la 
 4:
 Se vuelve a cambiar de espacio de color, de YUV(YCbCr) a RGB
 
-Finalmente en un nuevo Array de bytes se ponen los bytes necesarios para representar el header del nuevo archivo ppm
-y a partir del caracter que representa el valor maximo de los pixeles se coloca el byte de final de linia y a partir de
-aqui se colocan todas las tripletas de bytes representado cada pixel con su respectivo valor RGB y se retorna.
+Finalmente se llena el OutputBuffer con la estructura necesaria para poder generar la imagen PPM descomprimida y se devuelve.

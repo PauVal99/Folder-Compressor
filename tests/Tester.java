@@ -52,7 +52,8 @@ public class Tester {
         Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
         decompressor.execute();
 
-        System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
+        if (contentEquals(source, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
+        else System.out.println(ANSI_RED +sourceName+" test failed." + ANSI_RESET);
 
         compressedFile.delete();
         result.delete();
