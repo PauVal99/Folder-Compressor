@@ -6,6 +6,7 @@ import src.persistencia.File;
 import src.persistencia.ActorStadistics;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -514,13 +515,39 @@ public class GraphicMenu extends javax.swing.JFrame {
                 if(!isNumeric(selectQual.getText()) || (Integer.parseInt(selectQual.getText()) < 0 || Integer.parseInt(selectQual.getText()) > 100 )) 
                     errorMessage("Choose a quality beetwen [0..100]");
                 else runCompressor("JPEG", Integer.parseInt(selectQual.getText()));
+
+                ckeckingFile(alg,"ppm");
             }
-            else runCompressor(alg,50);
+            else {
+                runCompressor(alg,50);
+                ckeckingFile(alg,"txt");
+            }
         }
         else {
             if(!isNumeric(selectQual.getText()) || (Integer.parseInt(selectQual.getText()) < 0 || Integer.parseInt(selectQual.getText()) > 100 )) 
                     errorMessage("Choose a quality beetwen [0..100]");
             else runCompressor(alg, Integer.parseInt(selectQual.getText()));
+        }
+    }
+
+    private void ckeckingFile(String algName, String extension){
+        if ("With checking display".equals(visualOption.getSelectedItem())){
+            File original = sourceCompress;
+            File compressFolder = new File("data/compressed/"+algName);
+            File compressedFile = new File(destinationCompress.getAbsolutePath()+"/"+original.getFileName()+".cmprss");
+            File result = new File("data/compressed/"+algName+"/"+original.getFileName()+"."+extension);
+            
+            Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
+            decompressor.execute();
+            
+            try {
+                Desktop.getDesktop().open(original);
+                Desktop.getDesktop().open(result);
+            } catch (Exception ex) {
+                System.out.println("Opnening Files failed !");
+            }
+
+            result.delete();
         }
     }
     
