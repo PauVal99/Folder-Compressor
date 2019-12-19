@@ -1,10 +1,10 @@
 package src.dominio;
 
+import src.persistencia.ActorStadistics;
 import src.persistencia.File;
 import src.dominio.FileCompressor;
 import src.dominio.Actor;
 import src.dominio.algoritmos.Algorithm;
-import src.presentacion.GraphicMenu;
 
 import java.io.FileOutputStream;
 
@@ -60,17 +60,21 @@ public class Compressor extends Actor
      * Realiza la acción de comprimir un fichero o carpeta con los parametros de la constructora.
      * Se encaraga de recojer las estadísticas.
      */
-    public void compress()
+    public ActorStadistics execute()
     {
+        ActorStadistics stadistics = new ActorStadistics();
+        stadistics.setOriginalSize(source.getSize());
+        stadistics.setStartTime(System.currentTimeMillis());
         try{
-            initStadistics();
             recursiveCompression(source);
-            setStadistics();
             destinationWritter.close();
         }
         catch(Exception e){
             System.out.println("Error compressing: " + source.getPath());
         }
+        stadistics.setStopTime(System.currentTimeMillis());
+        stadistics.setCompressedSize(destination.getSize());
+        return stadistics;
     }
 
     /**
@@ -100,24 +104,5 @@ public class Compressor extends Actor
     private String getRelativePath(File file)
     {
         return source.getName() + file.getPath().replace(source.getPath(), "");
-    }
-
-    /**
-     * Guarda el tiempo transcurrido, el tampaño de source, el tamaño de destination y el ratio de compresión.
-     * Redefine el metodo printStadistics de Actor.
-     * 
-     * @see src.dominio.Actor.printStadistics()
-     */
-    protected void setStadistics()
-    {
-        super.setStadistics();
-        String ogsize = "Original size was "+source.getSize()+" bytes.\n";
-        String cmpsize = "Compressed size is "+destination.getSize()+" bytes.\n";
-        String cmpratio = "Compress ratio is "+((float)destination.getSize()/(float)source.getSize())+" bytes.\n";
-        System.out.print(ogsize);
-        System.out.print(cmpsize);
-        System.out.print(cmpratio);
-
-        GraphicMenu.printCompressStadistics(getTimeExec(), ogsize, cmpsize, cmpratio);
     }
 }

@@ -1,11 +1,8 @@
 package src.dominio;
 
+import src.persistencia.ActorStadistics;
 import src.persistencia.File;
-import src.presentacion.GraphicMenu;
 import src.dominio.algoritmos.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Esta clase representa un actor que hara funciones tanto de compresión como descompresión.
@@ -22,8 +19,6 @@ public abstract class Actor
     protected long elapsedTime;
 
     protected File source;
-
-    private String timeExecution;
 
     /**
      * Archivo de destino
@@ -47,32 +42,7 @@ public abstract class Actor
         this.destination = destination;
     }
 
-    /**
-     * Guarda el inicio de una ejecución
-     */
-    protected void initStadistics()
-    {
-        startTime = System.currentTimeMillis();
-    }
-
-    /**
-     * Guarda el tiempo del fin de la ejecución y escribe por pantalla en un formato legible el tiempo de ejecución.
-     * 
-     * @see java.text.SimpleDateFormat
-     * @see java.util.Date
-     */
-    protected void setStadistics()
-    {
-        elapsedTime = System.currentTimeMillis() - startTime;
-        timeExecution = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(elapsedTime)) + ".\n";
-        System.out.print(timeExecution);
-        GraphicMenu.printDecompressStadistics(getTimeExec());
-    }
-
-    protected String getTimeExec()
-    {
-        return timeExecution;
-    }
+    public abstract ActorStadistics execute();
 
     /**
      * Del nombre de un algoritmo se retorna una instancia de la clase del algoritmo.

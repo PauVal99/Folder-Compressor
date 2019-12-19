@@ -3,12 +3,15 @@ package src.presentacion;
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
 import src.persistencia.File;
+import src.persistencia.ActorStadistics;
 
 import java.awt.Color;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos botones
@@ -489,8 +492,16 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
         else{ 
             String alg = (String)selectAlg.getSelectedItem();
-            Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg,(int)selectQual.getSelectedItem());
-            cmp.compress();
+            Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg,Integer.parseInt((String)selectQual.getSelectedItem()));
+            ActorStadistics stadistics = cmp.execute();
+
+            String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
+            String ratio = "Compress velocity was "+stadistics.getVelocity()+" Mb/s";
+            String velocity = "Compression ratio is "+stadistics.getCompressRatio();
+
+            InformationDialog message = new InformationDialog(new JFrame(),true);
+            message.showResults(time,ratio,velocity,"");
+            message.setVisible(true);
             
             qualityText.setVisible(false); selectQual.setVisible(false);
             srcCompressPath.setText("Source Path");
@@ -599,33 +610,18 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
         else{ 
             Decompressor cmp = new Decompressor(sourceDecompress,destinationDecompress);
-             cmp.decompress();
+            ActorStadistics stadistics = cmp.execute();
+
+            String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
+            String velocity = "Compression ratio is "+stadistics.getCompressRatio();
+
+            InformationDialog message = new InformationDialog(new JFrame(),true);
+            message.showResults(time,velocity,"","");
+            message.setVisible(true);
+
             srcDecompressPath.setText("Source Path");
             dstDecompressPath.setText("Destination Path");
         }
-    }
-
-    /** Imprime las estadisticas al comprimir
-    * 
-    *  @param time tiempo de ejecucion
-    *  @param ogsize tamaño original
-    *  @param ogsize tamaño comprimido
-    *  @param ogsize ratio de compresion
-    */
-    public static void printCompressStadistics(String time, String ogsize, String cmpsize, String cmpratio) {
-        InformationDialog message = new InformationDialog(new JFrame(),true);
-        message.showResults(time,ogsize,cmpsize,cmpratio);
-        message.setVisible(true);
-    }
-
-    /** Imprime las estadisticas al descomprimir
-    * 
-    *  @param time tiempo de ejecucion
-    */
-    public static void printDecompressStadistics(String time) {
-        InformationDialog message = new InformationDialog(new JFrame(),true);
-        message.changeValueLabel2(time);
-        message.setVisible(true);
     }
 
     // Variables declaration - do not modify                     

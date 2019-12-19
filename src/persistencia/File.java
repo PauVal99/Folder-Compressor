@@ -35,9 +35,9 @@ public class File extends java.io.File
     }
 
     /**
-     * Retorna el nombre sin la extensión del fichero.
+     * Retorna la extensión del fichero.
      * 
-     * @return nombre sin la extensión del fichero
+     * @return extensión del fichero
      */
     public String getExtension()
     {

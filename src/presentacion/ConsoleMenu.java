@@ -3,8 +3,11 @@ package src.presentacion;
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
 import src.persistencia.File;
+import src.persistencia.ActorStadistics;
 import tests.TestMenu;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.Console;
 import java.util.Arrays;
 
@@ -58,7 +61,11 @@ public class ConsoleMenu
         if(algorithmName.equals("JPEG")) quality = readQuality();
 
         Compressor compressor = new Compressor(source, destination, algorithmName, quality);
-        compressor.compress();
+        ActorStadistics stadistics = compressor.execute();
+
+        System.out.println("Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime())));
+        System.out.println("Compress velocity was "+stadistics.getVelocity()+" Mb/s");
+        System.out.println("Compression ratio is "+stadistics.getCompressRatio());
     }
     
     /**
@@ -69,7 +76,10 @@ public class ConsoleMenu
         File source = readFile("Please enter the compressed file path: ");
         File destination = readFolder("Please enter the destination folder path: ");
         Decompressor decompressor = new Decompressor(source, destination);
-        decompressor.decompress();
+        ActorStadistics stadistics = decompressor.execute();
+
+        System.out.println("Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime())));
+        System.out.println("Compress velocity was "+stadistics.getVelocity()+" Mb/s");
     }
 
     /**
