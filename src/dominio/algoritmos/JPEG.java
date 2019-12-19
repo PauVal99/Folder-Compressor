@@ -87,7 +87,6 @@ public class JPEG extends Algorithm
         short w= im_size(wid);
         short h= im_size(hei);
 
-        int imageSize= w*h;
         short[][] Y= new short[h][w];
         short[][] U= new short[h][w];
         short[][] V= new short[h][w];

@@ -8,11 +8,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 /**
-* Esta clase representa el algoritmo de compresión y descompresión LZSS.
-* Se encarga de comprimir y descomprimir archivos. Devuelve una secuencia de bytes con el tamaño, los bits que serviran de flag y los caracteres comprimidos
-*
-* @author Sebastian Acurio Navas
-*/
+ * Esta clase representa el algoritmo de compresión y descompresión LZSS. Se
+ * encarga de comprimir y descomprimir archivos. Devuelve una secuencia de bytes
+ * con el tamaño, los bits que serviran de flag y los caracteres comprimidos
+ *
+ * @author Sebastian Acurio Navas
+ */
 
 public class LZSS extends Algorithm {
 
@@ -25,21 +26,24 @@ public class LZSS extends Algorithm {
 
     /**
      * Comprime todo el texto del archivo representado por decompressed.
-     * Inicialmente guarda el contendio del fichero como una secuencia de carácteres y lo recorre para buscar las coincidencias
+     * Inicialmente guarda el contendio del fichero como una secuencia de carácteres
+     * y lo recorre para buscar las coincidencias
      *
      * @param input archivo a comprimir
-     * @return array de bytes con la información del texto comprimido (no es legible, hay que descomprimirlo)
+     * @return array de bytes con la información del texto comprimido (no es
+     *         legible, hay que descomprimirlo)
      *
      * @see src.persistencia.UncompressedFile
      */
     public ByteArrayOutputStream compress(ByteArrayInputStream input)
     {
         ByteArrayOutputStream compressedComplete = new ByteArrayOutputStream();
-        
+
         byte[] fileBytes = readInput(input);
-        String aux = new String (fileBytes, StandardCharsets.UTF_8);
+        String aux = new String(fileBytes, StandardCharsets.UTF_8);
+
         CharSequence fileUncompressed = aux;
-        
+
         ByteArrayOutputStream pairData = new ByteArrayOutputStream();
         byte[] auxPairData = new byte[2];
         int sizeFile = fileUncompressed.length();
@@ -55,7 +59,8 @@ public class LZSS extends Algorithm {
             List<Integer> positions = diccionari.get(actualChar);
 
             if (positions == null) {
-                positions = new LinkedList<>(); positions.add(i);
+                positions = new LinkedList<>();
+                positions.add(i);
                 diccionari.put(actualChar, positions);
 
             } else {
@@ -86,9 +91,9 @@ public class LZSS extends Algorithm {
             }
             if (found && matchLen >= 3) {
                 match.set(sizeStringCompressed);
-                auxPairData[0] = (byte)inici;
-                auxPairData[1] = (byte)(((inici >> 4) & 0xF0) | (matchLen - RECOVERVALUE));
-                pairData.write(auxPairData,0,2);
+                auxPairData[0] = (byte) inici;
+                auxPairData[1] = (byte) (((inici >> 4) & 0xF0) | (matchLen - RECOVERVALUE));
+                pairData.write(auxPairData, 0, 2);
                 i += matchLen - 1;
             } else {
                 match.set(sizeStringCompressed, false);
@@ -97,7 +102,8 @@ public class LZSS extends Algorithm {
             sizeStringCompressed++;
         }
         try {
-            compressedComplete = getCompressedBytes(compressedString.toString(), match.length(), match, sizeStringCompressed, pairData.toByteArray());
+            compressedComplete = getCompressedBytes(compressedString.toString(), match.length(), match,
+                    sizeStringCompressed, pairData.toByteArray());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -105,8 +111,9 @@ public class LZSS extends Algorithm {
     }
 
     /**
-     * Descomprime el archivo representado por compressedBytes.
-     * Inicialmente lee los bytes en un cierto orden para recuperar la información necesaria y proceder a la descompresión
+     * Descomprime el archivo representado por compressedBytes. Inicialmente lee los
+     * bytes en un cierto orden para recuperar la información necesaria y proceder a
+     * la descompresión
      *
      * @param inputCopmpressed archivo a descomprimir
      * @return array de bytes con el texto descomprimido
@@ -114,22 +121,23 @@ public class LZSS extends Algorithm {
      * @see src.persistencia.CompressedFile
      * @see src.persistencia.File
      */
-    public ByteArrayOutputStream decompress(ByteArrayInputStream input)
-    {
+    public ByteArrayOutputStream decompress(ByteArrayInputStream input) {
         ByteArrayOutputStream decompressedFile = new ByteArrayOutputStream();
 
         byte[] intReader = new byte[4];
-            input.read(intReader, 0, 4);
-            int n = fromByteArray(intReader);
-            input.read(intReader, 0, 4);
-            int nBits = fromByteArray(intReader);
-            int bsetSize = nBits / 8 + (((nBits) % 8 == 0) ? 0 : 1);
-            input.read(intReader, 0, 4);
-            int x = fromByteArray(intReader);
-        byte[] bset = new byte[bsetSize]; input.read(bset, 0, bsetSize);
-            BitSet match = byteToBits(bset);
-        byte[] bstring = new byte[x]; input.read(bstring, 0, x);
-            String decomp = new String(bstring);
+        input.read(intReader, 0, 4);
+        int n = fromByteArray(intReader);
+        input.read(intReader, 0, 4);
+        int nBits = fromByteArray(intReader);
+        int bsetSize = nBits / 8 + (((nBits) % 8 == 0) ? 0 : 1);
+        input.read(intReader, 0, 4);
+        int x = fromByteArray(intReader);
+        byte[] bset = new byte[bsetSize];
+        input.read(bset, 0, bsetSize);
+        BitSet match = byteToBits(bset);
+        byte[] bstring = new byte[x];
+        input.read(bstring, 0, x);
+        String decomp = new String(bstring);
 
         StringBuilder decompressedString = new StringBuilder();
         decompressedString = decompressedString.append(decomp);
@@ -138,9 +146,10 @@ public class LZSS extends Algorithm {
         int index = 0;
         for (int i = 0; i < n; i++) {
             if (match.get(i)) {
-                byte[] pairs = new byte[2]; input.read(pairs, 0, 2);
-                int start = (short)((pairs[0] & 0xFF) | ((pairs[1] & 0xF0) << 4));
-                int matchedLen = (short)((pairs[1] & 0x0F) + RECOVERVALUE);
+                byte[] pairs = new byte[2];
+                input.read(pairs, 0, 2);
+                int start = (short) ((pairs[0] & 0xFF) | ((pairs[1] & 0xF0) << 4));
+                int matchedLen = (short) ((pairs[1] & 0x0F) + RECOVERVALUE);
                 int ini = result.length() - start;
                 int end = ini + matchedLen;
                 for (; ini < end; ini++)
@@ -150,26 +159,27 @@ public class LZSS extends Algorithm {
             }
         }
         byte[] resultAux = result.toString().getBytes();
-        decompressedFile.write(resultAux,0,resultAux.length);
+        decompressedFile.write(resultAux, 0, resultAux.length);
 
         return decompressedFile;
     }
 
     /**
-     * Construye el array de bytes con la información necesaria para la posterior descompresion
+     * Construye el array de bytes con la información necesaria para la posterior
+     * descompresion
      *
      * @param input cadena de ByteArrayInputStream
      * @return cadena de bytes con la información necesaria para la compresión
      *
      */
-    private byte[] readInput(ByteArrayInputStream input){
+    private byte[] readInput(ByteArrayInputStream input) {
         byte[] array = new byte[input.available()];
-        try{
+        try {
             input.read(array);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error reading inputBytes");
-        };
+        }
+        ;
 
         return array;
     }
