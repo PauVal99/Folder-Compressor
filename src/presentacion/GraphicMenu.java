@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GraphicMenu extends javax.swing.JFrame {
@@ -17,12 +18,12 @@ public class GraphicMenu extends javax.swing.JFrame {
     private File sourceDecompress = null;
     private File destinationDecompress = null;
     private ErrorDialog message;
-    
+
     public GraphicMenu() {
         initComponents();
         initialViewProperties();
     }
-                        
+
     private void initComponents() {
 
         completePanel = new javax.swing.JPanel();
@@ -39,7 +40,6 @@ public class GraphicMenu extends javax.swing.JFrame {
         compressTitle = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         closeButton = new javax.swing.JLabel();
-        selectQual = new javax.swing.JComboBox<>();
         qualityText = new javax.swing.JLabel();
         selectAlg = new javax.swing.JComboBox<>();
         dstCompressButton = new javax.swing.JButton();
@@ -60,6 +60,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         runDecompressButton = new javax.swing.JButton();
         srcText = new javax.swing.JLabel();
         dstText = new javax.swing.JLabel();
+        selectQual = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Compressor/Decopressor - PROP");
@@ -86,20 +87,18 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         javax.swing.GroupLayout btnCompressLayout = new javax.swing.GroupLayout(btnCompress);
         btnCompress.setLayout(btnCompressLayout);
-        btnCompressLayout.setHorizontalGroup(
-            btnCompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCompressLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(comText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
-        );
-        btnCompressLayout.setVerticalGroup(
-            btnCompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCompressLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        btnCompressLayout
+                .setHorizontalGroup(
+                        btnCompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(btnCompressLayout.createSequentialGroup().addGap(27, 27, 27)
+                                        .addComponent(comText, javax.swing.GroupLayout.PREFERRED_SIZE, 152,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(111, Short.MAX_VALUE)));
+        btnCompressLayout
+                .setVerticalGroup(btnCompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(btnCompressLayout.createSequentialGroup().addContainerGap()
+                                .addComponent(comText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                .addContainerGap()));
 
         sidePanel.add(btnCompress, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 290, 50));
 
@@ -117,20 +116,15 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         javax.swing.GroupLayout btnInfoLayout = new javax.swing.GroupLayout(btnInfo);
         btnInfo.setLayout(btnInfoLayout);
-        btnInfoLayout.setHorizontalGroup(
-            btnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInfoLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(addText, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        btnInfoLayout.setVerticalGroup(
-            btnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        btnInfoLayout.setHorizontalGroup(btnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnInfoLayout
+                        .createSequentialGroup().addGap(27, 27, 27).addComponent(addText,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(31, Short.MAX_VALUE)));
+        btnInfoLayout.setVerticalGroup(btnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnInfoLayout.createSequentialGroup().addContainerGap()
+                        .addComponent(addText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                        .addContainerGap()));
 
         sidePanel.add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, -1, -1));
 
@@ -147,20 +141,18 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         javax.swing.GroupLayout btnDecompressLayout = new javax.swing.GroupLayout(btnDecompress);
         btnDecompress.setLayout(btnDecompressLayout);
-        btnDecompressLayout.setHorizontalGroup(
-            btnDecompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnDecompressLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(decText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
-        );
-        btnDecompressLayout.setVerticalGroup(
-            btnDecompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnDecompressLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(decText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        btnDecompressLayout
+                .setHorizontalGroup(
+                        btnDecompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(btnDecompressLayout.createSequentialGroup().addGap(27, 27, 27)
+                                        .addComponent(decText, javax.swing.GroupLayout.PREFERRED_SIZE, 152,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(111, Short.MAX_VALUE)));
+        btnDecompressLayout
+                .setVerticalGroup(btnDecompressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(btnDecompressLayout.createSequentialGroup().addContainerGap()
+                                .addComponent(decText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                .addContainerGap()));
 
         sidePanel.add(btnDecompress, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, -1, -1));
 
@@ -185,27 +177,26 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         javax.swing.GroupLayout titulModeLayout = new javax.swing.GroupLayout(titulMode);
         titulMode.setLayout(titulModeLayout);
-        titulModeLayout.setHorizontalGroup(
-            titulModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(titulModeLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(compressTitle)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        titulModeLayout.setVerticalGroup(
-            titulModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(titulModeLayout.createSequentialGroup()
-                .addGap(0, 52, Short.MAX_VALUE)
-                .addGroup(titulModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, titulModeLayout.createSequentialGroup()
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, titulModeLayout.createSequentialGroup()
-                        .addComponent(compressTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
-        );
+        titulModeLayout
+                .setHorizontalGroup(titulModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(titulModeLayout.createSequentialGroup().addGap(25, 25, 25).addComponent(compressTitle)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        titulModeLayout.setVerticalGroup(titulModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(titulModeLayout.createSequentialGroup().addGap(0, 52, Short.MAX_VALUE)
+                        .addGroup(titulModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                        titulModeLayout.createSequentialGroup()
+                                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap())
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                        titulModeLayout.createSequentialGroup()
+                                                .addComponent(compressTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(25, 25, 25)))));
 
         completePanel.add(titulMode, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 680, 110));
 
@@ -219,17 +210,13 @@ public class GraphicMenu extends javax.swing.JFrame {
         });
         completePanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 20, 20));
 
-        selectQual.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        selectQual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "50", "100", "150", "200" }));
-        selectQual.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        completePanel.add(selectQual, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 240, -1));
-
         qualityText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        qualityText.setText("Choose the JPEG quality compression:");
-        completePanel.add(qualityText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 270, -1));
+        qualityText.setText("Set the JPEG quality compression [0..100]:");
+        completePanel.add(qualityText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 280, -1));
 
         selectAlg.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        selectAlg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "auto", "LZ78", "LZSS", "LZW", "JPEG" }));
+        selectAlg.setModel(
+                new javax.swing.DefaultComboBoxModel<>(new String[] { "auto", "LZ78", "LZSS", "LZW", "JPEG" }));
         selectAlg.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         selectAlg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,27 +284,26 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         javax.swing.GroupLayout titulModeDecLayout = new javax.swing.GroupLayout(titulModeDec);
         titulModeDec.setLayout(titulModeDecLayout);
-        titulModeDecLayout.setHorizontalGroup(
-            titulModeDecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(titulModeDecLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(decompressTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        titulModeDecLayout.setVerticalGroup(
-            titulModeDecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(titulModeDecLayout.createSequentialGroup()
-                .addGap(0, 52, Short.MAX_VALUE)
-                .addGroup(titulModeDecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, titulModeDecLayout.createSequentialGroup()
-                        .addComponent(decompressTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, titulModeDecLayout.createSequentialGroup()
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
+        titulModeDecLayout.setHorizontalGroup(titulModeDecLayout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(titulModeDecLayout.createSequentialGroup().addGap(25, 25, 25).addComponent(decompressTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jSeparator3,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(32, Short.MAX_VALUE)));
+        titulModeDecLayout.setVerticalGroup(titulModeDecLayout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(titulModeDecLayout.createSequentialGroup().addGap(0, 52, Short.MAX_VALUE)
+                        .addGroup(titulModeDecLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                        titulModeDecLayout.createSequentialGroup()
+                                                .addComponent(decompressTitle, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(25, 25, 25))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                        titulModeDecLayout.createSequentialGroup()
+                                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap()))));
 
         compressForm.add(titulModeDec, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 680, 110));
 
@@ -366,13 +352,16 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         completePanel.add(compressForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 680, 510));
 
+        selectQual.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        completePanel.add(selectQual, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 240, -1));
+
         getContentPane().add(completePanel, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>                        
+    }// </editor-fold>
 
-    final void initialViewProperties(){
+    final void initialViewProperties() {
         compressForm.setVisible(false);
         qualityText.setVisible(false);
         selectQual.setVisible(false);
@@ -381,16 +370,16 @@ public class GraphicMenu extends javax.swing.JFrame {
         srcDecompressPath.setEditable(false);
         dstDecompressPath.setEditable(false);
     }
-    
-    void setColor(JPanel option){
-        option.setBackground(new Color(32,38,50));
+
+    void setColor(JPanel option) {
+        option.setBackground(new Color(32, 38, 50));
     }
-    
-    void resetColor(JPanel option){
-        option.setBackground(new Color(32,47,90));
+
+    void resetColor(JPanel option) {
+        option.setBackground(new Color(32, 47, 90));
     }
-    
-    private void btnCompressMousePressed(java.awt.event.MouseEvent evt) {                                         
+
+    private void btnCompressMousePressed(java.awt.event.MouseEvent evt) {
         setColor(btnCompress);
         resetColor(btnDecompress);
         resetColor(btnInfo);
@@ -404,9 +393,9 @@ public class GraphicMenu extends javax.swing.JFrame {
         runCompressButton.setVisible(true);
         algText.setVisible(true);
         optionQuality();
-    }                                        
+    }
 
-    private void btnDecompressMousePressed(java.awt.event.MouseEvent evt) {                                           
+    private void btnDecompressMousePressed(java.awt.event.MouseEvent evt) {
         setColor(btnDecompress);
         resetColor(btnCompress);
         resetColor(btnInfo);
@@ -421,129 +410,129 @@ public class GraphicMenu extends javax.swing.JFrame {
         srcCompressPath.setVisible(false);
         runCompressButton.setVisible(false);
         algText.setVisible(false);
-    }                                          
+    }
 
-    private void btnInfoMousePressed(java.awt.event.MouseEvent evt) {                                     
+    private void btnInfoMousePressed(java.awt.event.MouseEvent evt) {
         setColor(btnInfo);
         resetColor(btnDecompress);
         resetColor(btnCompress);
         compressForm.setVisible(false);
         titulMode.setVisible(false);
-    }                                    
+    }
 
-    private void closeButtonMousePressed(java.awt.event.MouseEvent evt) {                                         
+    private void closeButtonMousePressed(java.awt.event.MouseEvent evt) {
         System.exit(0);
-    }                                        
+    }
 
-    private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        if (sourceCompress == null || destinationCompress == null){
-            message = new ErrorDialog(this,true);
+    private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (sourceCompress == null || destinationCompress == null) {
+            message = new ErrorDialog(this, true);
             message.changeValueLabel2("Source or Destination path not selected propperly !");
             message.setVisible(true);
-        }
-        else{ 
-            String alg = (String)selectAlg.getSelectedItem();
-            Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg);
+        } else {
+            String alg = (String) selectAlg.getSelectedItem();
+            Compressor cmp = new Compressor(sourceCompress, destinationCompress, alg);
             cmp.compress();
-            
-            qualityText.setVisible(false); selectQual.setVisible(false);
+
+            optionQuality();
+            selectQual.setText("");
             srcCompressPath.setText("Source Path");
             dstCompressPath.setText("Destination Path");
         }
-        sourceCompress = null; destinationCompress = null;
-    }                                                 
+        sourceCompress = null;
+        destinationCompress = null;
+    }
 
-    private void srcCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    private void srcCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Text Files","txt");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Text Files", "txt");
         fc.setFileFilter(filtro);
         if ("JPEG".equals(selectAlg.getSelectedItem().toString())) {
-            FileNameExtensionFilter filtroPpm = new FileNameExtensionFilter("Image Files","ppm");
+            FileNameExtensionFilter filtroPpm = new FileNameExtensionFilter("Image Files", "ppm");
             fc.setFileFilter(filtroPpm);
         }
-        int select =  fc.showOpenDialog(this);
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+        if (select == JFileChooser.APPROVE_OPTION) {
             sourceCompress = new File(fc.getSelectedFile().getPath());
             this.srcCompressPath.setText(sourceCompress.getAbsolutePath());
         }
-    }                                                 
+    }
 
-    private void selectAlgActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void selectAlgActionPerformed(java.awt.event.ActionEvent evt) {
         optionQuality();
-    }                                         
+    }
 
-    private void optionQuality(){
-        if("JPEG".equals(selectAlg.getSelectedItem().toString())) {
+    private void optionQuality() {
+        if ("auto".equals(selectAlg.getSelectedItem().toString())) {
+            qualityText.setVisible(false);
+            selectQual.setVisible(false);
+        } else {
             qualityText.setVisible(true);
             selectQual.setVisible(true);
         }
-        else {
-            qualityText.setVisible(false);
-            selectQual.setVisible(false);
-        }
     }
-    private void dstCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+
+    private void dstCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int select =  fc.showOpenDialog(this);
-        
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+
+        if (select == JFileChooser.APPROVE_OPTION) {
             destinationCompress = new File(fc.getSelectedFile().getPath());
             this.dstCompressPath.setText(destinationCompress.getAbsolutePath());
         }
-    }                                                 
+    }
 
-    private void dstDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    private void dstDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int select =  fc.showOpenDialog(this);
-        
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+
+        if (select == JFileChooser.APPROVE_OPTION) {
             destinationDecompress = new File(fc.getSelectedFile().getPath());
             this.dstDecompressPath.setText(destinationDecompress.getAbsolutePath());
         }
-    }                                                   
+    }
 
-    private void srcDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    private void srcDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Compressed Files","cmprss");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Compressed Files", "cmprss");
         fc.setFileFilter(filtro);
-        int select =  fc.showOpenDialog(this);
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+        if (select == JFileChooser.APPROVE_OPTION) {
             sourceDecompress = new File(fc.getSelectedFile().getPath());
             this.srcDecompressPath.setText(sourceDecompress.getAbsolutePath());
         }
-    }                                                   
+    }
 
-    private void runDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        if (sourceDecompress == null || destinationDecompress == null){
-            message = new ErrorDialog(this,true);
+    private void runDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (sourceDecompress == null || destinationDecompress == null) {
+            message = new ErrorDialog(this, true);
             message.changeValueLabel2("Source or Destination path not selected propperly !");
             message.setVisible(true);
-        }
-        else{ 
-            Decompressor cmp = new Decompressor(sourceDecompress,destinationDecompress);
-             cmp.decompress();
+        } else {
+            Decompressor cmp = new Decompressor(sourceDecompress, destinationDecompress);
+            cmp.decompress();
             srcDecompressPath.setText("Source Path");
             dstDecompressPath.setText("Destination Path");
         }
     }
-    
+
     public static void printCompressStadistics(String time, String ogsize, String cmpsize, String cmpratio) {
-        ErrorDialog message = new ErrorDialog(new JFrame(),true);
-        message.showResults(time,ogsize,cmpsize,cmpratio);
+        ErrorDialog message = new ErrorDialog(new JFrame(), true);
+        message.showResults(time, ogsize, cmpsize, cmpratio);
         message.setVisible(true);
     }
 
     public static void printDecompressStadistics(String time) {
-        ErrorDialog message = new ErrorDialog(new JFrame(),true);
+        ErrorDialog message = new ErrorDialog(new JFrame(), true);
         message.changeValueLabel2(time);
         message.setVisible(true);
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify
     private javax.swing.JLabel addText;
     private javax.swing.JLabel algText;
     private javax.swing.JPanel btnCompress;
@@ -569,7 +558,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     private javax.swing.JButton runCompressButton;
     private javax.swing.JButton runDecompressButton;
     private javax.swing.JComboBox<String> selectAlg;
-    private javax.swing.JComboBox<String> selectQual;
+    private JTextField selectQual;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JButton srcCompressButton;
     private javax.swing.JTextField srcCompressPath;
