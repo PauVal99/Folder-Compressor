@@ -87,7 +87,6 @@ public class JPEG extends Algorithm
         short w= im_size(wid);
         short h= im_size(hei);
 
-        int imageSize= w*h;
         short[][] Y= new short[h][w];
         short[][] U= new short[h][w];
         short[][] V= new short[h][w];
@@ -337,7 +336,7 @@ public class JPEG extends Algorithm
         w= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
         h= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
         Q= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
-        setQ(Q);
+        setQuality(Q);
         int imageSize=w*h;
 
         //RESTAURAR VALORS
@@ -716,10 +715,10 @@ public class JPEG extends Algorithm
      *
      * @param Q
      */
-    public void setQ(int Q){
+    public void setQuality(int quality){
         if(Q < 30) this.Q=30;
         else if (Q > 100) this.Q=100;
-        this.Q=Q;
+        this.Q = quality;
     }
 
     /**

@@ -39,4 +39,15 @@ public abstract class Algorithm
      * @return nombre del algoritmo
      */
     public abstract String getName();
+
+    /**
+     * Asigna la calidad del algoritmo si este lo permite.
+     * Por defecto no hace nada.
+     * 
+     * @param quality calidad de 0 a 100
+     */
+    public void setQuality(int quality)
+    {
+        return;
+    }
 }

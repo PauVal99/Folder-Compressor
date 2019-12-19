@@ -25,7 +25,7 @@ public class Tester {
         File result = new File("data/compressed/"+alg_name+"/"+sourceName);
 
         System.out.print(CYAN_BOLD_BRIGHT + "Compress:\n" + ANSI_RESET);
-        Compressor compressor = new Compressor(source, compressFolder, alg_name);
+        Compressor compressor = new Compressor(source, compressFolder, alg_name, 50);
         compressor.compress();
 
         System.out.print(CYAN_BOLD_BRIGHT + "Decompress:\n" + ANSI_RESET);
@@ -49,7 +49,7 @@ public class Tester {
         File result = new File("data/compressed/JPEG/"+sourceName);
 
         System.out.print(CYAN_BOLD_BRIGHT + "Compress:\n" + ANSI_RESET);
-        Compressor compressor = new Compressor(source, compressFolder, "JPEG");
+        Compressor compressor = new Compressor(source, compressFolder, "JPEG", 50);
         compressor.compress();
 
         System.out.print(CYAN_BOLD_BRIGHT + "Decompress:\n" + ANSI_RESET);

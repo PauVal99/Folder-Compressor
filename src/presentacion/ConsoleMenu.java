@@ -54,8 +54,10 @@ public class ConsoleMenu
         File source = readFileOrFolder("Please enter a file/folder path: ");
         File destination = readFolder("Please enter the destination folder path: ");
         String algorithmName = readAlgorithm();
+        int quality = 50;
+        if(algorithmName.equals("JPEG") || algorithmName.equals("jpeg")) quality = readQuality();
 
-        Compressor compressor = new Compressor(source, destination, algorithmName);
+        Compressor compressor = new Compressor(source, destination, algorithmName, quality);
         compressor.compress();
     }
     
@@ -94,6 +96,18 @@ public class ConsoleMenu
         while(!Arrays.asList(possibleAlgorithms).contains(algorithm)) algorithm = console.readLine("Invalid algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         if(algorithm.equals("")) algorithm = "auto";
         return algorithm;
+    }
+
+    /**
+     * Esta función muestra los posibles algoritmos de compressión (incluyendo la opción de automático) y espera hasta tener uno válido.
+     * 
+     * @return un string con el nombre del algoritmo seleccionado
+     */
+    private int readQuality()
+    {
+        int quality = Integer.parseInt(console.readLine("Please enter the quality for compression (0 - 100): "));
+        while(quality > 100 || quality < 0) quality = Integer.parseInt(console.readLine("Invalid quality. Please enter a valid quality (0 - 100): "));
+        return quality;
     }
 
     /**

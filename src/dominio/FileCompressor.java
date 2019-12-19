@@ -27,6 +27,8 @@ public class FileCompressor
     /** Bytes que ocupa el archivo comprimido */
     private long compressedLength;
 
+    private int quality;
+
     /**
      * Construye el compresor de un fichero
      * 
@@ -34,11 +36,12 @@ public class FileCompressor
      * @param algorithm algoritmo que se usara en caso de texto
      * @param relativePath parametro necesario del header
      */
-    public FileCompressor(File source, Algorithm algorithm, String relativePath)
+    public FileCompressor(File source, Algorithm algorithm, String relativePath, int quality)
     {
         this.source = source;
         this.algorithm = algorithm;
         this.relativePath = relativePath;
+        this.quality = quality;
     }
 
     /**
@@ -108,6 +111,7 @@ public class FileCompressor
     private ByteArrayOutputStream compressFile(ByteArrayInputStream fileBytes)
     {
         if(source.getExtension().equals("ppm")) algorithm = new JPEG();
+        algorithm.setQuality(quality);
         return algorithm.compress(fileBytes);
     }
 }

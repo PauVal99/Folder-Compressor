@@ -443,7 +443,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
         else{ 
             String alg = (String)selectAlg.getSelectedItem();
-            Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg);
+            Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg,(int)selectQual.getSelectedItem());
             cmp.compress();
             
             qualityText.setVisible(false); selectQual.setVisible(false);

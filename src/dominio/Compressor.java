@@ -20,6 +20,8 @@ public class Compressor extends Actor
 
     private FileOutputStream destinationWritter;
 
+    private int quality;
+
     /**
      * Construye un Compressor.
      * 
@@ -29,12 +31,13 @@ public class Compressor extends Actor
      * 
      * @see src.persistencia.File
      */
-    public Compressor(File source, File destinationFolder, String algorithmName)
+    public Compressor(File source, File destinationFolder, String algorithmName, int quality)
     {
         super(source, getDestinationFile(destinationFolder, source.getFileName()));
         try{
             this.destinationWritter = new FileOutputStream(this.destination);
             this.algorithm = getAlgorithm(algorithmName);
+            this.quality = quality;
         }
         catch(Exception e){
             System.out.println("Error opening stream in file " + this.destination.getPath());
@@ -78,7 +81,7 @@ public class Compressor extends Actor
      */
     private void recursiveCompression(File file) throws Exception
     {
-        FileCompressor fileCompressor = new FileCompressor(file, algorithm, getRelativePath(file));
+        FileCompressor fileCompressor = new FileCompressor(file, algorithm, getRelativePath(file), quality);
         destinationWritter.write(fileCompressor.compress().toByteArray());
         if(file.isDirectory()){
             File[] folderList = file.listFiles();
