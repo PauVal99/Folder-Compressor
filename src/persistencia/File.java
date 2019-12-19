@@ -44,7 +44,7 @@ public class File extends java.io.File
         String extension = getName();
         int pos = extension.lastIndexOf(".");
         if (pos > 0)
-            extension = extension.substring(pos+1, extension.length()-1);
+            extension = extension.substring(pos+1, extension.length());
         return extension;
     }
 
