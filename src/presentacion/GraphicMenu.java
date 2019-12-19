@@ -590,7 +590,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     */
 
     private void optionQuality() {
-        if ("auto".equals(selectAlg.getSelectedItem().toString())) {
+        if ("Automatic Process".equals(selectAlg.getSelectedItem().toString())) {
             qualityText.setVisible(false);
             selectQual.setVisible(false);
         } else {
