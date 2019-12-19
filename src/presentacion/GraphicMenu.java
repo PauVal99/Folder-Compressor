@@ -10,6 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos botones
+ * 
+ * @author Sebastian Acurio y Pol Aguilar
+ */
+
 public class GraphicMenu extends javax.swing.JFrame {
 
     private File sourceCompress = null;
@@ -17,12 +23,18 @@ public class GraphicMenu extends javax.swing.JFrame {
     private File sourceDecompress = null;
     private File destinationDecompress = null;
     private ErrorDialog message;
-    
+
+    /**
+     * Crea un GrapgicMenu
+     */
     public GraphicMenu() {
         initComponents();
         initialViewProperties();
     }
-                        
+
+    /**
+     * Inicia los componentes necesarios para crear la interfaz.
+     */               
     private void initComponents() {
 
         completePanel = new javax.swing.JPanel();
@@ -372,6 +384,10 @@ public class GraphicMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>                        
 
+    /**
+     * Define algunas propiedades de la interfaz
+     */
+
     final void initialViewProperties(){
         compressForm.setVisible(false);
         qualityText.setVisible(false);
@@ -381,15 +397,29 @@ public class GraphicMenu extends javax.swing.JFrame {
         srcDecompressPath.setEditable(false);
         dstDecompressPath.setEditable(false);
     }
-    
+
+    /**
+     * Pone el color
+     * 
+     *  @param option Panel en que se cambia el color
+     */
     void setColor(JPanel option){
         option.setBackground(new Color(32,38,50));
     }
     
+    /**
+     * Reinicia el color
+     * 
+     *  @param option Panel en que se reinicia el color
+     */
     void resetColor(JPanel option){
         option.setBackground(new Color(32,47,90));
     }
     
+   /** Pone la interfaz para comprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void btnCompressMousePressed(java.awt.event.MouseEvent evt) {                                         
         setColor(btnCompress);
         resetColor(btnDecompress);
@@ -404,8 +434,12 @@ public class GraphicMenu extends javax.swing.JFrame {
         runCompressButton.setVisible(true);
         algText.setVisible(true);
         optionQuality();
-    }                                        
+    }   
 
+    /** Pone la interfaz para descomprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */ 
     private void btnDecompressMousePressed(java.awt.event.MouseEvent evt) {                                           
         setColor(btnDecompress);
         resetColor(btnCompress);
@@ -421,20 +455,32 @@ public class GraphicMenu extends javax.swing.JFrame {
         srcCompressPath.setVisible(false);
         runCompressButton.setVisible(false);
         algText.setVisible(false);
-    }                                          
+    }     
 
+    /** Pone la interfaz de Additional Info
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void btnInfoMousePressed(java.awt.event.MouseEvent evt) {                                     
         setColor(btnInfo);
         resetColor(btnDecompress);
         resetColor(btnCompress);
         compressForm.setVisible(false);
         titulMode.setVisible(false);
-    }                                    
+    }     
 
+    /** Cierra la interfaz
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void closeButtonMousePressed(java.awt.event.MouseEvent evt) {                                         
         System.exit(0);
-    }                                        
+    }        
 
+    /** Programa el boton run para comprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         if (sourceCompress == null || destinationCompress == null){
             message = new ErrorDialog(this,true);
@@ -451,8 +497,12 @@ public class GraphicMenu extends javax.swing.JFrame {
             dstCompressPath.setText("Destination Path");
         }
         sourceCompress = null; destinationCompress = null;
-    }                                                 
+    }    
 
+   /** Boton para buscar el archivo a comprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void srcCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -467,11 +517,18 @@ public class GraphicMenu extends javax.swing.JFrame {
             sourceCompress = new File(fc.getSelectedFile().getPath());
             this.srcCompressPath.setText(sourceCompress.getAbsolutePath());
         }
-    }                                                 
+    }    
 
+    /** Boton para elegir la cualidad del JPEG
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void selectAlgActionPerformed(java.awt.event.ActionEvent evt) {                                          
         optionQuality();
     }                                         
+    /** 
+     * Funcionalidad del boton para elegir la cualidad del JPEG
+    */
 
     private void optionQuality(){
         if("JPEG".equals(selectAlg.getSelectedItem().toString())) {
@@ -483,6 +540,11 @@ public class GraphicMenu extends javax.swing.JFrame {
             selectQual.setVisible(false);
         }
     }
+
+    /** Boton para buscar directorios donde guardar el fichero comprimido
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void dstCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -492,8 +554,12 @@ public class GraphicMenu extends javax.swing.JFrame {
             destinationCompress = new File(fc.getSelectedFile().getPath());
             this.dstCompressPath.setText(destinationCompress.getAbsolutePath());
         }
-    }                                                 
+    }    
 
+    /** Boton para guardar ficheros descomrpimidos en decompress
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void dstDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -505,6 +571,10 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
     }                                                   
 
+    /** Boton para buscar ficheros comprimidos para descomprimir
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void srcDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -516,7 +586,11 @@ public class GraphicMenu extends javax.swing.JFrame {
             this.srcDecompressPath.setText(sourceDecompress.getAbsolutePath());
         }
     }                                                   
-
+ 
+    /** Boton run para el decompress
+    * 
+    *  @param evt evento que activa la funcion
+    */
     private void runDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         if (sourceDecompress == null || destinationDecompress == null){
             message = new ErrorDialog(this,true);
@@ -530,13 +604,24 @@ public class GraphicMenu extends javax.swing.JFrame {
             dstDecompressPath.setText("Destination Path");
         }
     }
-    
+
+    /** Imprime las estadisticas al comprimir
+    * 
+    *  @param time tiempo de ejecucion
+    *  @param ogsize tamaño original
+    *  @param ogsize tamaño comprimido
+    *  @param ogsize ratio de compresion
+    */
     public static void printCompressStadistics(String time, String ogsize, String cmpsize, String cmpratio) {
         ErrorDialog message = new ErrorDialog(new JFrame(),true);
         message.showResults(time,ogsize,cmpsize,cmpratio);
         message.setVisible(true);
     }
 
+    /** Imprime las estadisticas al descomprimir
+    * 
+    *  @param time tiempo de ejecucion
+    */
     public static void printDecompressStadistics(String time) {
         ErrorDialog message = new ErrorDialog(new JFrame(),true);
         message.changeValueLabel2(time);
