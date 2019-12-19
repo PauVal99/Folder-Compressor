@@ -22,7 +22,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     private File destinationCompress = null;
     private File sourceDecompress = null;
     private File destinationDecompress = null;
-    private ErrorDialog message;
+    private InformationDialog message;
 
     /**
      * Crea un GrapgicMenu
@@ -483,7 +483,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     */
     private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         if (sourceCompress == null || destinationCompress == null){
-            message = new ErrorDialog(this,true);
+            message = new InformationDialog(this,true);
             message.changeValueLabel2("Source or Destination path not selected propperly !");
             message.setVisible(true);
         }
@@ -593,7 +593,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     */
     private void runDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         if (sourceDecompress == null || destinationDecompress == null){
-            message = new ErrorDialog(this,true);
+            message = new InformationDialog(this,true);
             message.changeValueLabel2("Source or Destination path not selected propperly !");
             message.setVisible(true);
         }
@@ -613,7 +613,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     *  @param ogsize ratio de compresion
     */
     public static void printCompressStadistics(String time, String ogsize, String cmpsize, String cmpratio) {
-        ErrorDialog message = new ErrorDialog(new JFrame(),true);
+        InformationDialog message = new InformationDialog(new JFrame(),true);
         message.showResults(time,ogsize,cmpsize,cmpratio);
         message.setVisible(true);
     }
@@ -623,7 +623,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     *  @param time tiempo de ejecucion
     */
     public static void printDecompressStadistics(String time) {
-        ErrorDialog message = new ErrorDialog(new JFrame(),true);
+        InformationDialog message = new InformationDialog(new JFrame(),true);
         message.changeValueLabel2(time);
         message.setVisible(true);
     }

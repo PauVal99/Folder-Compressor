@@ -5,7 +5,7 @@ package src.presentacion;
  *
  * @author Sebastian Acurio y Pol Aguilar
  */
-public class ErrorDialog extends javax.swing.JDialog {
+public class InformationDialog extends javax.swing.JDialog {
     
     /**
      * Crea un ErrorDialog
@@ -13,7 +13,7 @@ public class ErrorDialog extends javax.swing.JDialog {
      * @param parent Frame en el que se representa
      * @param modal modalidad del ErrorDialog
      */
-    public ErrorDialog (java.awt.Frame parent, boolean modal){
+    public InformationDialog (java.awt.Frame parent, boolean modal){
         super(parent, modal);
         initComponents();
     } 
