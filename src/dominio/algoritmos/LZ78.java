@@ -3,7 +3,8 @@ package src.dominio.algoritmos;
 import java.util.*;
 import src.persistencia.InputBuffer;
 import src.persistencia.OutputBuffer;
-import src.dominio.IntegerToByteHelper;
+import src.util.CharToByte;
+import src.util.IntegerToByte;
 
 /**
  * Esta clase representa el algoritmo de compresión y descompresión LZ78.
@@ -31,7 +32,7 @@ public class LZ78 extends Algorithm{
         byte b;
         boolean found = false;
         while((b = (byte) (input.read() & 0xFF)) != -1){
-            current += byteToChar(b);
+            current += CharToByte.byteToChar(b);
             found = false;
             if(codeWord.containsKey(current)){
                 key = codeWord.get(current);
@@ -39,7 +40,7 @@ public class LZ78 extends Algorithm{
             }
             else {
                 try{
-                result.write(IntegerToByteHelper.intToByteArray(key, 4));
+                result.write(IntegerToByte.intToByteArray(key, 4));
                 }
                 catch(Exception e)
                 {
@@ -54,13 +55,13 @@ public class LZ78 extends Algorithm{
         
         if(found){
             try{
-                result.write(IntegerToByteHelper.intToByteArray(0, 4));
+                result.write(IntegerToByte.intToByteArray(0, 4));
             }
             catch(Exception e)
             {
                 e.printStackTrace();
             }
-            result.write(charToByte(current.charAt(0)));
+            result.write(CharToByte.charToByte(current.charAt(0)));
          }
 
         return result;
@@ -85,8 +86,8 @@ public class LZ78 extends Algorithm{
         byte[]  pair = new byte[5];
         while((input.read(pair)) != -1) {
             byte[] convert = Arrays.copyOfRange(pair,0,3);
-            first = IntegerToByteHelper.byteArrayToInt(convert);
-            last = byteToChar(pair[4]);
+            first = IntegerToByte.byteArrayToInt(convert);
+            last = CharToByte.byteToChar(pair[4]);
             if(first == 0){
                 dictionary.add(last+"");
             }
@@ -97,7 +98,7 @@ public class LZ78 extends Algorithm{
        
         for(String d : dictionary)
             for(char c : d.toCharArray())
-                result.write(charToByte(c));
+                result.write(CharToByte.charToByte(c));
 
     
     }
@@ -106,16 +107,6 @@ public class LZ78 extends Algorithm{
         System.out.println(e.getMessage());
         }
         return result;
-    }
-
-    private byte charToByte(char c) 
-    {
-        return (byte) (c & 0xFF);
-    }
-
-    private char byteToChar(byte b)
-    {
-        return (char) (b & 0xFF);
     }
 
      /**

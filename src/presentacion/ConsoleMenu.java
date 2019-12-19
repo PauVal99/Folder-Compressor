@@ -55,7 +55,7 @@ public class ConsoleMenu
         File destination = readFolder("Please enter the destination folder path: ");
         String algorithmName = readAlgorithm();
         int quality = 50;
-        if(algorithmName.equals("JPEG") || algorithmName.equals("jpeg")) quality = readQuality();
+        if(algorithmName.equals("JPEG")) quality = readQuality();
 
         Compressor compressor = new Compressor(source, destination, algorithmName, quality);
         compressor.compress();
@@ -91,7 +91,7 @@ public class ConsoleMenu
      */
     private String readAlgorithm()
     {
-        String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", "lz78", "lzss", "lzw", "jpeg", ""};
+        String[] possibleAlgorithms = {"LZ78", "LZSS", "LZW", "JPEG", ""};
         String algorithm = console.readLine("Especify the algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         while(!Arrays.asList(possibleAlgorithms).contains(algorithm)) algorithm = console.readLine("Invalid algorithm (LZ78, LZSS, LZW, JPEG) (enter for auto): ");
         if(algorithm.equals("")) algorithm = "auto";

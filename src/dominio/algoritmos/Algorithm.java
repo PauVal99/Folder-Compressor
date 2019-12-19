@@ -34,13 +34,6 @@ public abstract class Algorithm
     public abstract OutputBuffer decompress(InputBuffer input);
 
     /**
-     * Retorna el nombre del algoritmo.
-     * 
-     * @return nombre del algoritmo
-     */
-    public abstract String getName();
-
-    /**
      * Asigna la calidad del algoritmo si este lo permite.
      * Por defecto no hace nada.
      * 
@@ -50,4 +43,11 @@ public abstract class Algorithm
     {
         return;
     }
+
+    /**
+     * Retorna el nombre del algoritmo.
+     * 
+     * @return nombre del algoritmo
+     */
+    public abstract String getName();
 }

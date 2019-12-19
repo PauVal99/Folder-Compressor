@@ -10,6 +10,7 @@ import src.presentacion.GraphicMenu;
  */
 
 public class Main {
+    
     /**
      * Función que llama por defecto Java al iniciar la ejecución.
      * 
