@@ -99,9 +99,9 @@ public class ConsoleMenu
     }
 
     /**
-     * Esta función muestra los posibles algoritmos de compressión (incluyendo la opción de automático) y espera hasta tener uno válido.
+     * Esta función lee la calidad con la que se quiere comprimir y espera hasta tener un valor válido.
      * 
-     * @return un string con el nombre del algoritmo seleccionado
+     * @return calidad de compressión
      */
     private int readQuality()
     {

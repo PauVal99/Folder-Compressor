@@ -1,9 +1,9 @@
 package src.dominio.algoritmos;
 
 import java.util.*;
-import java.io.ByteArrayOutputStream;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 import src.dominio.IntegerToByteHelper;
-import java.io.ByteArrayInputStream;
 
 /**
  * Esta clase representa el algoritmo de compresión y descompresión LZ78.
@@ -23,8 +23,8 @@ public class LZ78 extends Algorithm{
      * 
      *  
      */
-    public ByteArrayOutputStream compress(ByteArrayInputStream input){
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
+    public OutputBuffer compress(InputBuffer input){
+        OutputBuffer result = new OutputBuffer();
         HashMap<String, Integer> codeWord = new HashMap<String, Integer>();
         String current ="";
         int key = 0;
@@ -76,8 +76,8 @@ public class LZ78 extends Algorithm{
      * 
      */
 
-    public ByteArrayOutputStream  decompress(ByteArrayInputStream input){
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
+    public OutputBuffer  decompress(InputBuffer input){
+        OutputBuffer result = new OutputBuffer();
         try{ 
         ArrayList<String> dictionary = new ArrayList<String>();
         int first;

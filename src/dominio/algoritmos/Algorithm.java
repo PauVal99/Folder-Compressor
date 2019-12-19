@@ -1,7 +1,7 @@
 package src.dominio.algoritmos;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 
 /**
  * Esta clase representa un algoritmo capaz de comprimir y descomprimir.
@@ -20,7 +20,7 @@ public abstract class Algorithm
      * @see src.persistencia.ByteArrayInputStream
      * @see src.persistencia.ByteArrayOutputStream
      */
-    public abstract ByteArrayOutputStream compress(ByteArrayInputStream input);
+    public abstract OutputBuffer compress(InputBuffer input);
 
     /**
      * Descomprime los bytes de input.
@@ -31,7 +31,7 @@ public abstract class Algorithm
      * @see src.persistencia.ByteArrayInputStream
      * @see src.persistencia.ByteArrayOutputStream
      */
-    public abstract ByteArrayOutputStream decompress(ByteArrayInputStream input);
+    public abstract OutputBuffer decompress(InputBuffer input);
 
     /**
      * Retorna el nombre del algoritmo.

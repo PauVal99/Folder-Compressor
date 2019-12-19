@@ -2,10 +2,10 @@ package src.dominio;
 
 import src.persistencia.File;
 import src.dominio.algoritmos.*;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 
 import java.io.FileInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 
 /**
  * Esta clase representa la compresión de un único archivo.
@@ -52,13 +52,13 @@ public class FileCompressor
      * 
      * @see java.io.ByteArrayOutputStream
      */
-    public ByteArrayOutputStream compress() throws Exception
+    public OutputBuffer compress() throws Exception
     {
-        ByteArrayOutputStream compressedFile = new ByteArrayOutputStream();
+        OutputBuffer compressedFile = new OutputBuffer();
 
         if(source.isFile()){
-            ByteArrayInputStream fileBytes = readSource();
-            ByteArrayOutputStream compressedFileBytes = compressFile(fileBytes);
+            InputBuffer fileBytes = readSource();
+            OutputBuffer compressedFileBytes = compressFile(fileBytes);
             compressedLength = compressedFileBytes.toByteArray().length;
 
             compressedFile.write(getHeader().getBytes());
@@ -91,13 +91,13 @@ public class FileCompressor
      * 
      * @see java.io.ByteArrayInputStream
      */
-    private ByteArrayInputStream readSource() throws Exception
+    private InputBuffer readSource() throws Exception
     {
         byte[] read = new byte[(int) source.length()];
         FileInputStream sourceReader = new FileInputStream(source);
         sourceReader.read(read);
         sourceReader.close();
-        return new ByteArrayInputStream(read);
+        return new InputBuffer(read);
     }
 
     /**
@@ -108,7 +108,7 @@ public class FileCompressor
      * 
      * @see java.io.ByteArrayOutputStream
      */
-    private ByteArrayOutputStream compressFile(ByteArrayInputStream fileBytes)
+    private OutputBuffer compressFile(InputBuffer fileBytes)
     {
         if(source.getExtension().equals("ppm")) algorithm = new JPEG();
         algorithm.setQuality(quality);

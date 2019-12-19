@@ -1,10 +1,10 @@
 package src.dominio.algoritmos;
 
 import src.dominio.IntegerToByteHelper;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 
 import java.util.*;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.lang.Math;
 
 /**
@@ -18,7 +18,7 @@ public class LZW extends Algorithm
     /**
      * {@inheritDoc}
      */
-    public ByteArrayOutputStream compress(ByteArrayInputStream input)
+    public OutputBuffer compress(InputBuffer input)
     {
         int nBytes = 1;
         int dictSize = 256;
@@ -29,7 +29,7 @@ public class LZW extends Algorithm
             dic.put("" + (char) i, i);
         }
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        OutputBuffer output = new OutputBuffer();
         try{
             String w = "";
             byte b;
@@ -61,7 +61,7 @@ public class LZW extends Algorithm
     /**
      * {@inheritDoc}
      */
-    public ByteArrayOutputStream decompress(ByteArrayInputStream input)
+    public OutputBuffer decompress(InputBuffer input)
     {
         int nBytes = 1;
         int dictSize = 256;
@@ -70,7 +70,7 @@ public class LZW extends Algorithm
         for (int i = 0; i < dictSize; i++)
             dictionary.put(i, "" + (char)i);
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+            OutputBuffer output = new OutputBuffer();
         try{
             byte[] bc = new byte[nBytes];
             int r = input.read(bc);
