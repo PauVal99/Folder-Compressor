@@ -1,6 +1,6 @@
 package src.dominio.algoritmos;
 
-import src.dominio.huff.*;
+import src.persistencia.huff.*;
 
 import src.persistencia.InputBuffer;
 import src.persistencia.OutputBuffer;

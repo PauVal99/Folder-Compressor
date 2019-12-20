@@ -1,4 +1,4 @@
-package src.dominio.huff;
+package src.persistencia.huff;
 
 import java.util.*;
 
