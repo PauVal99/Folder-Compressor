@@ -1,8 +1,8 @@
 package src.persistencia;
 
 /**
- * Esta clase representa las estadisticas de un actor.
- * Su cometido es almacenar todas las estadísticas utiles para mostrar al usuario.
+ * Esta clase representa las estadísticas de un actor.
+ * Su cometido es almacenar todas las estadísticas útiles para mostrar al usuario.
  * 
  * @author Pau Val
  */

@@ -20,7 +20,11 @@ class HuffComp implements Comparator<Node> {
 }
 
 
-
+/**
+ * Esta classe representa un arbol de Huffman
+ * 
+ * @author Bartomeu Perelló
+ */
 public class HuffTree {
     /**
      * Esta función se utiliza para crear un Arbol de Huffman y retorna un HashMap para su posterior utilización
@@ -75,7 +79,7 @@ public class HuffTree {
     /**
      * Esta función se utiliza para generar el HashMap con los valores y su respectivo codigo
      *
-     * @param  root Un nodo que representa un elemento del Arbol de Huffman
+     * @param root Un nodo que representa un elemento del Arbol de Huffman
      * @param s String que se utiliza para contruir el codigo de una clave en particular
      * @param hash Hash que se va construyendo mientras se avanza en el arbol
      * */

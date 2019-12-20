@@ -21,13 +21,12 @@ import java.io.FileOutputStream;
 public class Decompressor extends Actor
 {
     /**
-     * Construye un Compressor.
+     * Construye un Descompressor.
      * 
-     * @param compressedFile archivo a descomprimir
-     * @param destinationFile archivo de destino
+     * @param source archivo a descomprimir
+     * @param destination carpeta de destino
      * 
      * @see src.persistencia.File
-     * @see src.persistencia.CompressedFile
      */
     public Decompressor(File source, File destination)
     {
@@ -37,6 +36,10 @@ public class Decompressor extends Actor
     /**
      * Realiza la acción de descomprimir un fichero con los parametros de la constructora.
      * Se encaraga de recojer las estadísticas y escribir el resultado.
+     * 
+     * @return estadísticas de descompressión.
+     * 
+     * @see src.persistencia.ActorStadistics
      */
     public ActorStadistics execute()
     {
@@ -53,6 +56,11 @@ public class Decompressor extends Actor
         return stadistics;
     }
 
+    /**
+     * Realiza la descompression del fichero source en cuestión. Por comodidad se usan dos readers. En la documentación se explica su lógica.
+     * 
+     * @throws Exception en caso de error en la lectura o escritura
+     */
     private void decompressSource() throws Exception
     {
         FileInputStream compressedFileReader = new FileInputStream(source.getPath());
@@ -65,7 +73,7 @@ public class Decompressor extends Actor
             if(header.getType().equals("folder")) {
                 actFile.mkdirs();
             } else {
-                byte[] decom = new byte[header.getSize()];
+                byte[] decom = new byte[(int)header.getSize()];
                 compressedFileReader.read(decom);
 
                 InputBuffer compressedFileBytes = new InputBuffer(decom);

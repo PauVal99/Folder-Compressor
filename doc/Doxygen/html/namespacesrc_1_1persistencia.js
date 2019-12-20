@@ -1,6 +1,8 @@
 var namespacesrc_1_1persistencia =
 [
-    [ "CompressedFile", "classsrc_1_1persistencia_1_1_compressed_file.html", "classsrc_1_1persistencia_1_1_compressed_file" ],
+    [ "ActorStadistics", "classsrc_1_1persistencia_1_1_actor_stadistics.html", "classsrc_1_1persistencia_1_1_actor_stadistics" ],
     [ "File", "classsrc_1_1persistencia_1_1_file.html", "classsrc_1_1persistencia_1_1_file" ],
-    [ "UncompressedFile", "classsrc_1_1persistencia_1_1_uncompressed_file.html", "classsrc_1_1persistencia_1_1_uncompressed_file" ]
+    [ "Header", "classsrc_1_1persistencia_1_1_header.html", "classsrc_1_1persistencia_1_1_header" ],
+    [ "InputBuffer", "classsrc_1_1persistencia_1_1_input_buffer.html", "classsrc_1_1persistencia_1_1_input_buffer" ],
+    [ "OutputBuffer", "classsrc_1_1persistencia_1_1_output_buffer.html", "classsrc_1_1persistencia_1_1_output_buffer" ]
 ];

@@ -17,8 +17,8 @@ public abstract class Algorithm
      * @param input bytes a comprimir
      * @return bytes comprimidos
      * 
-     * @see src.persistencia.ByteArrayInputStream
-     * @see src.persistencia.ByteArrayOutputStream
+     * @see src.persistencia.InputBuffer
+     * @see src.persistencia.OutputBuffer
      */
     public abstract OutputBuffer compress(InputBuffer input);
 
@@ -28,8 +28,8 @@ public abstract class Algorithm
      * @param input bytes a descomprimir
      * @return bytes descomprimidos
      * 
-     * @see src.persistencia.ByteArrayInputStream
-     * @see src.persistencia.ByteArrayOutputStream
+     * @see src.persistencia.InputBuffer
+     * @see src.persistencia.OutputBuffer
      */
     public abstract OutputBuffer decompress(InputBuffer input);
 

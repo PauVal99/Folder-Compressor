@@ -7,7 +7,6 @@ import src.presentacion.ConsoleMenu;
  * 
  * @author Pau Val
  */
-
 public class Console {
     
     /**

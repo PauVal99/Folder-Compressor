@@ -30,11 +30,12 @@ Test 9: espanol.txt
 Test 10: english.txt
     El test consiste en comprimir y descomprimir un archivo en inglés.
 
-Test 10: txt_folder
+Test 11: txt_folder
     El test consiste en comprimir y descomprimir una carpeta con archivos de texto y mas carpetas.
 
-Test 10: mixed_folder
+Test 12: mixed_folder
     El test consiste en comprimir y descomprimir una carpeta con archivos de texto y fotografías y mas carpetas.
+    Al tenen fotos con perdida el resultado es erronio puesto que se compara con el archivo original, es un test orientativo. 
 
 Drivers utilizados para el testing del algoritmo JPEG:
 

@@ -5,9 +5,8 @@ import src.presentacion.GraphicMenu;
 /**
  * Esta clase representa el inicio de ejecución de nuestro programa.
  * 
- * @author Pau Val
+ * @author Sebastian Acurio Navas
  */
-
 public class Main {
     
     /**

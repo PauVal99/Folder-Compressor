@@ -12,17 +12,14 @@ import src.util.IntegerToByte;
  * 
  * @author Pol Aguilar
  */
-
 public class LZ78 extends Algorithm{
 
      /**
-     * Comprime todo el texto del archivo representado por el input.
-     * Se va leyendo y tratando cada caracter de uno en uno.
+     * Comprime todo el texto de input.
+     * Se va leyendo y tratando cada byte de uno en uno.
      * 
-     * @param input ByteArrayInputStream con el archivo a comprimir
-     * @return ByteArrayOutputStream con el texto comprimido (no es legible, hay que descomprimirlo)
-     * 
-     *  
+     * @param input InputBuffer con los bytes a comprimir
+     * @return OutputBuffer con los bytes comprimidos (no es legible, hay que descomprimirlo)
      */
     public OutputBuffer compress(InputBuffer input){
         OutputBuffer result = new OutputBuffer();
@@ -68,16 +65,13 @@ public class LZ78 extends Algorithm{
     }
 
   /**
-     * Descomprime el archivo representado por el input.
+     * Descomprime los bytes representado por input.
      * Lee enteros y caracteres y los trata con un dictionary para descomprimirlo.
      * 
-     * @param input ByteArrayInputStream con el archivo a descomprimir
-     * @return ByteArrayOutputStream con el texto descomprimido
-     * 
-     * 
+     * @param input InputBuffer con el archivo a descomprimir
+     * @return OutputBuffer con el texto descomprimido
      */
-
-    public OutputBuffer  decompress(InputBuffer input){
+    public OutputBuffer decompress(InputBuffer input){
         OutputBuffer result = new OutputBuffer();
         try{ 
         ArrayList<String> dictionary = new ArrayList<String>();
