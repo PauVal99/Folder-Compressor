@@ -20,14 +20,14 @@ src:
       LZSS: Sebastian Acurio
       LZW: Pau Val
       JPEG: Bartomeu Perelló
-    huff:
-      HuffTree: Bartomeu Perelló
-      Pair: Bartomeu Perelló
     Actor: Pau Val
     Compressor: Pau Val
     Decompressor: Pau Val
     FileCompressor: Pau Val
   persistencia:
+    huff:
+      HuffTree: Bartomeu Perelló
+      Pair: Bartomeu Perelló
     ActorStadistics: Pau Val
     File: Pau Val
     Header: Pau Val
