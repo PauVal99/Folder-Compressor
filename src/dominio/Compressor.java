@@ -4,7 +4,6 @@ import src.persistencia.ActorStadistics;
 import src.persistencia.File;
 import src.dominio.FileCompressor;
 import src.dominio.Actor;
-import src.dominio.algoritmos.Algorithm;
 
 import java.io.FileOutputStream;
 
@@ -16,11 +15,14 @@ import java.io.FileOutputStream;
  */
 public class Compressor extends Actor
 {
-    private Algorithm algorithm;
+    /** Nombre del algoritmo especificado */
+    private String algorithmName;
 
-    private FileOutputStream destinationWritter;
-
+    /** Calidad con la que se comprimira (si el algoritmo lo permite) */
     private int quality;
+
+    /** Escritor al archivo destino */
+    private FileOutputStream destinationWritter;
 
     /**
      * Construye un Compressor.
@@ -36,7 +38,7 @@ public class Compressor extends Actor
         super(source, getDestinationFile(destinationFolder, source.getFileName()));
         try{
             this.destinationWritter = new FileOutputStream(this.destination);
-            this.algorithm = getAlgorithm(algorithmName);
+            this.algorithmName = algorithmName;
             this.quality = quality;
         }
         catch(Exception e){
@@ -49,7 +51,7 @@ public class Compressor extends Actor
      * 
      * @param destinationFolder carpeta de destino
      * @param fileName nombre del archivo a generar
-     * @return ruta del destino de la compresión
+     * @return archivo del destino de la compresión
      */
     private static File getDestinationFile(File destinationFolder, String fileName)
     {
@@ -59,6 +61,10 @@ public class Compressor extends Actor
     /**
      * Realiza la acción de comprimir un fichero o carpeta con los parametros de la constructora.
      * Se encaraga de recojer las estadísticas.
+     * 
+     * @return estadisticas de compressión
+     * 
+     * @see src.persistencia.ActorStadistics
      */
     public ActorStadistics execute()
     {
@@ -85,7 +91,7 @@ public class Compressor extends Actor
      */
     private void recursiveCompression(File file) throws Exception
     {
-        FileCompressor fileCompressor = new FileCompressor(file, algorithm, getRelativePath(file), quality);
+        FileCompressor fileCompressor = new FileCompressor(file, algorithmName, getRelativePath(file), quality);
         destinationWritter.write(fileCompressor.compress().toByteArray());
         if(file.isDirectory()){
             File[] folderList = file.listFiles();

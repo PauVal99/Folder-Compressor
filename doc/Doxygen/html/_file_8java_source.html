@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -53,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('_file_8java_source.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,6 +59,11 @@ $(document).ready(function(){initNavTree('_file_8java_source.html','');});
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b3fb8c7210201f67a5e2e8278a664531.html">persistencia</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">File.java</div>  </div>
@@ -91,92 +71,86 @@ $(document).ready(function(){initNavTree('_file_8java_source.html','');});
 <div class="contents">
 <a href="_file_8java.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">package </span>src.persistencia;</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> java.io.FileInputStream;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> java.io.FileNotFoundException;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> java.io.IOException;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html">   15</a></span>&#160;<span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a> <span class="keyword">extends</span> java.io.<a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    FileInputStream fileInputStream;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">   30</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>(String pathName)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        super(pathName);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">try</span>{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            fileInputStream = <span class="keyword">new</span> FileInputStream(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">catch</span>(FileNotFoundException e){</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            e.printStackTrace();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#abb17b340f16a586d31697bcefac8ed46">   43</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#abb17b340f16a586d31697bcefac8ed46">close</a>()</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">try</span>{</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            fileInputStream.close();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">catch</span>(IOException e){</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            e.printStackTrace();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#abbf8d91e25e10af5f3988aa970327c08">   60</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">byte</span>[] <a class="code" href="classsrc_1_1persistencia_1_1_file.html#abbf8d91e25e10af5f3988aa970327c08">readAll</a>()</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">readContent</a>((<span class="keywordtype">int</span>)this.length());</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#ac235b723c83143de3db32379c2e2f8cc">   72</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">byte</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#ac235b723c83143de3db32379c2e2f8cc">readByte</a>()</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordtype">byte</span>[] bc = <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">readContent</a>(1);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">if</span>(bc.length == 0) <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span> bc[0];</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">   87</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">byte</span>[] <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">readContent</a>(<span class="keywordtype">int</span> nBytes)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">byte</span>[] bytes = <span class="keyword">new</span> <span class="keywordtype">byte</span>[nBytes];</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">try</span>{</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordtype">int</span> read = fileInputStream.read(bytes);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <span class="keywordflow">if</span>(read == -1){</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                fileInputStream.close();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">new</span> <span class="keywordtype">byte</span>[0];</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">catch</span> (IOException e){</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">new</span> <span class="keywordtype">byte</span>[0];</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> bytes;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0">  110</a></span>&#160;    <span class="keyword">public</span> String <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0">getFileName</a>()</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        String name = getName();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordtype">int</span> pos = name.lastIndexOf(<span class="stringliteral">&quot;.&quot;</span>);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">if</span> (pos &gt; 0) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            name = name.substring(0, pos);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> name;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">  120</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">long</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">serialVersionUID</a> = 1L;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html">   11</a></span>&#160;<span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a> <span class="keyword">extends</span> java.io.<a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">   18</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>(String pathName)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        super(pathName);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0">   28</a></span>&#160;    <span class="keyword">public</span> String <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0">getFileName</a>()</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        String name = getName();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">int</span> pos = name.lastIndexOf(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (pos &gt; 0)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            name = name.substring(0, pos);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> name;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a8d6dff450d28f4f92403a788499a6b25">   42</a></span>&#160;    <span class="keyword">public</span> String <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a8d6dff450d28f4f92403a788499a6b25">getExtension</a>()</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        String extension = getName();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">int</span> pos = extension.lastIndexOf(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> (pos &gt; 0)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            extension = extension.substring(pos+1, extension.length());</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">return</span> extension;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a0cb6f27720880f9489aab383acc033b0">   56</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">long</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a0cb6f27720880f9489aab383acc033b0">getSize</a>()</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">long</span> size = 0;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span>(isFile())</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">return</span> length();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>[] list = <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">listFiles</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">for</span>(<a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a> file: list)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                size += file.getSize();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">   74</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>[] <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">listFiles</a>()</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        java.io.<a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>[] content = super.listFiles();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>[] returnContent = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>[content.length];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">for</span>(java.io.File child:content){</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            returnContent[i] = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>(child.getPath());</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            ++i;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> returnContent;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#aaa42b2e271cd429753121dc0a5c35147">   91</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">boolean</span> <span class="keyword">delete</span>()</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">boolean</span> <span class="keyword">delete</span> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">if</span>(isFile())</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">return</span> super.<a class="code" href="classsrc_1_1persistencia_1_1_file.html#aaa42b2e271cd429753121dc0a5c35147">delete</a>();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>[] list = <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">listFiles</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keywordflow">for</span>(<a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a> file: list)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                <span class="keyword">delete</span> &amp;= file.delete();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keyword">delete</span> &amp;= super.delete();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">  105</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">long</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">serialVersionUID</a> = 1L;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a20c23e6886d6292919a20154ca3483f8"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">src.persistencia.File.File</a></div><div class="ttdeci">File(String pathName)</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00030">File.java:30</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_abbf8d91e25e10af5f3988aa970327c08"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#abbf8d91e25e10af5f3988aa970327c08">src.persistencia.File.readAll</a></div><div class="ttdeci">byte[] readAll()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00060">File.java:60</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a7f3f616647acf5a10f59920fc56e54b0"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0">src.persistencia.File.getFileName</a></div><div class="ttdeci">String getFileName()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00110">File.java:110</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_ac235b723c83143de3db32379c2e2f8cc"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#ac235b723c83143de3db32379c2e2f8cc">src.persistencia.File.readByte</a></div><div class="ttdeci">byte readByte()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00072">File.java:72</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_abb17b340f16a586d31697bcefac8ed46"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#abb17b340f16a586d31697bcefac8ed46">src.persistencia.File.close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00043">File.java:43</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_aa5375df237a3239d2b1d44a7a2cee5b6"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">src.persistencia.File.serialVersionUID</a></div><div class="ttdeci">static final long serialVersionUID</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00120">File.java:120</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html">src.persistencia.File</a></div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00015">File.java:15</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a516ffce5b85a48f036cfa961c05becbe"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">src.persistencia.File.readContent</a></div><div class="ttdeci">byte[] readContent(int nBytes)</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00087">File.java:87</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a20c23e6886d6292919a20154ca3483f8"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">src.persistencia.File.File</a></div><div class="ttdeci">File(String pathName)</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00018">File.java:18</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a7f3f616647acf5a10f59920fc56e54b0"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0">src.persistencia.File.getFileName</a></div><div class="ttdeci">String getFileName()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00028">File.java:28</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a0cb6f27720880f9489aab383acc033b0"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a0cb6f27720880f9489aab383acc033b0">src.persistencia.File.getSize</a></div><div class="ttdeci">long getSize()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00056">File.java:56</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_aa5375df237a3239d2b1d44a7a2cee5b6"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">src.persistencia.File.serialVersionUID</a></div><div class="ttdeci">static final long serialVersionUID</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00105">File.java:105</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_aaa42b2e271cd429753121dc0a5c35147"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#aaa42b2e271cd429753121dc0a5c35147">src.persistencia.File.delete</a></div><div class="ttdeci">boolean delete()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00091">File.java:91</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a28bb3f0d3a1a2aeeb516161ebea87a73"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">src.persistencia.File.listFiles</a></div><div class="ttdeci">File[] listFiles()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00074">File.java:74</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html">src.persistencia.File</a></div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00011">File.java:11</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a8d6dff450d28f4f92403a788499a6b25"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a8d6dff450d28f4f92403a788499a6b25">src.persistencia.File.getExtension</a></div><div class="ttdeci">String getExtension()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00042">File.java:42</a></div></div>
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b3fb8c7210201f67a5e2e8278a664531.html">persistencia</a></li><li class="navelem"><a class="el" href="_file_8java.html">File.java</a></li>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.16 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.16
+</small></address>
 </body>
 </html>

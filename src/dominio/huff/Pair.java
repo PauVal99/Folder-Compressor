@@ -2,7 +2,9 @@ package src.dominio.huff;
 
 /**
  * Esta clase es el clasico Pair con su respectiva Clave y Valor
- * */
+ *
+ * @author Bartomeu Perelló
+ */
 public class Pair<T, T1> {
     T Key;
     T1 Value;

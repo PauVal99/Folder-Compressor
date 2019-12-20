@@ -1,4 +1,6 @@
 var namespacesrc_1_1presentacion =
 [
-    [ "Menu", "classsrc_1_1presentacion_1_1_menu.html", "classsrc_1_1presentacion_1_1_menu" ]
+    [ "ConsoleMenu", "classsrc_1_1presentacion_1_1_console_menu.html", "classsrc_1_1presentacion_1_1_console_menu" ],
+    [ "GraphicMenu", "classsrc_1_1presentacion_1_1_graphic_menu.html", "classsrc_1_1presentacion_1_1_graphic_menu" ],
+    [ "InformationDialog", "classsrc_1_1presentacion_1_1_information_dialog.html", "classsrc_1_1presentacion_1_1_information_dialog" ]
 ];

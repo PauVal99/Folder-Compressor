@@ -14,7 +14,6 @@ import src.persistencia.OutputBuffer;
  *
  * @author Sebastian Acurio Navas
  */
-
 public class LZSS extends Algorithm {
 
     /** Tamaño de la ventana corrediza */
@@ -25,15 +24,14 @@ public class LZSS extends Algorithm {
     private static final int RECOVERVALUE = 3;
 
     /**
-     * Comprime todo el texto del archivo representado por decompressed.
+     * Comprime todo el texto del archivo representado por input.
      * Inicialmente guarda el contendio del fichero como una secuencia de carácteres
      * y lo recorre para buscar las coincidencias
      *
-     * @param input archivo a comprimir
+     * @param input bytes a comprimir
      * @return array de bytes con la información del texto comprimido (no es
      *         legible, hay que descomprimirlo)
      *
-     * @see src.persistencia.UncompressedFile
      */
     public OutputBuffer compress(InputBuffer input)
     {
@@ -118,15 +116,12 @@ public class LZSS extends Algorithm {
     }
 
     /**
-     * Descomprime el archivo representado por compressedBytes. Inicialmente lee los
+     * Descomprime los bytes de input. Inicialmente lee los
      * bytes en un cierto orden para recuperar la información necesaria y proceder a
      * la descompresión
      *
-     * @param inputCopmpressed archivo a descomprimir
+     * @param input bytes a descomprimir
      * @return array de bytes con el texto descomprimido
-     *
-     * @see src.persistencia.CompressedFile
-     * @see src.persistencia.File
      */
     public OutputBuffer decompress(InputBuffer input) {
         OutputBuffer decompressedFile = new OutputBuffer();

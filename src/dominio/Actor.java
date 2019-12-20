@@ -2,7 +2,6 @@ package src.dominio;
 
 import src.persistencia.ActorStadistics;
 import src.persistencia.File;
-import src.dominio.algoritmos.*;
 
 /**
  * Esta clase representa un actor que hara funciones tanto de compresión como descompresión.
@@ -12,16 +11,15 @@ import src.dominio.algoritmos.*;
  */
 public abstract class Actor
 {
-    /** Inicio de la ejecución */
-    protected long startTime;
-
-    /** Fin de la ejecución */
-    protected long elapsedTime;
-
+    /**
+     * Archivo origen.
+     * 
+     * @see src.persistencia.File
+     */
     protected File source;
 
     /**
-     * Archivo de destino
+     * Archivo de destino.
      * 
      * @see src.persistencia.File
      */
@@ -30,11 +28,10 @@ public abstract class Actor
     /**
      * Construye un Actor.
      * 
-     * @param destinationFile archivo de destino
-     * @param algorithmName nombre del algoritmo a usar
+     * @param source archivo origen
+     * @param destination archivo destino
      * 
      * @see src.persistencia.File
-     * @see src.dominio.Actor::setAlgortihm()
      */
     public Actor(File source, File destination)
     {
@@ -42,22 +39,12 @@ public abstract class Actor
         this.destination = destination;
     }
 
-    public abstract ActorStadistics execute();
-
     /**
-     * Del nombre de un algoritmo se retorna una instancia de la clase del algoritmo.
+     * Realiza la acción de la classe.
      * 
-     * @param algorithmName nombre del algoritmo
-     * @return instancia del algoritmo
+     * @return clase con las estadísticas de la ejecucción
      * 
-     * @see src.dominio.algoritmos.Algorithm
+     * @see src.persistencia.ActorStadistics
      */
-    protected Algorithm getAlgorithm(String algorithmName)
-    {
-        if(algorithmName.equals("LZ78")) return new LZ78();
-        else if(algorithmName.equals("LZSS")) return new LZSS();
-        else if(algorithmName.equals("LZW")) return new LZW();
-        else if(algorithmName.equals("JPEG")) return new JPEG();
-        return new LZW();
-    }
+    public abstract ActorStadistics execute();
 }

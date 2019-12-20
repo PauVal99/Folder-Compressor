@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['pair_63',['Pair',['../classsrc_1_1dominio_1_1_pair.html',1,'src.dominio.Pair&lt; T, T1 &gt;'],['../classsrc_1_1dominio_1_1_pair.html#abb41b2eecbca18dbdda269ad80b2ed9c',1,'src.dominio.Pair.Pair()']]],
-  ['pair_2ejava_64',['Pair.java',['../_pair_8java.html',1,'']]],
-  ['printcompressstadistics_65',['printCompressStadistics',['../classsrc_1_1dominio_1_1_compressor.html#a938368c85b9f51cad74ee94d3109704e',1,'src::dominio::Compressor']]],
-  ['printstadistics_66',['printStadistics',['../classsrc_1_1dominio_1_1_actor.html#aceb2cc5a79e8fbd7e862fee7a4956d2d',1,'src::dominio::Actor']]]
+  ['pair_133',['Pair',['../classsrc_1_1dominio_1_1huff_1_1_pair.html',1,'src.dominio.huff.Pair&lt; T, T1 &gt;'],['../classsrc_1_1dominio_1_1huff_1_1_pair.html#ae26a5dadb836c17fb73815d4ba8695c7',1,'src.dominio.huff.Pair.Pair()']]],
+  ['pair_2ejava_134',['Pair.java',['../_pair_8java.html',1,'']]],
+  ['proptitle_135',['propTitle',['../classsrc_1_1presentacion_1_1_graphic_menu.html#a6b0edb59119e8f7f09c1e3a81cc8fa9f',1,'src::presentacion::GraphicMenu']]]
 ];
