@@ -74,12 +74,15 @@ public class File extends java.io.File
      */
     public File[] listFiles()
     {
-        java.io.File[] content = super.listFiles();
-        File[] returnContent = new File[content.length];
-        int i = 0;
-        for(java.io.File child:content){
-            returnContent[i] = new File(child.getPath());
-            ++i;
+        File[] returnContent = new File[0];
+        if(isDirectory()){
+            java.io.File[] content = super.listFiles();
+            returnContent = new File[content.length];
+            int i = 0;
+            for(java.io.File child:content){
+                returnContent[i] = new File(child.getPath());
+                ++i;
+            }
         }
         return returnContent;
     }

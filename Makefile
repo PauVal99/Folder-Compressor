@@ -4,7 +4,7 @@ compile:
 	rm classes.txt
 
 run:
-	java -cp bin src.Main
+	java -cp lib/AbsoluteLayout.jar:bin:. src.Main > /dev/null 2>&1
 
 runConsole:
 	java -cp bin src.Console
