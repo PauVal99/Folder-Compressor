@@ -39,7 +39,7 @@ public class Tester {
 
     public void testJPEG(String sourceName)
     {
-        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:JPEG, File:"+sourceName+"\n" + ANSI_RESET);
+        System.out.println(CYAN_BOLD_BRIGHT + "\nTest with algorithm:JPEG, File:"+sourceName + ANSI_RESET);
 
         File source = new File("data/"+sourceName);
         File compressFolder = new File("data/compressed/JPEG");
@@ -52,8 +52,8 @@ public class Tester {
         Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
         decompressor.execute();
 
-        System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
-
+        System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
+        
         compressedFile.delete();
         result.delete();
     }

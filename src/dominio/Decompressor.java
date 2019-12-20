@@ -1,15 +1,14 @@
 package src.dominio;
 
 import src.dominio.Actor;
-import src.dominio.algoritmos.Algorithm;
 import src.persistencia.ActorStadistics;
 import src.persistencia.InputBuffer;
 import src.persistencia.OutputBuffer;
-
 import src.persistencia.File;
+import src.persistencia.Header;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.lang.Integer;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -58,25 +57,21 @@ public class Decompressor extends Actor
     {
         FileInputStream compressedFileReader = new FileInputStream(source.getPath());
         BufferedReader headerReader = new BufferedReader(new FileReader(source.getPath()));
-        String header;
-        while((header = headerReader.readLine()) != null){
-            compressedFileReader.skip((header+"\n").getBytes().length);
-            String[] camp = header.split(";");
-            String type = camp[0];
-            File file = new File(destination.getPath() + File.separator + camp[1]);
-            if(type.equals("folder")) {
-                file.mkdirs();
+        String sHeader;
+        while((sHeader = headerReader.readLine()) != null){
+            Header header = new Header(sHeader);
+            compressedFileReader.skip((sHeader+"\n").getBytes().length);
+            File actFile = new File(destination.getPath() + File.separator + header.getRelativePath());
+            if(header.getType().equals("folder")) {
+                actFile.mkdirs();
             } else {
-                Algorithm algorithm = getAlgorithm(camp[2]);
-                int size = Integer.parseInt(camp[3]);
-
-                byte[] decom = new byte[size];
+                byte[] decom = new byte[header.getSize()];
                 compressedFileReader.read(decom);
 
                 InputBuffer compressedFileBytes = new InputBuffer(decom);
-                OutputBuffer decompressedFileBytes = algorithm.decompress(compressedFileBytes);
+                OutputBuffer decompressedFileBytes = header.getAlgorithm().decompress(compressedFileBytes);
 
-                FileOutputStream fileWritter = new FileOutputStream(file);
+                FileOutputStream fileWritter = new FileOutputStream(actFile);
                 fileWritter.write(decompressedFileBytes.toByteArray());
                 fileWritter.close();
 

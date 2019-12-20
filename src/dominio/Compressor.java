@@ -4,7 +4,6 @@ import src.persistencia.ActorStadistics;
 import src.persistencia.File;
 import src.dominio.FileCompressor;
 import src.dominio.Actor;
-import src.dominio.algoritmos.Algorithm;
 
 import java.io.FileOutputStream;
 
@@ -16,7 +15,7 @@ import java.io.FileOutputStream;
  */
 public class Compressor extends Actor
 {
-    private Algorithm algorithm;
+    private String algorithmName;
 
     private FileOutputStream destinationWritter;
 
@@ -36,7 +35,7 @@ public class Compressor extends Actor
         super(source, getDestinationFile(destinationFolder, source.getFileName()));
         try{
             this.destinationWritter = new FileOutputStream(this.destination);
-            this.algorithm = getAlgorithm(algorithmName);
+            this.algorithmName = algorithmName;
             this.quality = quality;
         }
         catch(Exception e){
@@ -85,7 +84,7 @@ public class Compressor extends Actor
      */
     private void recursiveCompression(File file) throws Exception
     {
-        FileCompressor fileCompressor = new FileCompressor(file, algorithm, getRelativePath(file), quality);
+        FileCompressor fileCompressor = new FileCompressor(file, algorithmName, getRelativePath(file), quality);
         destinationWritter.write(fileCompressor.compress().toByteArray());
         if(file.isDirectory()){
             File[] folderList = file.listFiles();

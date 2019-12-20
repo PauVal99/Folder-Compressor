@@ -17,7 +17,6 @@ import java.util.Arrays;
  * 
  * @author Pau Val
  */
-
 public class ConsoleMenu
 {
     /**
@@ -36,7 +35,7 @@ public class ConsoleMenu
     }
 
     /**
-     * Inicia la interfaz del menu, muestra las posibles operaciones a realizar y espera hasta tener una valida.
+     * Inicia la interfaz del menu, muestra las posibles operaciones a realizar y espera hasta tener una válida.
      */
     public void start()
     {
@@ -51,6 +50,7 @@ public class ConsoleMenu
 
     /**
      * Representa la petición de comprimir un archivo. Pregunta por el archivo o carpeta a comprimir, su carpeta de destino y el algoritmo con que se desea comprimir.
+     * Al final de la ejecucción imprime por pantalla las estadísticas.
      */
     private void compress()
     {
@@ -58,7 +58,7 @@ public class ConsoleMenu
         File destination = readFolder("Please enter the destination folder path: ");
         String algorithmName = readAlgorithm();
         int quality = 50;
-        if(algorithmName.equals("JPEG")) quality = readQuality();
+        if(algorithmName.equals("JPEG") || source.isDirectory()) quality = readQuality();
 
         Compressor compressor = new Compressor(source, destination, algorithmName, quality);
         ActorStadistics stadistics = compressor.execute();
@@ -70,6 +70,7 @@ public class ConsoleMenu
     
     /**
      * Representa la petición de descomprimir un archivo. Pregunta por el archivo comprimido y su carpeta de destino.
+     * Al final de la ejecucción imprime por pantalla las estadísticas.
      */
     private void decompress()
     {

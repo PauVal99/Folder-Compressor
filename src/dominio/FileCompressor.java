@@ -4,6 +4,7 @@ import src.persistencia.File;
 import src.dominio.algoritmos.*;
 import src.persistencia.InputBuffer;
 import src.persistencia.OutputBuffer;
+import src.persistencia.Header;
 
 import java.io.FileInputStream;
 
@@ -36,10 +37,10 @@ public class FileCompressor
      * @param algorithm algoritmo que se usara en caso de texto
      * @param relativePath parametro necesario del header
      */
-    public FileCompressor(File source, Algorithm algorithm, String relativePath, int quality)
+    public FileCompressor(File source, String algorithmName, String relativePath, int quality)
     {
         this.source = source;
-        this.algorithm = algorithm;
+        this.algorithm = setAlgorithm(algorithmName);
         this.relativePath = relativePath;
         this.quality = quality;
     }
@@ -77,10 +78,8 @@ public class FileCompressor
      */
     private String getHeader()
     {
-        String header = "";
-        if(source.isFile()) header = "file"  +";"+relativePath+";"+algorithm.getName()+";"+compressedLength+"\n";
-        else                header = "folder"+";"+relativePath+"\n";
-        return header;
+        Header header = new Header(source.isFile(), relativePath, algorithm, (int)compressedLength);
+        return header.toString();
     }
 
     /**
@@ -110,8 +109,24 @@ public class FileCompressor
      */
     private OutputBuffer compressFile(InputBuffer fileBytes)
     {
-        if(source.getExtension().equals("ppm")) algorithm = new JPEG();
-        algorithm.setQuality(quality);
         return algorithm.compress(fileBytes);
+    }
+
+    private Algorithm setAlgorithm(String algorithmName)
+    {
+        Algorithm algorithm = null;
+        if(source.getExtension().equals("ppm")){
+            algorithm = new JPEG();
+            algorithm.setQuality(quality);
+        }
+        else if(algorithmName.equals("LZ78")) algorithm = new LZ78();
+        else if(algorithmName.equals("LZSS")) algorithm = new LZSS();
+        else if(algorithmName.equals("LZW")) algorithm = new LZW();
+        else if(source.length() < 262144) algorithm = new LZW();
+        else if(source.length() < 2097152) algorithm = new LZSS();
+        else if(source.length() > 2097152) algorithm = new LZ78();
+
+        System.out.println(algorithm.getName());
+        return algorithm;
     }
 }
