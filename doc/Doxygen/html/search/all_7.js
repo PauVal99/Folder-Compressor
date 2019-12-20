@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['im_5fsize_43',['im_size',['../classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a4c468a29045f19445de57b9fb5aab25c',1,'src::dominio::algoritmos::JPEG']]],
-  ['initcompressstadistics_44',['initCompressStadistics',['../classsrc_1_1dominio_1_1_compressor.html#a20650bf92f2be06f37244aaf2dd2317c',1,'src::dominio::Compressor']]],
-  ['initstadistics_45',['initStadistics',['../classsrc_1_1dominio_1_1_actor.html#a6f0393757e7750b93c77fc317e342035',1,'src::dominio::Actor']]],
-  ['inttobytearray_46',['intToByteArray',['../classsrc_1_1dominio_1_1_byte_array_helper.html#a5e509d1bc21993f2d90e076b4523c67f',1,'src::dominio::ByteArrayHelper']]],
-  ['isbitset_47',['isBitSet',['../classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a14a6b625db3a01a063400642a504cab2',1,'src::dominio::algoritmos::LZSS']]]
+  ['header_86',['Header',['../classsrc_1_1persistencia_1_1_header.html',1,'src.persistencia.Header'],['../classsrc_1_1persistencia_1_1_header.html#ac833cda6bc1c436122345487a6303d86',1,'src.persistencia.Header.Header(String header)'],['../classsrc_1_1persistencia_1_1_header.html#ab88e1e582f64e731c4cdd50600a2ea13',1,'src.persistencia.Header.Header(boolean isFile, String relativePath, Algorithm algorithm, int size)']]],
+  ['header_2ejava_87',['Header.java',['../_header_8java.html',1,'']]],
+  ['hufftree_88',['HuffTree',['../classsrc_1_1persistencia_1_1huff_1_1_huff_tree.html',1,'src::persistencia::huff']]],
+  ['hufftree_2ejava_89',['HuffTree.java',['../_huff_tree_8java.html',1,'']]]
 ];

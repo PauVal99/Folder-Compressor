@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['compressedfile_187',['compressedFile',['../classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63',1,'src::dominio::Decompressor']]],
-  ['console_188',['console',['../classsrc_1_1presentacion_1_1_menu.html#a5b9a98c44f28f67fc2554bc500f488f7',1,'src::presentacion::Menu']]],
-  ['cuant_5fmat_5fcrom_189',['cuant_mat_crom',['../classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#aa914e389523ac4e55cc16753cce66af8',1,'src::dominio::algoritmos::JPEG']]],
-  ['cuant_5fmat_5flum_190',['cuant_mat_lum',['../classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#ae427bbe66296638d5dc047f19cb2b491',1,'src::dominio::algoritmos::JPEG']]]
+  ['btncompress_346',['btnCompress',['../classsrc_1_1presentacion_1_1_graphic_menu.html#ad91f2a32789d2c39abe446155e977743',1,'src::presentacion::GraphicMenu']]],
+  ['btndecompress_347',['btnDecompress',['../classsrc_1_1presentacion_1_1_graphic_menu.html#adf3fb18e8787bee1deb880bd64e70886',1,'src::presentacion::GraphicMenu']]]
 ];

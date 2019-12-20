@@ -1,11 +1,14 @@
 package tests;
 
-import java.io.File;
-import java.util.Arrays;
-import java.lang.Exception;
+import src.persistencia.ActorStadistics;
+import src.persistencia.File;
+import src.dominio.Compressor;
+import src.dominio.Decompressor;
 
-import src.dominio.*;
-import src.persistencia.*;
+import java.nio.file.Files;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 public class Tester {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -15,70 +18,80 @@ public class Tester {
     public static final String CYAN_BOLD = "\033[1;36m";
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";
 
-    public void test(String file, String alg_name) 
+    public void test(String sourceName, String alg_name) 
     {
-        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+file+".txt\n" + ANSI_RESET);
+        System.out.println(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+sourceName + ANSI_RESET);
 
-        String originalFile = "data/"+file+".txt" ;
-        String compressedFile = "data/compressed/"+alg_name+"/"+file;
-        String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".txt";
+        File source = new File("data/"+sourceName);
+        File compressFolder = new File("data/compressed/"+alg_name);
+        File compressedFile = new File("data/compressed/"+alg_name+"/"+source.getFileName()+".cmprss");
+        File result = new File("data/compressed/"+alg_name+"/"+sourceName);
 
-        compression(originalFile, compressedFile, alg_name);
-        decompression(compressedFile, uncompressedFile);
+        Compressor compressor = new Compressor(source, compressFolder, alg_name, 50);
+        ActorStadistics compress = compressor.execute();
 
-        UncompressedFile original = new UncompressedFile(originalFile);
-        UncompressedFile result = new UncompressedFile(uncompressedFile);
-        comprovation(original, result, file);
-    }
+        Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
+        ActorStadistics decompress = decompressor.execute();
 
-    public void testJPEG(String file, String alg_name) 
-    {
-        System.out.print(CYAN_BOLD_BRIGHT + "\nTest with algorithm:"+alg_name+", File:"+file+".ppm\n" + ANSI_RESET);
-        String originalFile = "data/"+file+".ppm" ;
-        String compressedFile = "data/compressed/"+alg_name+"/"+file;
-        String uncompressedFile = "data/compressed/"+alg_name+"/"+file+".ppm";
+        String time = "Time: " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(compress.getElapsedTime() + decompress.getElapsedTime()));
+        System.out.println(time +" Ratio: " + compress.getCompressRatio());
 
-        compression(originalFile, compressedFile, alg_name);
-        decompression(compressedFile, uncompressedFile);
-        
-        File result = new File(uncompressedFile);
+        if (contentEquals(source, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
+        else System.out.println(ANSI_RED +sourceName+" test failed." + ANSI_RESET);
+
+        compressedFile.delete();
         result.delete();
+    }
+
+    public void testJPEG(String sourceName)
+    {
+        System.out.println(CYAN_BOLD_BRIGHT + "\nTest with algorithm:JPEG, File:"+sourceName + ANSI_RESET);
+
+        File source = new File("data/"+sourceName);
+        File compressFolder = new File("data/compressed/JPEG");
+        File compressedFile = new File("data/compressed/JPEG/"+source.getFileName()+".cmprss");
+        File result = new File("data/compressed/JPEG/"+sourceName);
+
+        Compressor compressor = new Compressor(source, compressFolder, "JPEG", 50);
+        ActorStadistics compress = compressor.execute();
+
+        Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
+        decompressor.execute();
         
-        System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
+        
+        ActorStadistics decompress = decompressor.execute();
+
+        String time = "Time: " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(compress.getElapsedTime() + decompress.getElapsedTime()));
+        System.out.println(time +" Ratio: " + compress.getCompressRatio());
+        
+        File testF = new File("data/"+source.getName()+"T"+".ppm");
+        if (contentEquals(testF, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
+        else System.out.println(ANSI_RED +sourceName+" test failed." + ANSI_RESET);
+
+        compressedFile.delete();
+        result.delete();
     }
 
-    private void compression(String fileOriginal, String fileCompressed, String algorithm)
+    private static boolean contentEquals(File expected, File given)
     {
-        System.out.print("Compression:\n");
-        UncompressedFile uncompressedFileToTest = new UncompressedFile(fileOriginal);
-        File uncompressedDestinationFile = new File(fileCompressed);
-        Compressor compressor = new Compressor(uncompressedFileToTest,uncompressedDestinationFile, algorithm);
-        compressor.compress();
-        uncompressedFileToTest.close();
-    }
-
-    private void decompression(String fileCompressed, String fileUncompressed)
-    {
-        System.out.print("\nDecompression:\n");
-        CompressedFile compressedFileToTest = null;
-        try {
-            compressedFileToTest = new CompressedFile(fileCompressed);
+        boolean equals = true;
+        if(expected.isFile()){
+            try{
+                equals = Arrays.equals(Files.readAllBytes(expected.toPath()),Files.readAllBytes(given.toPath()));
+            }
+            catch(Exception e){
+                System.out.println("Error reading file.");
+            }
         }
-        catch (Exception e) {}
-        File compressedDestinationFile = new File(fileUncompressed);
-        Decompressor decompressor = new Decompressor(compressedFileToTest, compressedDestinationFile);
-        decompressor.decompress();
-        compressedFileToTest.close();
-        compressedFileToTest.delete();
-    }
-
-    private void comprovation(UncompressedFile original, UncompressedFile result, String file)
-    {
-        System.out.print("\nResult:\n");
-        if (!Arrays.equals(original.readAll(),result.readAll())) System.out.print(ANSI_RED +file+".txt test failed.\n" + ANSI_RESET);
-        else System.out.print(ANSI_GREEN + "Test Passed! Algorithm is working good!\n" +ANSI_RESET);
-        original.close();
-        result.close();
-        result.delete();
+        else {
+            File[] expectedList = expected.listFiles();
+            File[] givenList = given.listFiles();
+            int i=0;
+            for(File ef: expectedList){
+                equals = equals & contentEquals(ef,givenList[i]);
+                ++i;
+            }
+        }
+        return equals;
     }
 }

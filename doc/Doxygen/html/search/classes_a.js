@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uncompressedfile_109',['UncompressedFile',['../classsrc_1_1persistencia_1_1_uncompressed_file.html',1,'src::persistencia']]]
+  ['outputbuffer_218',['OutputBuffer',['../classsrc_1_1persistencia_1_1_output_buffer.html',1,'src::persistencia']]]
 ];

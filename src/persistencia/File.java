@@ -1,120 +1,109 @@
 package src.persistencia;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 /**
- * Esta clase representa un archivo.
+ * Esta clase representa un fichero.
  * Su cometido es gestionar todas las necesidades del progama respecto este fichero.
  * Extiende la clase java.io.File.
  * 
+ * @see java.io.File
  * @author Pau Val
  */
-
 public class File extends java.io.File
 {
     /**
-     * Lector del archivo
+     * Constructora de un fichero.
      * 
-     * @see java.io.FileInputStream
-     */
-    FileInputStream fileInputStream;
-
-    /**
-     * Constructora de un archivo.
-     * Inicializa el lector del archivo.
-     * 
-     * @param pathName ruta al archivo sin comprimir
+     * @param pathName ruta al fichero
      */
     public File(String pathName)
     {
         super(pathName);
-        try{
-            fileInputStream = new FileInputStream(this);
-        }
-        catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-    /**
-     * Cierra el fileInputStream
-     */
-    public void close()
-    {
-        try{
-            fileInputStream.close();
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
     }
 
     /**
-     * Esta función lee todos los bytes del archivo.
+     * Retorna el nombre sin la extensión del fichero.
      * 
-     * @return byte array con todos los bytes del archivo.
-     * 
-     * @see src.persistencia.File::readContent()
-     */
-    public byte[] readAll()
-    {
-        return readContent((int)this.length());
-    }
-
-    /**
-     * Esta función lee el siguiente byte sin leer del fichero.
-     * 
-     * @return siguiente byte
-     * 
-     * @see src.persistencia.File::readContent()
-     */
-    public byte readByte()
-    {
-        byte[] bc = readContent(1);
-        if(bc.length == 0) return 0;
-        return bc[0];
-    }
-
-    /**
-     * Esta función retorna un byte array con el numero de bytes siguientes sin leer.
-     * 
-     * @param nBytes numero de bytes a leer
-     * @return contenido de los siguientes nBytes
-     * 
-     * @see java.io.FileInputStream::read()
-     */
-    public byte[] readContent(int nBytes)
-    {
-        byte[] bytes = new byte[nBytes];
-        try{
-            int read = fileInputStream.read(bytes);
-            if(read == -1){
-                fileInputStream.close();
-                return new byte[0];
-            }
-        }
-        catch (IOException e){
-            return new byte[0];
-        }
-        return bytes;
-    }
-
-    /**
-     * Retorna el nombre sin extension de este fichero.
-     * 
-     * @return nombre sin extension de este fichero
-     * 
-     * @see java.io.File::getName()
+     * @return nombre sin la extensión del fichero
      */
     public String getFileName()
     {
         String name = getName();
         int pos = name.lastIndexOf(".");
-        if (pos > 0) {
+        if (pos > 0)
             name = name.substring(0, pos);
-        }
         return name;
+    }
+
+    /**
+     * Retorna la extensión del fichero.
+     * 
+     * @return extensión del fichero
+     */
+    public String getExtension()
+    {
+        String extension = "";
+        String name = getName();
+        int pos = name.lastIndexOf(".");
+        if (pos > 0)
+            extension = name.substring(pos+1, name.length());
+        return extension;
+    }
+
+    /**
+     * Retorna el tamaño del fichero o de la suma de sus ficheros si es una carpeta.
+     * 
+     * @return tamaño del fichero
+     */
+    public long getSize()
+    {
+        long size = 0;
+        if(isFile())
+            return length();
+        else {
+            File[] list = listFiles();
+            for(File file: list)
+                size += file.getSize();
+        }
+        return size;
+    }
+
+    /**
+     * Si es una carpeta retorna una lista con todos los ficheros que contiene.
+     * 
+     * @return todos los ficheros (archivos o carpetas) que contiene
+     */
+    public File[] listFiles()
+    {
+        File[] returnContent = new File[0];
+        if(isDirectory()){
+            java.io.File[] content = super.listFiles();
+            returnContent = new File[content.length];
+            int i = 0;
+            for(java.io.File child:content){
+                returnContent[i] = new File(child.getPath());
+                ++i;
+            }
+        }
+        return returnContent;
+    }
+
+    /**
+     * Elimina el fichero o la carpeta entera que representa esta clase.
+     * 
+     * @return cierto si se ha eliminado, falso en otro caso
+     */
+    public boolean delete()
+    {
+        boolean delete = true;
+        if(isFile())
+            return super.delete();
+        else {
+            File[] list = listFiles();
+            for(File file: list)
+                delete &= file.delete();
+            delete &= super.delete();
+        }
+        return delete;
     }
 
     public static final long serialVersionUID = 1L;

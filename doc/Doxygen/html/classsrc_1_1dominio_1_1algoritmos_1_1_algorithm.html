@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -53,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,6 +59,11 @@ $(document).ready(function(){initNavTree('classsrc_1_1dominio_1_1algoritmos_1_1_
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacesrc.html">src</a></li><li class="navelem"><a class="el" href="namespacesrc_1_1dominio.html">dominio</a></li><li class="navelem"><a class="el" href="namespacesrc_1_1dominio_1_1algoritmos.html">algoritmos</a></li><li class="navelem"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html">Algorithm</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -107,19 +87,23 @@ Inheritance diagram for src.dominio.algoritmos.Algorithm:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa9948769764de4cd170f0a24d15a328e"><td class="memItemLeft" align="right" valign="top">abstract byte[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#aa9948769764de4cd170f0a24d15a328e">compress</a> (<a class="el" href="classsrc_1_1persistencia_1_1_uncompressed_file.html">UncompressedFile</a> uncompressedFile)</td></tr>
-<tr class="separator:aa9948769764de4cd170f0a24d15a328e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a660da7979451f05cf0831e42c7f8eb48"><td class="memItemLeft" align="right" valign="top">abstract byte[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a660da7979451f05cf0831e42c7f8eb48">decompress</a> (<a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html">CompressedFile</a> compressedFile)</td></tr>
-<tr class="separator:a660da7979451f05cf0831e42c7f8eb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a2e1f7df057985e8e11da97abc3fd8a"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="classsrc_1_1persistencia_1_1_output_buffer.html">OutputBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a6a2e1f7df057985e8e11da97abc3fd8a">compress</a> (<a class="el" href="classsrc_1_1persistencia_1_1_input_buffer.html">InputBuffer</a> input)</td></tr>
+<tr class="separator:a6a2e1f7df057985e8e11da97abc3fd8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17c9dce9a48118a76c6d74991cb34e2d"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="classsrc_1_1persistencia_1_1_output_buffer.html">OutputBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a17c9dce9a48118a76c6d74991cb34e2d">decompress</a> (<a class="el" href="classsrc_1_1persistencia_1_1_input_buffer.html">InputBuffer</a> input)</td></tr>
+<tr class="separator:a17c9dce9a48118a76c6d74991cb34e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cefa96944216b550a631a1304a800e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a2cefa96944216b550a631a1304a800e5">setQuality</a> (int quality)</td></tr>
+<tr class="separator:a2cefa96944216b550a631a1304a800e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf0df4305ef73cd0d313123d03ac072a"><td class="memItemLeft" align="right" valign="top">abstract String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#abf0df4305ef73cd0d313123d03ac072a">getName</a> ()</td></tr>
 <tr class="separator:abf0df4305ef73cd0d313123d03ac072a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Esta clase representa un algoritmo de compresión y descompresión. Se encarga de comprimir y descomprimir archivos.</p>
+<div class="textblock"><p>Esta clase representa un algoritmo capaz de comprimir y descomprimir. Es una clase abstracta.</p>
 <dl class="section author"><dt>Author</dt><dd>Pau Val </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_algorithm_8java_source.html#l00012">12</a> of file <a class="el" href="_algorithm_8java_source.html">Algorithm.java</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa9948769764de4cd170f0a24d15a328e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9948769764de4cd170f0a24d15a328e">&#9670;&nbsp;</a></span>compress()</h2>
+<a id="a6a2e1f7df057985e8e11da97abc3fd8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2e1f7df057985e8e11da97abc3fd8a">&#9670;&nbsp;</a></span>compress()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,10 +112,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract byte [] src.dominio.algoritmos.Algorithm.compress </td>
+          <td class="memname">abstract <a class="el" href="classsrc_1_1persistencia_1_1_output_buffer.html">OutputBuffer</a> src.dominio.algoritmos.Algorithm.compress </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classsrc_1_1persistencia_1_1_uncompressed_file.html">UncompressedFile</a>&#160;</td>
-          <td class="paramname"><em>uncompressedFile</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classsrc_1_1persistencia_1_1_input_buffer.html">InputBuffer</a>&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -141,22 +125,24 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Comprime el archivo uncompressedFile</p>
+<p>Comprime los bytes de input.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uncompressedFile</td><td>archivo a comprimir </td></tr>
+    <tr><td class="paramname">input</td><td>bytes a comprimir </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bytes comprimidos del archivo uncompressedFile</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_uncompressed_file.html">src.persistencia.UncompressedFile</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bytes comprimidos</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_input_buffer.html">src.persistencia.InputBuffer</a> </dd>
+<dd>
+<a class="el" href="classsrc_1_1persistencia_1_1_output_buffer.html">src.persistencia.OutputBuffer</a> </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a23d40d0b0b1fb0c4c7134aa99faae431">src.dominio.algoritmos.JPEG</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#ad74d25fe32a2772dc5ec1f006d9bf4ab">src.dominio.algoritmos.LZ78</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a3f55f98d674e1da4a760103752ddfd40">src.dominio.algoritmos.LZW</a>, and <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a74e2801927f2672ce52901b57fcc4f0f">src.dominio.algoritmos.LZSS</a>.</p>
+<p>Reimplemented in <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#af840c8f166fd1db9ae28cc3128a52119">src.dominio.algoritmos.LZSS</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#aba0906bd764a65b3b64ed5c061c797ea">src.dominio.algoritmos.JPEG</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#aa79ff8cf68a62048e49f309ef2931cd5">src.dominio.algoritmos.LZ78</a>, and <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a96de596412f948dcc72ad714234f6f4e">src.dominio.algoritmos.LZW</a>.</p>
 
 </div>
 </div>
-<a id="a660da7979451f05cf0831e42c7f8eb48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a660da7979451f05cf0831e42c7f8eb48">&#9670;&nbsp;</a></span>decompress()</h2>
+<a id="a17c9dce9a48118a76c6d74991cb34e2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17c9dce9a48118a76c6d74991cb34e2d">&#9670;&nbsp;</a></span>decompress()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,10 +151,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract byte [] src.dominio.algoritmos.Algorithm.decompress </td>
+          <td class="memname">abstract <a class="el" href="classsrc_1_1persistencia_1_1_output_buffer.html">OutputBuffer</a> src.dominio.algoritmos.Algorithm.decompress </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html">CompressedFile</a>&#160;</td>
-          <td class="paramname"><em>compressedFile</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classsrc_1_1persistencia_1_1_input_buffer.html">InputBuffer</a>&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -178,17 +164,19 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Descomprime el archivo compressedFile</p>
+<p>Descomprime los bytes de input.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">compressedFile</td><td>archivo a descomprimir </td></tr>
+    <tr><td class="paramname">input</td><td>bytes a descomprimir </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bytes descomprimidos del archivo compressedFile</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html">src.persistencia.CompressedFile</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bytes descomprimidos</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_input_buffer.html">src.persistencia.InputBuffer</a> </dd>
+<dd>
+<a class="el" href="classsrc_1_1persistencia_1_1_output_buffer.html">src.persistencia.OutputBuffer</a> </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a262142d7df772f9d067ecdbd83018cf8">src.dominio.algoritmos.JPEG</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a7e3e217351fddd201663c79c1e28bb9f">src.dominio.algoritmos.LZSS</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#aeec1303635a49a8880453ebe5a470087">src.dominio.algoritmos.LZW</a>, and <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a78719f3183f886574fa44028962f2a57">src.dominio.algoritmos.LZ78</a>.</p>
+<p>Reimplemented in <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a93f43aba49e5838444af910c9ad74726">src.dominio.algoritmos.JPEG</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a1129a6fdd764f3a21f85681604f096cd">src.dominio.algoritmos.LZSS</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a52a443376586f6585756622e9d27ba9f">src.dominio.algoritmos.LZ78</a>, and <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#aaffbfaf5719569a7c1e9b31b84cd858e">src.dominio.algoritmos.LZW</a>.</p>
 
 </div>
 </div>
@@ -214,26 +202,54 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Retorna el nombre del algoritmo</p>
+<p>Retorna el nombre del algoritmo.</p>
 <dl class="section return"><dt>Returns</dt><dd>nombre del algoritmo </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a7c567712c12c7f606362b1797fdcedb7">src.dominio.algoritmos.JPEG</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#aa28aae3fbdd5a260f3fea51adf673842">src.dominio.algoritmos.LZSS</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a39bcc3f43dc475c4b9f2aa617f75885c">src.dominio.algoritmos.LZW</a>, and <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a080102572280e44eae8fccadbcc630be">src.dominio.algoritmos.LZ78</a>.</p>
+<p>Reimplemented in <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a7c567712c12c7f606362b1797fdcedb7">src.dominio.algoritmos.JPEG</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#aa28aae3fbdd5a260f3fea51adf673842">src.dominio.algoritmos.LZSS</a>, <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a080102572280e44eae8fccadbcc630be">src.dominio.algoritmos.LZ78</a>, and <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a39bcc3f43dc475c4b9f2aa617f75885c">src.dominio.algoritmos.LZW</a>.</p>
 
+</div>
+</div>
+<a id="a2cefa96944216b550a631a1304a800e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cefa96944216b550a631a1304a800e5">&#9670;&nbsp;</a></span>setQuality()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void src.dominio.algoritmos.Algorithm.setQuality </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>quality</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Asigna la calidad del algoritmo si este lo permite. Por defecto no hace nada.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">quality</td><td>calidad de 0 a 100 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a86ec10e2c72570a2e593f7358fc29820">src.dominio.algoritmos.JPEG</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_algorithm_8java_source.html#l00042">42</a> of file <a class="el" href="_algorithm_8java_source.html">Algorithm.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Pau/Code/Prop/src/dominio/algoritmos/<a class="el" href="_algorithm_8java.html">Algorithm.java</a></li>
+<li>C:/Users/Pau/Code/Prop/src/dominio/algoritmos/<a class="el" href="_algorithm_8java_source.html">Algorithm.java</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespacesrc.html">src</a></li><li class="navelem"><a class="el" href="namespacesrc_1_1dominio.html">dominio</a></li><li class="navelem"><a class="el" href="namespacesrc_1_1dominio_1_1algoritmos.html">algoritmos</a></li><li class="navelem"><a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html">Algorithm</a></li>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.16 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.16
+</small></address>
 </body>
 </html>

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['main_2ejava_127',['Main.java',['../_main_8java.html',1,'']]],
-  ['menu_2ejava_128',['Menu.java',['../_menu_8java.html',1,'']]]
+  ['lz78_2ejava_244',['LZ78.java',['../_l_z78_8java.html',1,'']]],
+  ['lzss_2ejava_245',['LZSS.java',['../_l_z_s_s_8java.html',1,'']]],
+  ['lzw_2ejava_246',['LZW.java',['../_l_z_w_8java.html',1,'']]]
 ];

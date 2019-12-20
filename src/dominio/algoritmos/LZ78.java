@@ -1,10 +1,10 @@
 package src.dominio.algoritmos;
 
 import java.util.*;
-import java.io.ByteArrayOutputStream;
-
-import src.persistencia.*;
-import src.dominio.ByteArrayHelper;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
+import src.util.CharToByte;
+import src.util.IntegerToByte;
 
 /**
  * Esta clase representa el algoritmo de compresión y descompresión LZ78.
@@ -12,27 +12,24 @@ import src.dominio.ByteArrayHelper;
  * 
  * @author Pol Aguilar
  */
-
 public class LZ78 extends Algorithm{
 
      /**
-     * Comprime todo el texto del archivo representado por uncompressed.
-     * Se va leyendo y tratando cada caracter de uno en uno.
+     * Comprime todo el texto de input.
+     * Se va leyendo y tratando cada byte de uno en uno.
      * 
-     * @param uncompressed archivo a comprimir
-     * @return array de bytes con el texto comprimido (no es legible, hay que descomprimirlo)
-     * 
-     * @see src.persistencia.UncompressedFile
+     * @param input InputBuffer con los bytes a comprimir
+     * @return OutputBuffer con los bytes comprimidos (no es legible, hay que descomprimirlo)
      */
-    public byte[] compress(UncompressedFile uncompressed){
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
+    public OutputBuffer compress(InputBuffer input){
+        OutputBuffer result = new OutputBuffer();
         HashMap<String, Integer> codeWord = new HashMap<String, Integer>();
         String current ="";
         int key = 0;
         byte b;
         boolean found = false;
-        while((b = uncompressed.readByte()) != 0){
-            current += byteToChar(b);
+        while((b = (byte) (input.read() & 0xFF)) != -1){
+            current += CharToByte.byteToChar(b);
             found = false;
             if(codeWord.containsKey(current)){
                 key = codeWord.get(current);
@@ -40,7 +37,7 @@ public class LZ78 extends Algorithm{
             }
             else {
                 try{
-                result.write(ByteArrayHelper.intToByteArray(key,4));
+                result.write(IntegerToByte.intToByteArray(key, 4));
                 }
                 catch(Exception e)
                 {
@@ -55,37 +52,36 @@ public class LZ78 extends Algorithm{
         
         if(found){
             try{
-                result.write(ByteArrayHelper.intToByteArray(0,4));
+                result.write(IntegerToByte.intToByteArray(0, 4));
             }
             catch(Exception e)
             {
                 e.printStackTrace();
             }
-            result.write(charToByte(current.charAt(0)));
+            result.write(CharToByte.charToByte(current.charAt(0)));
          }
 
-        return result.toByteArray();
+        return result;
     }
 
   /**
-     * Descomprime el archivo representado por compressed.
+     * Descomprime los bytes representado por input.
      * Lee enteros y caracteres y los trata con un dictionary para descomprimirlo.
      * 
-     * @param compressed archivo a descomprimir
-     * @return array de bytes con el texto descomprimido
-     * 
-     * @see src.persistencia.CompressedFile
+     * @param input InputBuffer con el archivo a descomprimir
+     * @return OutputBuffer con el texto descomprimido
      */
-
-    public byte[] decompress(CompressedFile compressed){
+    public OutputBuffer decompress(InputBuffer input){
+        OutputBuffer result = new OutputBuffer();
+        try{ 
         ArrayList<String> dictionary = new ArrayList<String>();
         int first;
         char last;
-        byte[] pair;
-        while((pair = compressed.readContent(5)).length != 0) {
+        byte[]  pair = new byte[5];
+        while((input.read(pair)) != -1) {
             byte[] convert = Arrays.copyOfRange(pair,0,3);
-            first = ByteArrayHelper.byteArrayToInt(convert);
-            last = byteToChar(pair[4]);
+            first = IntegerToByte.byteArrayToInt(convert);
+            last = CharToByte.byteToChar(pair[4]);
             if(first == 0){
                 dictionary.add(last+"");
             }
@@ -93,22 +89,18 @@ public class LZ78 extends Algorithm{
                 dictionary.add(dictionary.get(first-1)+last);
             }
         }
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
+       
         for(String d : dictionary)
             for(char c : d.toCharArray())
-                result.write(charToByte(c));
+                result.write(CharToByte.charToByte(c));
 
-        return result.toByteArray();
+    
     }
-
-    private byte charToByte(char c)
-    {
-        return (byte) (c & 0xFF);
-    }
-
-    private char byteToChar(byte b)
-    {
-        return (char) (b & 0xFF);
+    
+        catch(Exception e){
+        System.out.println(e.getMessage());
+        }
+        return result;
     }
 
      /**

@@ -13,51 +13,61 @@ public class LZSSTester {
 
     public void testVoid() 
     {
-       tester.test("void","LZSS");     
+       tester.test("void.txt","LZSS");     
     } 
 
     public void testLine()
     {
-        tester.test("line","LZSS");
+        tester.test("line.txt","LZSS");
     }
 
     public void testChars()
     {
-        tester.test("chars","LZSS");
+        tester.test("chars.txt","LZSS");
     }
 
     public void test4kb()
     {
-        tester.test("4kb","LZSS");
+        tester.test("4kb.txt","LZSS");
     }
 
     public void test8kb()
     {
-        tester.test("8kb","LZSS");
+        tester.test("8kb.txt","LZSS");
     }
 
     public void test6mb()
     {
-        tester.test("6mb","LZSS");
+        tester.test("6mb.txt","LZSS");
     }
 
     public void test15mb()
     {
-        tester.test("15mb","LZSS");
+        tester.test("15mb.txt","LZSS");
     }
 
     public void testCatala()
     {
-        tester.test("catala","LZSS");
+        tester.test("catala.txt","LZSS");
     }
 
     public void testEspanol()
     {
-        tester.test("espanol","LZSS");
+        tester.test("espanol.txt","LZSS");
     }
 
     public void testEnglish()
     {
-        tester.test("english","LZSS");
+        tester.test("english.txt","LZSS");
+    }
+
+    public void testTxtFolder()
+    {
+        tester.test("txt_folder","LZSS");
+    }
+
+    public void testMixedFolder()
+    {
+        tester.test("mixed_folder","LZSS");
     }
 }

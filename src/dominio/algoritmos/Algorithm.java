@@ -1,37 +1,51 @@
 package src.dominio.algoritmos;
 
-import src.persistencia.*;
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 
 /**
- * Esta clase representa un algoritmo de compresión y descompresión.
- * Se encarga de comprimir y descomprimir archivos.
+ * Esta clase representa un algoritmo capaz de comprimir y descomprimir.
+ * Es una clase abstracta.
  * 
  * @author Pau Val
  */
 public abstract class Algorithm
 {
     /**
-     * Comprime el archivo uncompressedFile
+     * Comprime los bytes de input.
      * 
-     * @param uncompressedFile archivo a comprimir
-     * @return bytes comprimidos del archivo uncompressedFile
+     * @param input bytes a comprimir
+     * @return bytes comprimidos
      * 
-     * @see src.persistencia.UncompressedFile
+     * @see src.persistencia.InputBuffer
+     * @see src.persistencia.OutputBuffer
      */
-    public abstract byte[] compress(UncompressedFile uncompressedFile);
+    public abstract OutputBuffer compress(InputBuffer input);
 
     /**
-     * Descomprime el archivo compressedFile
+     * Descomprime los bytes de input.
      * 
-     * @param compressedFile archivo a descomprimir
-     * @return bytes descomprimidos del archivo compressedFile
+     * @param input bytes a descomprimir
+     * @return bytes descomprimidos
      * 
-     * @see src.persistencia.CompressedFile
+     * @see src.persistencia.InputBuffer
+     * @see src.persistencia.OutputBuffer
      */
-    public abstract byte[] decompress(CompressedFile compressedFile);
+    public abstract OutputBuffer decompress(InputBuffer input);
 
     /**
-     * Retorna el nombre del algoritmo
+     * Asigna la calidad del algoritmo si este lo permite.
+     * Por defecto no hace nada.
+     * 
+     * @param quality calidad de 0 a 100
+     */
+    public void setQuality(int quality)
+    {
+        return;
+    }
+
+    /**
+     * Retorna el nombre del algoritmo.
      * 
      * @return nombre del algoritmo
      */

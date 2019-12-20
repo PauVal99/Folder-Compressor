@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['algorithm_185',['algorithm',['../classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230',1,'src.dominio.Actor.algorithm()'],['../classsrc_1_1persistencia_1_1_compressed_file.html#a918ce4cdff8fa8f39186547a8ba36682',1,'src.persistencia.CompressedFile.algorithm()']]],
-  ['asciidigits_186',['asciiDigits',['../classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a40756be5d44d858f13a40356c0c9a64a',1,'src::dominio::algoritmos::JPEG']]]
+  ['algorithm_342',['algorithm',['../classsrc_1_1dominio_1_1_file_compressor.html#a05a298b00a0fbd3172fa20d46abfd518',1,'src.dominio.FileCompressor.algorithm()'],['../classsrc_1_1persistencia_1_1_header.html#a7cd87cb19b0aad59d3c5581b9a8c405a',1,'src.persistencia.Header.algorithm()']]],
+  ['algorithmname_343',['algorithmName',['../classsrc_1_1dominio_1_1_compressor.html#a9e07e5a5534bcb079e719afd17b4c4bd',1,'src::dominio::Compressor']]],
+  ['algtext_344',['algText',['../classsrc_1_1presentacion_1_1_graphic_menu.html#ae01ba8df6ef2296ac22c67bd8ebcf052',1,'src::presentacion::GraphicMenu']]],
+  ['asciidigits_345',['asciiDigits',['../classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a40756be5d44d858f13a40356c0c9a64a',1,'src::dominio::algoritmos::JPEG']]]
 ];

@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -54,22 +46,6 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('functions_vars.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,65 +61,278 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a id="index_a"></a>- a -</h3><ul>
 <li>algorithm
-: <a class="el" href="classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230">src.dominio.Actor</a>
-, <a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html#a918ce4cdff8fa8f39186547a8ba36682">src.persistencia.CompressedFile</a>
+: <a class="el" href="classsrc_1_1dominio_1_1_file_compressor.html#a05a298b00a0fbd3172fa20d46abfd518">src.dominio.FileCompressor</a>
+, <a class="el" href="classsrc_1_1persistencia_1_1_header.html#a7cd87cb19b0aad59d3c5581b9a8c405a">src.persistencia.Header</a>
+</li>
+<li>algorithmName
+: <a class="el" href="classsrc_1_1dominio_1_1_compressor.html#a9e07e5a5534bcb079e719afd17b4c4bd">src.dominio.Compressor</a>
+</li>
+<li>algText
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ae01ba8df6ef2296ac22c67bd8ebcf052">src.presentacion.GraphicMenu</a>
 </li>
 <li>asciiDigits
 : <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a40756be5d44d858f13a40356c0c9a64a">src.dominio.algoritmos.JPEG</a>
 </li>
-<li>compressedFile
-: <a class="el" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">src.dominio.Decompressor</a>
+</ul>
+
+
+<h3><a id="index_b"></a>- b -</h3><ul>
+<li>btnCompress
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ad91f2a32789d2c39abe446155e977743">src.presentacion.GraphicMenu</a>
+</li>
+<li>btnDecompress
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#adf3fb18e8787bee1deb880bd64e70886">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_c"></a>- c -</h3><ul>
+<li>closeButton
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ab14a7b2aef90409fafd620eaae0758e7">src.presentacion.GraphicMenu</a>
+</li>
+<li>completePanel
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a016ae7072f8edca58d94309f9b6f22d5">src.presentacion.GraphicMenu</a>
+</li>
+<li>compressedLength
+: <a class="el" href="classsrc_1_1dominio_1_1_file_compressor.html#ac27c21b098f73f264a591316ddb97187">src.dominio.FileCompressor</a>
+</li>
+<li>compressedSize
+: <a class="el" href="classsrc_1_1persistencia_1_1_actor_stadistics.html#a1797764d4aa4166d15ec2a43a66325ce">src.persistencia.ActorStadistics</a>
+</li>
+<li>compressForm
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#aa5a3fb0f79d01f547e44ea5a8eeb0eda">src.presentacion.GraphicMenu</a>
+</li>
+<li>compressTitle
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ac91fb329f200b0e5eb326d398cd16cbc">src.presentacion.GraphicMenu</a>
+</li>
+<li>comText
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#af92115c999bb11bddae397e0612d17f5">src.presentacion.GraphicMenu</a>
 </li>
 <li>console
-: <a class="el" href="classsrc_1_1presentacion_1_1_menu.html#a5b9a98c44f28f67fc2554bc500f488f7">src.presentacion.Menu</a>
-</li>
-<li>cuant_mat_crom
-: <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#aa914e389523ac4e55cc16753cce66af8">src.dominio.algoritmos.JPEG</a>
+: <a class="el" href="classsrc_1_1presentacion_1_1_console_menu.html#a10c91bb674f1db62626c1ccc80bf1a80">src.presentacion.ConsoleMenu</a>
 </li>
 <li>cuant_mat_lum
-: <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#ae427bbe66296638d5dc047f19cb2b491">src.dominio.algoritmos.JPEG</a>
+: <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a67456b8a68a947382985af34e26702be">src.dominio.algoritmos.JPEG</a>
 </li>
-<li>destinationFile
-: <a class="el" href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">src.dominio.Actor</a>
+</ul>
+
+
+<h3><a id="index_d"></a>- d -</h3><ul>
+<li>decompressTitle
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a0cfed4b5fa8b4b063cc894cfd2f7799b">src.presentacion.GraphicMenu</a>
 </li>
+<li>decText
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#acb94a8865a1992c8bae32abd3d849d1b">src.presentacion.GraphicMenu</a>
+</li>
+<li>destination
+: <a class="el" href="classsrc_1_1dominio_1_1_actor.html#ad6d055c8fb8b3dbafc5f029ecbd60faf">src.dominio.Actor</a>
+</li>
+<li>destinationCompress
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a6a00d95bf9af66a25f90b7b418362997">src.presentacion.GraphicMenu</a>
+</li>
+<li>destinationDecompress
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a42058ee9ebcb5084a85375196c6e18a6">src.presentacion.GraphicMenu</a>
+</li>
+<li>destinationWritter
+: <a class="el" href="classsrc_1_1dominio_1_1_compressor.html#a6b1d5b4be006b91d18c45dfc2a81f818">src.dominio.Compressor</a>
+</li>
+<li>dstCompressButton
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a5a655af8ee61cd0dbe42cbae0c6c259f">src.presentacion.GraphicMenu</a>
+</li>
+<li>dstCompressPath
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a3299e1b9d797d59712993d5ef6f03fa3">src.presentacion.GraphicMenu</a>
+</li>
+<li>dstDecompressButton
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ad9ef8beb1e0b9be07cc6c08f4f481e56">src.presentacion.GraphicMenu</a>
+</li>
+<li>dstDecompressPath
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#acb224806da87dbd21552113cb06c4882">src.presentacion.GraphicMenu</a>
+</li>
+<li>dstText
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ab74c5752bb051d10104892e3bd5429ee">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_j"></a>- j -</h3><ul>
+<li>jButton1
+: <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#a5557e9e042dbf8e5b1c70497007b661f">src.presentacion.InformationDialog</a>
+</li>
+<li>jLabel1
+: <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#a32f0befaefe81cce5c301684fbb37ee3">src.presentacion.InformationDialog</a>
+</li>
+<li>jLabel2
+: <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#afab2f360a41e0ccba86007eca269bb0b">src.presentacion.InformationDialog</a>
+</li>
+<li>jLabel3
+: <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#aa891963f2cdc89c89f2cff20e24070e6">src.presentacion.InformationDialog</a>
+</li>
+<li>jPanel1
+: <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#a476a915c953269e8d25c0d435442f9c3">src.presentacion.InformationDialog</a>
+</li>
+<li>jPanel2
+: <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#a35ffc5556e078dc0fd2f2f243b380ba3">src.presentacion.InformationDialog</a>
+</li>
+<li>jSeparator2
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a6d85324b0b6d0b5d295884a060e2d363">src.presentacion.GraphicMenu</a>
+</li>
+<li>jSeparator3
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ae55af4988db6cc3fe124ea69fd48aa33">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_m"></a>- m -</h3><ul>
 <li>MAX_MATCH_LENGHT
 : <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a94cc436db689cc4f5509e6cc010168c6">src.dominio.algoritmos.LZSS</a>
 </li>
-<li>name
-: <a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html#a76ef1c98962c0e3bfea49912c952101d">src.persistencia.CompressedFile</a>
+<li>menuSeparator
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a588f948057bfd2299e410a7fc7fdc02a">src.presentacion.GraphicMenu</a>
 </li>
+<li>message
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a0277bc5799ca8d19d21cbe833cf260d9">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_o"></a>- o -</h3><ul>
 <li>originalSize
-: <a class="el" href="classsrc_1_1dominio_1_1_compressor.html#ae42754b7d41215a334ce9e5d308ddf85">src.dominio.Compressor</a>
+: <a class="el" href="classsrc_1_1persistencia_1_1_actor_stadistics.html#aa5388af4a12abdc5123f474bcfad9155">src.persistencia.ActorStadistics</a>
+</li>
+</ul>
+
+
+<h3><a id="index_p"></a>- p -</h3><ul>
+<li>propTitle
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a6b0edb59119e8f7f09c1e3a81cc8fa9f">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_q"></a>- q -</h3><ul>
+<li>Q
+: <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a7de3cf593bd7a7c0c8eb834b624a9c8d">src.dominio.algoritmos.JPEG</a>
+</li>
+<li>quality
+: <a class="el" href="classsrc_1_1dominio_1_1_compressor.html#a8162490bb79f1fcce3ae1e5cdcc97159">src.dominio.Compressor</a>
+, <a class="el" href="classsrc_1_1dominio_1_1_file_compressor.html#a715037f9cec97b2455f44d4f4d37bb47">src.dominio.FileCompressor</a>
+</li>
+<li>qualityText
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a47f49fa0b7f39d74bc3d0111f84864d3">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>RECOVERVALUE
+: <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#ad98580c4287161a2d6e660339a2dd888">src.dominio.algoritmos.LZSS</a>
+</li>
+<li>relativePath
+: <a class="el" href="classsrc_1_1dominio_1_1_file_compressor.html#a17210c1a79ded5431f1a092f5338d6ed">src.dominio.FileCompressor</a>
+, <a class="el" href="classsrc_1_1persistencia_1_1_header.html#a27046c55929c290bae04ab55db7bb952">src.persistencia.Header</a>
+</li>
+<li>runCompressButton
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a00c48b201f565bc0963fd2530888963c">src.presentacion.GraphicMenu</a>
+</li>
+<li>runDecompressButton
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#af9008d286cd9a7a35a23e7e15009532d">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_s"></a>- s -</h3><ul>
+<li>selectAlg
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#aae49b2c3485b2da7cd7c21442f26fb51">src.presentacion.GraphicMenu</a>
+</li>
+<li>selectQual
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a0f73c047b3883f1c6db0a6da3269f5e1">src.presentacion.GraphicMenu</a>
 </li>
 <li>serialVersionUID
-: <a class="el" href="classsrc_1_1persistencia_1_1_compressed_file.html#aeed072f082f774d926801df9b1c2c8d0">src.persistencia.CompressedFile</a>
-, <a class="el" href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">src.persistencia.File</a>
-, <a class="el" href="classsrc_1_1persistencia_1_1_uncompressed_file.html#a3278a5a30a545b5ee77dbe3b7f9d8418">src.persistencia.UncompressedFile</a>
+: <a class="el" href="classsrc_1_1persistencia_1_1_file.html#aa5375df237a3239d2b1d44a7a2cee5b6">src.persistencia.File</a>
+, <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a6d50d73f2a58bc017fc4558b6be78776">src.presentacion.GraphicMenu</a>
+, <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#a8d6d6229c7c6e8f7d37802e51fb456d7">src.presentacion.InformationDialog</a>
+</li>
+<li>sidePanel
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a3d570973b5d7ae22fc6871fe465b3227">src.presentacion.GraphicMenu</a>
+</li>
+<li>size
+: <a class="el" href="classsrc_1_1persistencia_1_1_header.html#a29b79d051c588077f374d131c17343fe">src.persistencia.Header</a>
+</li>
+<li>source
+: <a class="el" href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">src.dominio.Actor</a>
+, <a class="el" href="classsrc_1_1dominio_1_1_file_compressor.html#a94e3207ba3f9557f92ada524b6b9460b">src.dominio.FileCompressor</a>
+</li>
+<li>sourceCompress
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#af89919ad533712ba6dbbf31284ce7a87">src.presentacion.GraphicMenu</a>
+</li>
+<li>sourceDecompress
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#aef832f951d1419ff683c7b4442b62abd">src.presentacion.GraphicMenu</a>
+</li>
+<li>srcCompressButton
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#add8f3f664609930344a048ebf4da4eb0">src.presentacion.GraphicMenu</a>
+</li>
+<li>srcCompressPath
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a022931f05728f3483ec0f57eb2f01086">src.presentacion.GraphicMenu</a>
+</li>
+<li>srcDecompressButton
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#aa37f6e2dfa84080afa575fbbb7e9d2a3">src.presentacion.GraphicMenu</a>
+</li>
+<li>srcDecompressPath
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a5fd324c227d9621bd4093cb3f415aa59">src.presentacion.GraphicMenu</a>
+</li>
+<li>srcText
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a00d7915778f5188d191affbdfe3d2ce8">src.presentacion.GraphicMenu</a>
 </li>
 <li>startTime
-: <a class="el" href="classsrc_1_1dominio_1_1_actor.html#a1c9cdd501c52e6bcadc7c31b892c1ecf">src.dominio.Actor</a>
+: <a class="el" href="classsrc_1_1persistencia_1_1_actor_stadistics.html#a17918bcb6adc99e8079e05431f47f844">src.persistencia.ActorStadistics</a>
 </li>
 <li>stopTime
-: <a class="el" href="classsrc_1_1dominio_1_1_actor.html#af4a718335c21583e70b7559019d41c67">src.dominio.Actor</a>
+: <a class="el" href="classsrc_1_1persistencia_1_1_actor_stadistics.html#abceefab6852174a48aeacb4304adf716">src.persistencia.ActorStadistics</a>
 </li>
-<li>uncompressedFile
-: <a class="el" href="classsrc_1_1dominio_1_1_compressor.html#a6df3fb842b72f3ebe670dcf203a49359">src.dominio.Compressor</a>
+</ul>
+
+
+<h3><a id="index_t"></a>- t -</h3><ul>
+<li>tempsLabel
+: <a class="el" href="classsrc_1_1presentacion_1_1_information_dialog.html#a6ee1c578213a38344e667b171db03847">src.presentacion.InformationDialog</a>
 </li>
+<li>titleProj
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#ad4dcec6c6ec7d792f7e5d35a7ed406f1">src.presentacion.GraphicMenu</a>
+</li>
+<li>titulMode
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a3ffb9e326bd05e80267307d4c89b79f6">src.presentacion.GraphicMenu</a>
+</li>
+<li>titulModeDec
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a4cb98f1d0b5a68c70a16a1e961f3ab4e">src.presentacion.GraphicMenu</a>
+</li>
+<li>type
+: <a class="el" href="classsrc_1_1persistencia_1_1_header.html#a01cc7cfc04e8a231bd792cff1cd0cb2e">src.persistencia.Header</a>
+</li>
+</ul>
+
+
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>visualOption
+: <a class="el" href="classsrc_1_1presentacion_1_1_graphic_menu.html#a0d62f993152b7d6f621853805a757cbd">src.presentacion.GraphicMenu</a>
+</li>
+</ul>
+
+
+<h3><a id="index_w"></a>- w -</h3><ul>
 <li>WINDOW
 : <a class="el" href="classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#ac84682c7e1e5d12162b7dcbc7f98de62">src.dominio.algoritmos.LZSS</a>
 </li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.16 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.16
+</small></address>
 </body>
 </html>

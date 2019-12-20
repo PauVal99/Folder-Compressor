@@ -1,9 +1,11 @@
 package src.dominio;
 
-import java.io.File;
-
+import src.persistencia.ActorStadistics;
+import src.persistencia.File;
+import src.dominio.FileCompressor;
 import src.dominio.Actor;
-import src.persistencia.UncompressedFile;;
+
+import java.io.FileOutputStream;
 
 /**
  * Esta clase representa un actor de compresión.
@@ -11,82 +13,102 @@ import src.persistencia.UncompressedFile;;
  * 
  * @author Pau Val
  */
-
 public class Compressor extends Actor
 {
-    /** 
-     * Representa el fichero a comprimir
-     * 
-     * @see src.persistencia.UncompressedFile
-     */
-    private UncompressedFile uncompressedFile;
+    /** Nombre del algoritmo especificado */
+    private String algorithmName;
 
-    /** Tamaño original del archivo a comprimir */
-    private long originalSize;
+    /** Calidad con la que se comprimira (si el algoritmo lo permite) */
+    private int quality;
+
+    /** Escritor al archivo destino */
+    private FileOutputStream destinationWritter;
 
     /**
      * Construye un Compressor.
      * 
-     * @param uncompressedFile archivo a comprimir
-     * @param destinationFile archivo de destino
+     * @param source archivo o carpeta a comprimir
+     * @param destinationFolder carpeta de destino
      * @param algorithmName nombre del algoritmo a usar
      * 
-     * @see java.io.File
-     * @see src.persistencia.UncompressedFile
+     * @see src.persistencia.File
      */
-    public Compressor(UncompressedFile uncompressedFile, File destinationFile, String algorithmName)
+    public Compressor(File source, File destinationFolder, String algorithmName, int quality)
     {
-        super(destinationFile,algorithmName);
-        this.uncompressedFile = uncompressedFile;
+        super(source, getDestinationFile(destinationFolder, source.getFileName()));
+        try{
+            this.destinationWritter = new FileOutputStream(this.destination);
+            this.algorithmName = algorithmName;
+            this.quality = quality;
+        }
+        catch(Exception e){
+            System.out.println("Error opening stream in file " + this.destination.getPath());
+        }
     }
 
     /**
-     * Realiza la acción de comprimir un fichero con los parametros de la constructora.
-     * Se encaraga de recojer las estadísticas, escribir la cabecera del archivo comprimido y escribir el resultado.
-     */
-    public void compress()
-    {
-        initCompressStadistics();
-        byte[] b = algorithm.compress(uncompressedFile);
-        writeInDestiantionFile(getHeader().getBytes());
-        writeInDestiantionFile(b);
-        printCompressStadistics(b.length);
-    }
-
-    /**
-     * Crea una cabezera con el nombre del archivo original y el nombre del algoritmo usado para la compresión.
-     * @return string "atributo:valor\n"
-     */
-    private String getHeader()
-    {
-        String header = "name:"      + uncompressedFile.getName() + "\n" +
-                        "algorithm:" + algorithm.getName()        + "\n" ;
-        return header;
-    }
-
-    /**
-     * Recoje el momento en que se inicia la compresión y el tamaño del archivo a comprimir.
+     * Retorna el archivo destino de esta compresión. Se construye con la carpeta de destino mas el nombre del source y la extensión .cmprss.
      * 
-     * @see src.dominio.Actor::initStadistics()
+     * @param destinationFolder carpeta de destino
+     * @param fileName nombre del archivo a generar
+     * @return archivo del destino de la compresión
      */
-    private void initCompressStadistics()
+    private static File getDestinationFile(File destinationFolder, String fileName)
     {
-        initStadistics();
-        originalSize = uncompressedFile.length();
+        return new File(destinationFolder.getPath() + File.separator + fileName + ".cmprss");
     }
 
     /**
-     * Recoje el momento en que se acaba la compresión y el tamaño del archivo resultante.
+     * Realiza la acción de comprimir un fichero o carpeta con los parametros de la constructora.
+     * Se encaraga de recojer las estadísticas.
      * 
-     * @param long tamaño del archivo comprimido
+     * @return estadisticas de compressión
      * 
-     * @see src.dominio.Actor::printStadistics()
+     * @see src.persistencia.ActorStadistics
      */
-    private void printCompressStadistics(long compressedSize)
+    public ActorStadistics execute()
     {
-        printStadistics();
-        System.out.print("Original size was "+originalSize+" bytes.\n");
-        System.out.print("Compressed size is "+compressedSize+" bytes.\n");
-        System.out.print("Compress ratio is "+((float)compressedSize/(float)originalSize)+" bytes.\n");
+        ActorStadistics stadistics = new ActorStadistics();
+        stadistics.setOriginalSize(source.getSize());
+        stadistics.setStartTime(System.currentTimeMillis());
+        try{
+            recursiveCompression(source);
+            destinationWritter.close();
+        }
+        catch(Exception e){
+            System.out.println("Error compressing: " + source.getPath());
+        }
+        stadistics.setStopTime(System.currentTimeMillis());
+        stadistics.setCompressedSize(destination.getSize());
+        return stadistics;
+    }
+
+    /**
+     * Metodo recursivo que comprime una estructura de carpetas.
+     * 
+     * @param file Archivo o carpeta a comprimir
+     * @throws Exception En caso de error en la lectura o escritura de un fichero o carpeta
+     */
+    private void recursiveCompression(File file) throws Exception
+    {
+        FileCompressor fileCompressor = new FileCompressor(file, algorithmName, getRelativePath(file), quality);
+        destinationWritter.write(fileCompressor.compress().toByteArray());
+        if(file.isDirectory()){
+            File[] folderList = file.listFiles();
+            for(File f: folderList){
+                recursiveCompression(f);
+            }
+        }
+    }
+
+    /**
+     * Retorna la ruta relativa del fichero parametro i el source de la compresión.
+     * 
+     * @param file archivo del cual se quiere saber su ruta relativa
+     * @return ruta relativa al source
+     */
+    private String getRelativePath(File file)
+    {
+        return source.getName() + file.getPath().replace(source.getPath(), "");
     }
 }

@@ -1,10 +1,9 @@
 package src.dominio.algoritmos;
 
-import src.dominio.HuffTree;
-import src.dominio.Pair;
-import src.persistencia.CompressedFile;
-import src.persistencia.UncompressedFile;
+import src.persistencia.huff.*;
 
+import src.persistencia.InputBuffer;
+import src.persistencia.OutputBuffer;
 import java.util.*;
 
 /**
@@ -13,22 +12,28 @@ import java.util.*;
  *
  * @author Bartomeu Perelló
  */
-
 public class JPEG extends Algorithm
 {
     /**
-     * Comprime el archivo ppm que es representado por el fichero uncompressed.
+     * Comprime el archivo ppm que es representado por el Objeto de persistencia input buffer.
      * Inicialmente se obtiene todos los datos de la imagen y separa la parte del "Header" de los valores de los píxeles.
      *
-     * @param uncompressed Archivo a comprimir.
-     * @return Array de bytes con la información necesaria para poder descomprimir la imagen introducida.
+     * @param input Objeto de donde se consiguen los datos del archivo a comprimir.
+     * @return OutputBuffer con la información necesaria para poder descomprimir la imagen introducida.
      *
-     * @see src.persistencia.UncompressedFile
      */
     @Override
-    public byte[] compress(UncompressedFile uncompressed)
+    public OutputBuffer compress(InputBuffer input)
     {
-        byte[] data= uncompressed.readAll();
+        byte[] data = new byte[0];
+        try{
+            data = input.readAll();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        modQuant(Q);
 
         byte[] version= new byte[3];
         version[0]=data[0];
@@ -80,104 +85,105 @@ public class JPEG extends Algorithm
                 }
             }
         }
-        it+=3;
+        it++;
         //OBTENIR TAMANY IMATGE
         short w= im_size(wid);
         short h= im_size(hei);
 
-        int imageSize= w*h;
-        short[] Y= new short[imageSize];
-        short[] U= new short[imageSize];
-        short[] V= new short[imageSize];
-        int imageSizeX3=data.length;
+        short[][] Y= new short[h][w];
+        short[][] U= new short[h][w];
+        short[][] V= new short[h][w];
 
         //TRANSFORMACIO DE RGB A YCbC|YUV
-        for(int i=0; it < imageSizeX3; it+=3, ++i) {
-            short R,G,B;
-            R= (short) (data[it-2] & 0x00FF);
-            G= (short) (data[it-1] & 0x00FF);
-            B= (short) (data[it] & 0x00FF);
+        short R,G,B;
 
-            Y[i]= (short)(0 + ( 0.299 * R ) + ( 0.587 * G ) + ( 0.114 * B ) );
-            U[i]= (short)(128 - ( 0.168736 * R ) - (0.331264 * G ) + (0.5 * B ));
-            V[i]= (short)(128 + ( 0.5 * R ) - ( 0.418688 * G ) - ( 0.081312 * B ));
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                R= (short) (data[it++] & 0x00FF);
+                G= (short) (data[it++] & 0x00FF);
+                B= (short) (data[it++] & 0x00FF);
+
+                Y[i][j]= (short)(0 + ( 0.299 * R ) + ( 0.587 * G ) + ( 0.114 * B ) );
+                U[i][j]= (short)(128 - ( 0.168736 * R ) - (0.331264 * G ) + (0.5 * B ));
+                V[i][j]= (short)(128 + ( 0.5 * R ) - ( 0.418688 * G ) - ( 0.081312 * B ));
+            }
         }
 
         //RESTAR 128 PARA PODER APLICAR DCT(FUNCIÓ AMB COSINUS, VALORS ENTRE -128,127)
-        for(int i=0; i < imageSize; i++){
-            Y[i]-=128;
-            U[i]-=128;
-            V[i]-=128;
+        for(int i=0; i < h; i++){
+            for (int j = 0; j < w; j++) {
+                Y[i][j]-=128;
+                U[i][j]-=128;
+                V[i][j]-=128;
+            }
         }
 
-        short[] YD= new short[imageSize];
-        short[] UD= new short[imageSize];
-        short[] VD= new short[imageSize];
+        short[][] YD= new short[h][w];
+        short[][] UD= new short[h][w];
+        short[][] VD= new short[h][w];
 
         //DCT TRANSFORMATION
         double alphaU,alphaV;
 
-        double iterations= imageSize/64.0;
-        iterations-=(int)iterations;
-        int ex= (int)(iterations*64);
-        int max_iterations= imageSize/64;
+        int iiterations= h/8, jiterations= w/8;
 
-        for (int i = 0; i < max_iterations; i++) {
-            int u=0;
-            int v=0;
-            for (int j = 0; j < 64; j++) {
-                if(v%8 == 0 && v!=0) {
-                    u++;
-                    v=0;
-                }
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
 
-                if(u == 0)alphaU= 1.0/Math.sqrt(2);
-                else alphaU= 1;
-                if(v == 0)alphaV= 1.0/Math.sqrt(2);
-                else alphaV= 1;
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
 
-                float x,y;
-                x=y=0;
-                short YAUX=0;
-                short UAUX=0;
-                short VAUX=0;
-                for (int k = 0; k < 64; k++) {
-                    if(y%8 == 0 && y!=0){
-                        x++;
-                        y=0;
+                        if(u == 0)alphaU= 1.0/Math.sqrt(2);
+                        else alphaU= 1;
+                        if(v == 0)alphaV= 1.0/Math.sqrt(2);
+                        else alphaV= 1;
+
+                        short YAUX=0;
+                        short UAUX=0;
+                        short VAUX=0;
+
+                        for (int x = 0; x < 8; x++) {
+                            for (int y = 0; y < 8; y++) {
+                                double calc= ( Math.cos( ((2*x+1)*Math.PI*u)/16 ) * Math.cos( ((2*y+1)*Math.PI*v)/16 ) );
+
+                                YAUX += (short)( ( Y[(8*i)+x][(8*j)+y] * calc ) );
+                                UAUX += (short)( ( U[(8*i)+x][(8*j)+y] * calc ) );
+                                VAUX += (short)( ( V[(8*i)+x][(8*j)+y] * calc ) );
+                            }
+                        }
+
+                        double calc= (1.0/4) * alphaU * alphaV;
+                        YD[(8*i)+u][(8*j)+v]= (short)(YAUX * calc);
+                        UD[(8*i)+u][(8*j)+v]= (short)(UAUX * calc);
+                        VD[(8*i)+u][(8*j)+v]= (short)(VAUX * calc);
+
                     }
-                    double calc= ( Math.cos( ((2*x+1)*Math.PI*u)/16 ) * Math.cos( ((2*y+1)*Math.PI*v)/16 ) );
-
-                    YAUX += (short)( ( Y[(i*64)+k] * calc ) );
-                    UAUX += (short)( ( U[(i*64)+k] * calc ) );
-                    VAUX += (short)( ( V[(i*64)+k] * calc ) );
-
-                    ++y;
                 }
-                double calc= (1.0/4) * alphaU * alphaV;
-                YD[(i*64)+j]= (short)(YAUX * calc);
-                UD[(i*64)+j]= (short)(UAUX * calc);
-                VD[(i*64)+j]= (short)(VAUX * calc);
-                ++v;
+
+
             }
         }
 
         //Cuantification
-        for (int i = 0; i < imageSize; i++) {
-            YD[i]= (short)Math.round(YD[i]/cuant_mat_lum[i%64]);
-            UD[i]= (short)Math.round(UD[i]/cuant_mat_crom[i%64]);
-            VD[i]= (short)Math.round(VD[i]/cuant_mat_crom[i%64]);
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
+
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        YD[(8*i)+u][(8*j)+v]/= cuant_mat_lum[(u*8)+v];
+                        UD[(8*i)+u][(8*j)+v]/= cuant_mat_lum[(u*8)+v];
+                        VD[(8*i)+u][(8*j)+v]/= cuant_mat_lum[(u*8)+v];
+                    }
+                }
+
+            }
         }
 
         ArrayList<Short> resY= new ArrayList<>();
         ArrayList<Short> resU= new ArrayList<>();
         ArrayList<Short> resV= new ArrayList<>();
 
-        for (int i = imageSize-ex; i < imageSize; i++) {
-            YD[i]=(short) 1;
-            UD[i]=(short) 1;
-            VD[i]=(short) 1;
-        }
+
 
         //SIMPLIFICAR ARRAYS
         simplify_res(resY,YD);
@@ -253,8 +259,8 @@ public class JPEG extends Algorithm
             hash2Array.add(p);
         }
 
-        byte[] rbyte= new byte[2 + hash.size()*2 + hash.size()*maxSS*2 + hash.size() + 2 + 2 + RES.size()];
-        int rbS= rbyte.length, i, hs= hash.size();
+        byte[] rbyte= new byte[2 + hash.size()*2 + hash.size()*maxSS*2 + hash.size() + 2 + 2 + 2 +RES.size()];
+        int rbs= rbyte.length, i, hs= hash.size();
 
         //SIZE HASH
         rbyte[1]= (byte)(hs & 0xFF);
@@ -283,26 +289,36 @@ public class JPEG extends Algorithm
         rbyte[i++]= (byte)(w & 0xFF);
         rbyte[i++]= (byte)((h >>> 8) & 0xFF);
         rbyte[i++]= (byte)(h & 0xFF);
+        rbyte[i++]= (byte)((this.Q >>> 8) & 0xFF);
+        rbyte[i++]= (byte)(this.Q & 0xFF);
 
         //GUARDAR CODI HUFF
         for (int j = 0; j < RES.size(); j++) rbyte[i++]= RES.get(j);
 
-        return rbyte;
+        OutputBuffer output = new OutputBuffer();
+        output.write(rbyte,0,rbs);
+
+        return output;
     }
 
     /**
      * Descomprime el fichero comprimido anteriormente para recuperar la imagen original.
      * Inicialmente se obtiene todos los datos del archivo comprimido y mediante Huffman se recuperan los datos comprimidos necesarios para recuperar la imagen original.
      *
-     * @param compressedBytes Archivo a descomprimir.
-     * @return Array de bytes con la estructura necesaria para ser reprentado como un archivo PPM.
+     * @param input Objeto de donde se consiguen los datos del archivo a descomprimir.
+     * @return OutputBuffer con la estructura necesaria para ser reprentado como un archivo PPM.
      *
-     * @see src.persistencia.UncompressedFile
      */
     @Override
-    public byte[] decompress(CompressedFile compressedBytes)
+    public OutputBuffer decompress(InputBuffer input)
     {
-        byte[] data= compressedBytes.readAll();
+        byte[] data = new byte[0];
+        try{
+            data = input.readAll();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
         //RESTAURAR HASHMAP
         int it=0;
@@ -327,209 +343,220 @@ public class JPEG extends Algorithm
 
         w= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
         h= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
-
+        Q= (short)( ( (data[it++] & 0xFF) << 8) | (data[it++] & 0xFF) );
+        setQuality(Q);
         int imageSize=w*h;
-
-        short[] Y=new short[imageSize];
-        short[] U=new short[imageSize];
-        short[] V=new short[imageSize];
 
         //RESTAURAR VALORS
         int pos=0;
-        boolean keyFound=false,first=true;
+        boolean keyFound=false,first=true,zeros=false;
         String key="";
-        int bit=7,putted=0;
+        int bit=7;
         byte actByte=0;
         byte[] val = new byte[1];
+        Short elem=0;
+
+        int iiterations= h/8, jiterations=w/8;
+
+        //CREAR MATRIUS
+        short[][] YD= new short[h][w];
+        short[][] UD= new short[h][w];
+        short[][] VD= new short[h][w];
 
         //RESTAURAR Y
-        while(pos < imageSize){
-            while(! keyFound) {
-                if(bit < 0 || first){
-                    first=false;
-                    bit=7;
-                    actByte = data[it++];
-                }
-                if(pos%64 == 0)putted=0;
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
 
-                val[0]= (byte) ((actByte >>> bit--) & 0x01);
-                val[0]= (byte)asciiDigits[val[0]];
-                String aux= new String(val);
-                key+=aux;
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
 
-                Short elem=hash.get(key);
-                if(elem != null){
-                    if(elem == 3000){
-                        int insertions=64-putted,o=0;
-                        while(o < insertions){
-                            Y[pos++]=(short)0;
-                            ++o;
+                        while(! keyFound && !zeros) {
+                            if(bit < 0 || first){
+                                first=false;
+                                bit=7;
+                                actByte = data[it++];
+                            }
+
+                            val[0]= (byte) ((actByte >>> bit--) & 0x01);
+                            val[0]= (byte)asciiDigits[val[0]];
+                            String aux= new String(val);
+                            key+=aux;
+
+                            elem=(hash.get(key));
+                            if(elem != null){
+                                if(elem == 3000) zeros=true;
+                                keyFound=true;
+                            }
                         }
-                        putted=0;
+                        key="";
+                        keyFound=false;
+
+                        if(zeros)YD[(8*i)+u][(8*j)+v]=0;
+                        else YD[(8*i)+u][(8*j)+v]=elem;
                     }
-                    else {
-                        Y[pos++]=elem;
-                        ++putted;
-                    }
-                    keyFound=true;
                 }
+                zeros=false;
             }
-            keyFound=false;
-            key="";
         }
 
-        pos=0;
-        key="";
         //RESTAURAR U
-        while(pos < imageSize){
-            while(! keyFound) {
-                if(bit < 0){
-                    bit=7;
-                    actByte = data[it++];
-                }
-                if(pos%64 == 0)putted=0;
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
 
-                val[0]= (byte) ((actByte >>> bit--) & 0x01);
-                val[0]= (byte)asciiDigits[val[0]];
-                String aux= new String(val);
-                key+=aux;
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
 
-                Short elem=hash.get(key);
-                if(elem != null){
-                    if(elem == 3000){
-                        int insertions=64-putted,o=0;
-                        while(o < insertions){
-                            U[pos++]=(short)0;
-                            ++o;
+                        while(! keyFound && !zeros) {
+                            if(bit < 0 || first){
+                                first=false;
+                                bit=7;
+                                actByte = data[it++];
+                            }
+
+                            val[0]= (byte) ((actByte >>> bit--) & 0x01);
+                            val[0]= (byte)asciiDigits[val[0]];
+                            String aux= new String(val);
+                            key+=aux;
+
+                            elem=hash.get(key);
+                            if(elem != null){
+                                if(elem == 3000) zeros=true;
+                                keyFound=true;
+                            }
                         }
-                        putted=0;
+                        key="";
+                        keyFound=false;
+
+                        if(zeros)UD[(8*i)+u][(8*j)+v]=0;
+                        else UD[(8*i)+u][(8*j)+v]=elem;
                     }
-                    else {
-                        U[pos++]=elem;
-                        ++putted;
-                    }
-                    keyFound=true;
                 }
+                zeros=false;
             }
-            keyFound=false;
-            key="";
         }
 
-        pos=0;
-        key="";
         //RESTAURAR V
-        while(pos < imageSize){
-            while(! keyFound) {
-                if(bit < 0){
-                    bit=7;
-                    actByte = data[it++];
-                }
-                if(pos%64 == 0)putted=0;
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
 
-                val[0]= (byte) ((actByte >>> bit--) & 0x01);
-                val[0]= (byte)asciiDigits[val[0]];
-                String aux= new String(val);
-                key+=aux;
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
 
-                Short elem=hash.get(key);
-                if(elem != null){
-                    if(elem == 3000){
-                        int insertions=64-putted,o=0;
-                        while(o < insertions){
-                            V[pos++]=(short)0;
-                            ++o;
+                        while(! keyFound && !zeros) {
+                            if(bit < 0 || first){
+                                first=false;
+                                bit=7;
+                                actByte = data[it++];
+                            }
+
+                            val[0]= (byte) ((actByte >>> bit--) & 0x01);
+                            val[0]= (byte)asciiDigits[val[0]];
+                            String aux= new String(val);
+                            key+=aux;
+
+                            elem=hash.get(key);
+                            if(elem != null){
+                                if(elem == 3000) zeros=true;
+                                keyFound=true;
+                            }
                         }
-                        putted=0;
+                        key="";
+                        keyFound=false;
+
+                        if(zeros)VD[(8*i)+u][(8*j)+v]=0;
+                        else VD[(8*i)+u][(8*j)+v]=elem;
                     }
-                    else {
-                        V[pos++]=elem;
-                        ++putted;
-                    }
-                    keyFound=true;
                 }
+                zeros=false;
             }
-            keyFound=false;
-            key="";
         }
+
         //Decuantification
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
 
-        for (int i = 0; i < imageSize; i++) {
-            Y[i]= (short)Math.round(Y[i]*cuant_mat_lum[i%64]);
-            U[i]= (short)Math.round(U[i]*cuant_mat_crom[i%64]);
-            V[i]= (short)Math.round(V[i]*cuant_mat_crom[i%64]);
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        YD[(8*i)+u][(8*j)+v]*= cuant_mat_lum[(u*8)+v];
+                        UD[(8*i)+u][(8*j)+v]*= cuant_mat_lum[(u*8)+v];
+                        VD[(8*i)+u][(8*j)+v]*= cuant_mat_lum[(u*8)+v];
+                    }
+                }
+
+            }
         }
 
-        short[] YD= new short[imageSize];
-        short[] UD= new short[imageSize];
-        short[] VD= new short[imageSize];
+        short[][] YN= new short[h][w];
+        short[][] UN= new short[h][w];
+        short[][] VN= new short[h][w];
 
 
         //INVERSE DCT
         double alphaU,alphaV;
 
-        double iterations= imageSize/64.0;
-        iterations-=(int)iterations;
-        int ex= (int)(iterations*64);
-        int max_iterations= imageSize/64;
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
 
-        for (int i = 0; i < max_iterations; i++) {
-            int x=0;
-            int y=0;
-            for (int j = 0; j < 64; j++) {
-                if(j%8 == 0 && j!=0) {
-                    x++;
-                    y=0;
-                }
+                for (int x = 0; x < 8; x++) {
+                    for (int y = 0; y < 8; y++) {
 
-                float u,v;
-                u=v=0;
+                        short YAUX=0;
+                        short UAUX=0;
+                        short VAUX=0;
 
-                short YAUX=0;
-                short UAUX=0;
-                short VAUX=0;
+                        for (int u = 0; u < 8; u++) {
+                            for (int v = 0; v < 8; v++) {
 
-                for (int k = 0; k < 64; k++) {
-                    if(k%8 == 0 && k!=0){
-                        u++;
-                        v=0;
+                                if(u == 0)alphaU= 1.0/Math.sqrt(2);
+                                else alphaU= 1;
+                                if(v == 0)alphaV= 1.0/Math.sqrt(2);
+                                else alphaV= 1;
+
+                                double calc= ( Math.cos( ((2*x+1)*Math.PI*u)/16 ) * Math.cos( ((2*y+1)*Math.PI*v)/16 ) );
+                                calc= calc * alphaV*alphaU;
+
+                                YAUX += (short)( ( YD[(8*i)+u][(8*j)+v] * calc ) );
+                                UAUX += (short)( ( UD[(8*i)+u][(8*j)+v] * calc ) );
+                                VAUX += (short)( ( VD[(8*i)+u][(8*j)+v] * calc ) );
+                            }
+                        }
+
+                        double calc= (1.0/4);
+                        YN[(8*i)+x][(8*j)+y]= (short)(YAUX * calc);
+                        UN[(8*i)+x][(8*j)+y]= (short)(UAUX * calc);
+                        VN[(8*i)+x][(8*j)+y]= (short)(VAUX * calc);
+
                     }
-
-                    if(u == 0)alphaU= 1/Math.sqrt(2);
-                    else alphaU= 1;
-                    if(v == 0)alphaV= 1/Math.sqrt(2);
-                    else alphaV= 1;
-
-                    double calc= ( Math.cos( ((2*x+1)*Math.PI*u)/16 ) * Math.cos( ((2*y+1)*Math.PI*v)/16 ) );
-                    calc= calc * alphaV*alphaU;
-
-                    YAUX += (short)((Y[(i*64)+k] * calc));
-                    UAUX += (short)((U[(i*64)+k] * calc));
-                    VAUX += (short)((V[(i*64)+k] * calc));
-
-                    ++v;
                 }
-                YD[(i*64)+j]= (short)(YAUX * (1.0/4));
-                UD[(i*64)+j]= (short)(UAUX * (1.0/4));
-                VD[(i*64)+j]= (short)(VAUX * (1.0/4));
-                ++y;
+
+
             }
         }
+
         //SUMAR
-        for(int i=0; i < imageSize; i++){
-            YD[i]+=128;
-            UD[i]+=128;
-            VD[i]+=128;
+        for(int i=0; i < h; i++){
+            for (int j = 0; j < w; j++) {
+                YN[i][j]+=128;
+                UN[i][j]+=128;
+                VN[i][j]+=128;
+            }
         }
+
         short[] R= new short[imageSize];
         short[] G= new short[imageSize];
         short[] B= new short[imageSize];
 
         //TRANSFORMAR DE YUV-> RGB
-        for (int i = 0; i < imageSize; i++) {
-            R[i]= (short) (YD[i] + ( 1.402 * ( VD[i] - 128 ) ) );
-            G[i]= (short) (YD[i] - ( 0.344136 * ( UD[i] - 128 ) ) - ( 0.714136 * ( VD[i] - 128 ) ) );
-            B[i]= (short) (YD[i] + ( 1.772 * (UD[i] - 128 ) ) );
+        it=0;
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                R[it]= (short) (YN[i][j] + ( 1.402 * ( VN[i][j] - 128 ) ) );
+                G[it]= (short) (YN[i][j] - ( 0.344136 * ( UN[i][j] - 128 ) ) - ( 0.714136 * ( VN[i][j] - 128 ) ) );
+                B[it]= (short) (YN[i][j] + ( 1.772 * (UN[i][j]- 128 ) ) );
+                ++it;
+            }
         }
+
         char[] he= short2ascii(h);
         char[] wi= short2ascii(w);
         byte[] RES= new byte[imageSize * 3 + 3 + wi.length + 1 +he.length + 1 + 3 +1];
@@ -558,11 +585,15 @@ public class JPEG extends Algorithm
             RES[pos++]=(byte)(G[i] & 0xFF);
             RES[pos++]=(byte)(B[i] & 0xFF);
         }
-        return RES;
+
+        OutputBuffer output = new OutputBuffer();
+        output.write(RES,0,RES.length);
+
+        return output;
     }
 
     /** Matriz utilizada para reducir las bajas frequiencias en el canal de luminosidad Y*/
-    private static float[] cuant_mat_lum= {
+    private static double[] cuant_mat_lum= {
             16,11,10,16,24,40,51,61,
             12,12,14,19,26,58,60,55,
             14,13,16,24,40,57,69,56,
@@ -572,18 +603,7 @@ public class JPEG extends Algorithm
             49,64,78,87,103,121,120,101,
             72,92,95,98,112,100,103,99
     };
-
-    /** Matriz utilizada para reducir las bajas frequiencias en los canales cromaticos Cb=U,, Cr=V*/
-    private  static float[] cuant_mat_crom={
-            17,18,24,47,99,99,99,99,
-            18,21,26,66,99,99,99,99,
-            24,26,56,99,99,99,99,99,
-            47,66,99,99,99,99,99,99,
-            99,99,99,99,99,99,99,99,
-            99,99,99,99,99,99,99,99,
-            99,99,99,99,99,99,99,99,
-            99,99,99,99,99,99,99,99
-    };
+    private int Q=100;
     /** Array para poder generar un cambio de un digito a su equivalente en carácter*/
     private static char[] asciiDigits={'0','1','2','3','4','5','6','7','8','9'};
 
@@ -625,48 +645,72 @@ public class JPEG extends Algorithm
 
     /** Funcion que reduce el tamaño del intput introducido mediante marcas.
      * @param res ArrayList que al final de la función contriene los valores de data comprimidos.
-     * @param data Array de shorts que necesita ser comprimido.
+     * @param data Matriz de shorts que necesita ser comprimido.
      * */
-    private void simplify_res(ArrayList<Short> res, short[] data) {
+    private void simplify_res(ArrayList<Short> res, short[][] data) {
         ArrayList<Short> aux= new ArrayList<>();
         boolean endseq=false;
-        int imageSize= data.length;
+        int iiterations= data.length/8, jiterations= data[0].length/8;
 
-        for (int i = 0; i < imageSize; i++) {
+        for (int i = 0; i < iiterations; i++) {
+            for (int j = 0; j < jiterations; j++) {
 
-            if(i%64 == 0 && i != 0){
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+
+                        if (endseq) {
+                            if (data[(8 * i) + u][(8 * j) + v] != 0) {
+                                endseq = false;
+                                res.addAll(aux);
+                                aux.clear();
+                                res.add(data[(8 * i) + u][(8 * j) + v]);
+                            } else {
+                                aux.add(data[(8 * i) + u][(8 * j) + v]);
+                            }
+                        }
+                        else{
+                            if(data[(8 * i) + u][(8 * j) + v] == 0){
+                                endseq=true;
+                                aux.add(data[(8 * i) + u][(8 * j) + v]);
+                            }
+                            else{
+                                res.add(data[(8 * i) + u][(8 * j) + v]);
+                            }
+                        }
+
+                    }
+                }
                 aux.clear();
                 if(endseq){
                     res.add((short)3000);
                     endseq=false;
                 }
             }
-
-            if(endseq) {
-                if(data[i] != 0) {
-                    endseq=false;
-                    res.addAll(aux);
-                    aux.clear();
-                    res.add(data[i]);
-                }
-                else {
-                    aux.add(data[i]);
-                }
-            }
-
-            else{
-                if(data[i] == 0){
-                    endseq=true;
-                    aux.add(data[i]);
-                }
-                else{
-                    res.add(data[i]);
-                }
-            }
         }
-        if(endseq){
-            res.add((short)3000);
+    }
+
+    /** Funcion que modifica la matriz de cuantificación
+     * @param Q Valor que indica el indice de calidad a comprimir
+     * */
+    private void modQuant(int Q){
+        int S;
+        if(Q < 50) S= 5000/Q;
+        else S= 200 - 2*Q;
+
+        for (int i = 0; i < 64; i++) {
+            cuant_mat_lum[i]= Math.floor( ( S * cuant_mat_lum[i] + 50) / 100 );
+            if(cuant_mat_lum[i] == 0) cuant_mat_lum[i]=1;
         }
+    }
+
+    /** Funcion que asigna el valor Q que significa la calidad de compresion.
+     *
+     * @param Q
+     */
+    public void setQuality(int quality){
+        if(Q < 30) this.Q=30;
+        else if (Q > 100) this.Q=100;
+        this.Q = quality;
     }
 
     /**

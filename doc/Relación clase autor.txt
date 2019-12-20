@@ -1,14 +1,17 @@
 doc:
-  UML: Pol Aguilar
-  Descripción casos de uso : Pol Aguilar
-  Diagrama de casos de uso: Pol Aguilar
-  Descripcion de los drivers:  Sebastian Acurio
-  DoxyGen: Pau Val
   Descripcion Algoritmos:
     LZ78: Pol Aguilar
     LZSS: Sebastian Acurio
     LZW: Pau Val
     JPEG: Bartomeu Perelló
+  DoxyGen: Pau Val
+  Descripcion casos de uso: Pol Aguilar
+  Descripcion de los drivers:  Sebastian Acurio
+  Descripcion del JUnit: Pau Val
+  Diagrama de casos de uso: Pol Aguilar
+  Explicaion de la compression de carpetas: Pau Val
+  Librerias externas usadas: Pau Val
+  UML: Pol Aguilar
 src:
   dominio:
     algoritmos:
@@ -18,22 +21,36 @@ src:
       LZW: Pau Val
       JPEG: Bartomeu Perelló
     Actor: Pau Val
-    ByteArrayHelper: Pol Aguilar
     Compressor: Pau Val
     Decompressor: Pau Val
-    HuffTree: Bartomeu Perelló
-    Pair: Bartomeu Perelló
+    FileCompressor: Pau Val
   persistencia:
-    CompressedFile : Pau Val
+    huff:
+      HuffTree: Bartomeu Perelló
+      Pair: Bartomeu Perelló
+    ActorStadistics: Pau Val
     File: Pau Val
-    UncompressedFile: Pau Val
+    Header: Pau Val
+    InputBuffer: Pau Val
+    OutputBuffer: Pau Val
   presentación:
-    Menu : Pau Val
-  Main : Pau Val
+    ConsoleMenu: Pau Val
+    GraphicMenu : Sebastian Acruio y Pol Aguilar
+    InformationDialog: Sebastian Acurio y Pol Aguilar
+  util:
+    CharToByte: Pau Val
+    IntegerToByte: Pol Aguilar
+  Console: Pau Val
+  Main: Sebastian Acurio
 tests:
+  JUnit:
+    IntegerToByteHelperTest: Pau Val
+  testers:
+    LZ78Tester: Sebastian Acurio
+    LZSSTester: Sebastian Acurio
+    LZWTester: Sebastian Acurio
+    JPEGTester: Sebastian Acurio
   Tester: Sebastian Acurio
   TestMenu: Sebastian Acurio
-  LZ78Tester: Sebastian Acurio
-  LZSSTester: Sebastian Acurio
-  LZWTester: Sebastian Acurio
-  JPEGTester: Sebastian Acurio
+  Main: Sebastian Acurio
+Makefile: Pau Val

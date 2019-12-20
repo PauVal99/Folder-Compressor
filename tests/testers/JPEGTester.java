@@ -8,13 +8,12 @@ public class JPEGTester {
     public JPEGTester(){ this.tester= new Tester();}
 
     public void test1_4M() {
-        tester.testJPEG("1_4MB","JPEG");
+        tester.testJPEG("1_4MB.ppm");
     }
-    public void NOdiv64() {
-        tester.testJPEG("NOdiv64","JPEG");
+    public void testN8() {
+        tester.testJPEG("N8.ppm");
     }
     public void test6M() {
-        tester.testJPEG("6M","JPEG");
+        tester.testJPEG("6M.ppm");
     }
-
 }

@@ -1,8 +1,21 @@
 var searchData=
 [
-  ['im_5fsize_158',['im_size',['../classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a4c468a29045f19445de57b9fb5aab25c',1,'src::dominio::algoritmos::JPEG']]],
-  ['initcompressstadistics_159',['initCompressStadistics',['../classsrc_1_1dominio_1_1_compressor.html#a20650bf92f2be06f37244aaf2dd2317c',1,'src::dominio::Compressor']]],
-  ['initstadistics_160',['initStadistics',['../classsrc_1_1dominio_1_1_actor.html#a6f0393757e7750b93c77fc317e342035',1,'src::dominio::Actor']]],
-  ['inttobytearray_161',['intToByteArray',['../classsrc_1_1dominio_1_1_byte_array_helper.html#a5e509d1bc21993f2d90e076b4523c67f',1,'src::dominio::ByteArrayHelper']]],
-  ['isbitset_162',['isBitSet',['../classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a14a6b625db3a01a063400642a504cab2',1,'src::dominio::algoritmos::LZSS']]]
+  ['genhash_280',['genHash',['../classsrc_1_1persistencia_1_1huff_1_1_huff_tree.html#a78d74963cef64a7a208dc6835b57b5be',1,'src::persistencia::huff::HuffTree']]],
+  ['getalgorithm_281',['getAlgorithm',['../classsrc_1_1persistencia_1_1_header.html#ad60843c8e1e50b355fdb0a6486edb686',1,'src::persistencia::Header']]],
+  ['getcompressedbytes_282',['getCompressedBytes',['../classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#ae9758a93aa5721ed8d7d78683e569fbd',1,'src::dominio::algoritmos::LZSS']]],
+  ['getcompressratio_283',['getCompressRatio',['../classsrc_1_1persistencia_1_1_actor_stadistics.html#ab1de311ed498e5657a9feec8a5177c05',1,'src::persistencia::ActorStadistics']]],
+  ['getdestinationfile_284',['getDestinationFile',['../classsrc_1_1dominio_1_1_compressor.html#a4d001b804246e8bc1248ab09090d19c2',1,'src::dominio::Compressor']]],
+  ['getelapsedtime_285',['getElapsedTime',['../classsrc_1_1persistencia_1_1_actor_stadistics.html#a91b52d823b3dd738b3cdc2261d3ed496',1,'src::persistencia::ActorStadistics']]],
+  ['getextension_286',['getExtension',['../classsrc_1_1persistencia_1_1_file.html#a8d6dff450d28f4f92403a788499a6b25',1,'src::persistencia::File']]],
+  ['getfilename_287',['getFileName',['../classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0',1,'src::persistencia::File']]],
+  ['getheader_288',['getHeader',['../classsrc_1_1dominio_1_1_file_compressor.html#a49db46a142c5589c0ba2965edfd33c8d',1,'src::dominio::FileCompressor']]],
+  ['getkey_289',['getKey',['../classsrc_1_1persistencia_1_1huff_1_1_pair.html#a1a6b265c3e78e26e9ffa0688127029e0',1,'src::persistencia::huff::Pair']]],
+  ['getmatchedlen_290',['getMatchedLen',['../classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#a743d8dad062c306cb09a5f1c8c0e2860',1,'src::dominio::algoritmos::LZSS']]],
+  ['getname_291',['getName',['../classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#abf0df4305ef73cd0d313123d03ac072a',1,'src.dominio.algoritmos.Algorithm.getName()'],['../classsrc_1_1dominio_1_1algoritmos_1_1_j_p_e_g.html#a7c567712c12c7f606362b1797fdcedb7',1,'src.dominio.algoritmos.JPEG.getName()'],['../classsrc_1_1dominio_1_1algoritmos_1_1_l_z78.html#a080102572280e44eae8fccadbcc630be',1,'src.dominio.algoritmos.LZ78.getName()'],['../classsrc_1_1dominio_1_1algoritmos_1_1_l_z_s_s.html#aa28aae3fbdd5a260f3fea51adf673842',1,'src.dominio.algoritmos.LZSS.getName()'],['../classsrc_1_1dominio_1_1algoritmos_1_1_l_z_w.html#a39bcc3f43dc475c4b9f2aa617f75885c',1,'src.dominio.algoritmos.LZW.getName()']]],
+  ['getrelativepath_292',['getRelativePath',['../classsrc_1_1dominio_1_1_compressor.html#a04aea9d49b76c7a7ceed0ca885f9e8a2',1,'src.dominio.Compressor.getRelativePath()'],['../classsrc_1_1persistencia_1_1_header.html#ae7ce8e2eba2dd128b2974378a1c2a887',1,'src.persistencia.Header.getRelativePath()']]],
+  ['getsize_293',['getSize',['../classsrc_1_1persistencia_1_1_file.html#a0cb6f27720880f9489aab383acc033b0',1,'src.persistencia.File.getSize()'],['../classsrc_1_1persistencia_1_1_header.html#a419706f9a7a390d65fa628ca8e4ce29c',1,'src.persistencia.Header.getSize()']]],
+  ['gettype_294',['getType',['../classsrc_1_1persistencia_1_1_header.html#a26a96cb4cb711ea69d66135c8f491178',1,'src::persistencia::Header']]],
+  ['getvalue_295',['getValue',['../classsrc_1_1persistencia_1_1huff_1_1_pair.html#ab098399a94d3e9dcc9036217b3bd5a60',1,'src::persistencia::huff::Pair']]],
+  ['getvelocity_296',['getVelocity',['../classsrc_1_1persistencia_1_1_actor_stadistics.html#aaf5f6e1c90735dd991834c2ac99a44c9',1,'src::persistencia::ActorStadistics']]],
+  ['graphicmenu_297',['GraphicMenu',['../classsrc_1_1presentacion_1_1_graphic_menu.html#aa8a757d68740a5516fa852468ab64ca8',1,'src::presentacion::GraphicMenu']]]
 ];

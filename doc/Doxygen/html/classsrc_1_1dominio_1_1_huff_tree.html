@@ -104,7 +104,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a89a693a48b1641ff2ac93d6272d1f7db"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1dominio_1_1_huff_tree.html#a89a693a48b1641ff2ac93d6272d1f7db">genHash</a> (Node root, String s, HashMap&lt; Short, String &gt; hash)</td></tr>
 <tr class="separator:a89a693a48b1641ff2ac93d6272d1f7db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="_huff_tree_8java_source.html#l00024">24</a> of file <a class="el" href="_huff_tree_8java_source.html">HuffTree.java</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a36e4906b05f947b9a9e1cecd7309d20f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a36e4906b05f947b9a9e1cecd7309d20f">&#9670;&nbsp;</a></span>createHuffTree()</h2>
 
@@ -129,6 +132,51 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Un HashMap representando cada valor con su codigo huffman </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_huff_tree_8java_source.html#l00031">31</a> of file <a class="el" href="_huff_tree_8java_source.html">HuffTree.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                                                                  {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">int</span> tsize= freq_elem.size();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        PriorityQueue&lt;Node&gt; queue= <span class="keyword">new</span> PriorityQueue&lt;&gt;(tsize, <span class="keyword">new</span> HuffComp());</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">for</span>(Map.Entry&lt;Short,Integer&gt; entry : freq_elem.entrySet()) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            Short key = entry.getKey();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            Integer value = entry.getValue();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            Node root= <span class="keyword">new</span> Node();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            root.data= key;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            root.freq= value;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            root.has_info= <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            root.right= <span class="keyword">null</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            root.left= <span class="keyword">null</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            queue.add(root);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        Node root= <span class="keyword">new</span> Node();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">while</span>(queue.size() &gt; 1){</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            Node l= queue.peek();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            queue.poll();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            Node r= queue.peek();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            queue.poll();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            Node p= <span class="keyword">new</span> Node();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            p.freq= l.freq+r.freq;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            p.has_info=<span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            p.right= r;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            p.left= l;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            root= p;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            queue.add(p);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        HashMap&lt;Short,String&gt; hash= <span class="keyword">new</span> HashMap&lt;&gt;();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_huff_tree.html#a89a693a48b1641ff2ac93d6272d1f7db">genHash</a>(root, <span class="stringliteral">&quot;&quot;</span>, hash);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> hash;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a89a693a48b1641ff2ac93d6272d1f7db"></a>
@@ -180,13 +228,26 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_huff_tree_8java_source.html#l00082">82</a> of file <a class="el" href="_huff_tree_8java_source.html">HuffTree.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">if</span> (root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span> &amp;&amp; root.has_info) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            hash.put(root.data,s);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_huff_tree.html#a89a693a48b1641ff2ac93d6272d1f7db">genHash</a>(root.left, s+<span class="stringliteral">&quot;0&quot;</span>, hash);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_huff_tree.html#a89a693a48b1641ff2ac93d6272d1f7db">genHash</a>(root.right, s+ <span class="stringliteral">&quot;1&quot;</span>, hash);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_huff_tree_8java.html">HuffTree.java</a></li>
+<li>C:/Users/Pau/Code/Prop/src/dominio/<a class="el" href="_huff_tree_8java_source.html">HuffTree.java</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_huff_tree_html_a89a693a48b1641ff2ac93d6272d1f7db"><div class="ttname"><a href="classsrc_1_1dominio_1_1_huff_tree.html#a89a693a48b1641ff2ac93d6272d1f7db">src.dominio.HuffTree.genHash</a></div><div class="ttdeci">static void genHash(Node root, String s, HashMap&lt; Short, String &gt; hash)</div><div class="ttdef"><b>Definition:</b> <a href="_huff_tree_8java_source.html#l00082">HuffTree.java:82</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

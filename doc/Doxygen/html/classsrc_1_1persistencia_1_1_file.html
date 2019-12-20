@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -53,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classsrc_1_1persistencia_1_1_file.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,6 +59,11 @@ $(document).ready(function(){initNavTree('classsrc_1_1persistencia_1_1_file.html
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacesrc.html">src</a></li><li class="navelem"><a class="el" href="namespacesrc_1_1persistencia.html">persistencia</a></li><li class="navelem"><a class="el" href="classsrc_1_1persistencia_1_1_file.html">File</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -97,27 +77,23 @@ $(document).ready(function(){initNavTree('classsrc_1_1persistencia_1_1_file.html
 Inheritance diagram for src.persistencia.File:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classsrc_1_1persistencia_1_1_file.png" usemap="#src.persistencia.File_map" alt=""/>
-  <map id="src.persistencia.File_map" name="src.persistencia.File_map">
-<area href="classsrc_1_1persistencia_1_1_compressed_file.html" alt="src.persistencia.CompressedFile" shape="rect" coords="0,112,210,136"/>
-<area href="classsrc_1_1persistencia_1_1_uncompressed_file.html" alt="src.persistencia.UncompressedFile" shape="rect" coords="220,112,430,136"/>
-  </map>
-</div></div>
+  <img src="classsrc_1_1persistencia_1_1_file.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a20c23e6886d6292919a20154ca3483f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a> (String pathName)</td></tr>
 <tr class="separator:a20c23e6886d6292919a20154ca3483f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb17b340f16a586d31697bcefac8ed46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#abb17b340f16a586d31697bcefac8ed46">close</a> ()</td></tr>
-<tr class="separator:abb17b340f16a586d31697bcefac8ed46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbf8d91e25e10af5f3988aa970327c08"><td class="memItemLeft" align="right" valign="top">byte[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#abbf8d91e25e10af5f3988aa970327c08">readAll</a> ()</td></tr>
-<tr class="separator:abbf8d91e25e10af5f3988aa970327c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac235b723c83143de3db32379c2e2f8cc"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#ac235b723c83143de3db32379c2e2f8cc">readByte</a> ()</td></tr>
-<tr class="separator:ac235b723c83143de3db32379c2e2f8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516ffce5b85a48f036cfa961c05becbe"><td class="memItemLeft" align="right" valign="top">byte[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">readContent</a> (int nBytes)</td></tr>
-<tr class="separator:a516ffce5b85a48f036cfa961c05becbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f3f616647acf5a10f59920fc56e54b0"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a7f3f616647acf5a10f59920fc56e54b0">getFileName</a> ()</td></tr>
 <tr class="separator:a7f3f616647acf5a10f59920fc56e54b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d6dff450d28f4f92403a788499a6b25"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a8d6dff450d28f4f92403a788499a6b25">getExtension</a> ()</td></tr>
+<tr class="separator:a8d6dff450d28f4f92403a788499a6b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cb6f27720880f9489aab383acc033b0"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a0cb6f27720880f9489aab383acc033b0">getSize</a> ()</td></tr>
+<tr class="separator:a0cb6f27720880f9489aab383acc033b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28bb3f0d3a1a2aeeb516161ebea87a73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1persistencia_1_1_file.html">File</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">listFiles</a> ()</td></tr>
+<tr class="separator:a28bb3f0d3a1a2aeeb516161ebea87a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa42b2e271cd429753121dc0a5c35147"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1persistencia_1_1_file.html#aaa42b2e271cd429753121dc0a5c35147">delete</a> ()</td></tr>
+<tr class="separator:aaa42b2e271cd429753121dc0a5c35147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -125,8 +101,11 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:aa5375df237a3239d2b1d44a7a2cee5b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Esta clase representa un archivo. Su cometido es gestionar todas las necesidades del progama respecto este fichero. Extiende la clase java.io.File.</p>
+<div class="textblock"><p>Esta clase representa un fichero. Su cometido es gestionar todas las necesidades del progama respecto este fichero. Extiende la clase java.io.File.</p>
+<dl class="section see"><dt>See also</dt><dd>java.io.File </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Pau Val </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00011">11</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a20c23e6886d6292919a20154ca3483f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a20c23e6886d6292919a20154ca3483f8">&#9670;&nbsp;</a></span>File()</h2>
@@ -143,33 +122,82 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructora de un archivo. Inicializa el lector del archivo.</p>
+<p>Constructora de un fichero.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pathName</td><td>ruta al archivo sin comprimir </td></tr>
+    <tr><td class="paramname">pathName</td><td>ruta al fichero </td></tr>
   </table>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00018">18</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        super(pathName);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abb17b340f16a586d31697bcefac8ed46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb17b340f16a586d31697bcefac8ed46">&#9670;&nbsp;</a></span>close()</h2>
+<a id="aaa42b2e271cd429753121dc0a5c35147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa42b2e271cd429753121dc0a5c35147">&#9670;&nbsp;</a></span>delete()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void src.persistencia.File.close </td>
+          <td class="memname">boolean src.persistencia.File.delete </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Cierra el fileInputStream </p>
+<p>Elimina el fichero o la carpeta entera que representa esta clase.</p>
+<dl class="section return"><dt>Returns</dt><dd>cierto si se ha eliminado, falso en otro caso </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00095">95</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">boolean</span> <span class="keyword">delete</span> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span>(isFile())</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">return</span> super.delete();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>[] list = <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">listFiles</a>();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">for</span>(<a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a> file: list)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="keyword">delete</span> &amp;= file.delete();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keyword">delete</span> &amp;= super.delete();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8d6dff450d28f4f92403a788499a6b25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d6dff450d28f4f92403a788499a6b25">&#9670;&nbsp;</a></span>getExtension()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String src.persistencia.File.getExtension </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retorna la extensión del fichero.</p>
+<dl class="section return"><dt>Returns</dt><dd>extensión del fichero </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00042">42</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        String extension = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        String name = getName();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">int</span> pos = name.lastIndexOf(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> (pos &gt; 0)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            extension = name.substring(pos+1, name.length());</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> extension;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a7f3f616647acf5a10f59920fc56e54b0"></a>
@@ -186,77 +214,84 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retorna el nombre sin extension de este fichero.</p>
-<dl class="section return"><dt>Returns</dt><dd>nombre sin extension de este fichero</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>java.io.File::getName() </dd></dl>
+<p>Retorna el nombre sin la extensión del fichero.</p>
+<dl class="section return"><dt>Returns</dt><dd>nombre sin la extensión del fichero </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00028">28</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        String name = getName();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">int</span> pos = name.lastIndexOf(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (pos &gt; 0)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            name = name.substring(0, pos);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> name;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="abbf8d91e25e10af5f3988aa970327c08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbf8d91e25e10af5f3988aa970327c08">&#9670;&nbsp;</a></span>readAll()</h2>
+<a id="a0cb6f27720880f9489aab383acc033b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cb6f27720880f9489aab383acc033b0">&#9670;&nbsp;</a></span>getSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">byte [] src.persistencia.File.readAll </td>
+          <td class="memname">long src.persistencia.File.getSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Esta función lee todos los bytes del archivo.</p>
-<dl class="section return"><dt>Returns</dt><dd>byte array con todos los bytes del archivo.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">src.persistencia.File::readContent()</a> </dd></dl>
+<p>Retorna el tamaño del fichero o de la suma de sus ficheros si es una carpeta.</p>
+<dl class="section return"><dt>Returns</dt><dd>tamaño del fichero </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00057">57</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">long</span> size = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span>(isFile())</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">return</span> length();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>[] list = <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">listFiles</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">for</span>(<a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a> file: list)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                size += file.getSize();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="ac235b723c83143de3db32379c2e2f8cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac235b723c83143de3db32379c2e2f8cc">&#9670;&nbsp;</a></span>readByte()</h2>
+<a id="a28bb3f0d3a1a2aeeb516161ebea87a73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28bb3f0d3a1a2aeeb516161ebea87a73">&#9670;&nbsp;</a></span>listFiles()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">byte src.persistencia.File.readByte </td>
+          <td class="memname"><a class="el" href="classsrc_1_1persistencia_1_1_file.html">File</a> [] src.persistencia.File.listFiles </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Esta función lee el siguiente byte sin leer del fichero.</p>
-<dl class="section return"><dt>Returns</dt><dd>siguiente byte</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsrc_1_1persistencia_1_1_file.html#a516ffce5b85a48f036cfa961c05becbe">src.persistencia.File::readContent()</a> </dd></dl>
+<p>Si es una carpeta retorna una lista con todos los ficheros que contiene.</p>
+<dl class="section return"><dt>Returns</dt><dd>todos los ficheros (archivos o carpetas) que contiene </dd></dl>
 
-</div>
-</div>
-<a id="a516ffce5b85a48f036cfa961c05becbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a516ffce5b85a48f036cfa961c05becbe">&#9670;&nbsp;</a></span>readContent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">byte [] src.persistencia.File.readContent </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nBytes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Esta función retorna un byte array con el numero de bytes siguientes sin leer.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nBytes</td><td>numero de bytes a leer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>contenido de los siguientes nBytes</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>java.io.FileInputStream::read() </dd></dl>
-
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00075">75</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
+<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>[] returnContent = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>[0];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span>(isDirectory()){</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            java.io.File[] content = super.listFiles();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            returnContent = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>[content.length];</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">for</span>(java.io.File child:content){</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                returnContent[i] = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">File</a>(child.getPath());</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                ++i;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">return</span> returnContent;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -280,21 +315,21 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="_file_8java_source.html#l00109">109</a> of file <a class="el" href="_file_8java_source.html">File.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Pau/Code/Prop/src/persistencia/<a class="el" href="_file_8java.html">File.java</a></li>
+<li>C:/Users/Pau/Code/Prop/src/persistencia/<a class="el" href="_file_8java_source.html">File.java</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a20c23e6886d6292919a20154ca3483f8"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a20c23e6886d6292919a20154ca3483f8">src.persistencia.File.File</a></div><div class="ttdeci">File(String pathName)</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00018">File.java:18</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a28bb3f0d3a1a2aeeb516161ebea87a73"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a28bb3f0d3a1a2aeeb516161ebea87a73">src.persistencia.File.listFiles</a></div><div class="ttdeci">File[] listFiles()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00075">File.java:75</a></div></div>
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespacesrc.html">src</a></li><li class="navelem"><a class="el" href="namespacesrc_1_1persistencia.html">persistencia</a></li><li class="navelem"><a class="el" href="classsrc_1_1persistencia_1_1_file.html">File</a></li>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.16 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.16
+</small></address>
 </body>
 </html>

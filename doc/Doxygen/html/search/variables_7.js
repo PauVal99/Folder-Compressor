@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uncompressedfile_198',['uncompressedFile',['../classsrc_1_1dominio_1_1_compressor.html#a6df3fb842b72f3ebe670dcf203a49359',1,'src::dominio::Compressor']]]
+  ['proptitle_380',['propTitle',['../classsrc_1_1presentacion_1_1_graphic_menu.html#a6b0edb59119e8f7f09c1e3a81cc8fa9f',1,'src::presentacion::GraphicMenu']]]
 ];

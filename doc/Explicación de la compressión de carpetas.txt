@@ -1,0 +1,10 @@
+A continuación se explicara como se realiza la compressión de carpetas en un único fichero.
+Para guardar la estructura de carpetas nuestro programa escribe una cabezera delante de cada archivo o carpeta comprimido.
+Despues de la cabezera bienen los bytes del archivo comprimido.
+Para mantener las estructuras de carpetas guardamos de cada fichero su ruta relativa a la raíz de la carpeta a comprimir.
+Cuando se descomprime se concadena la carpeta destino con cada ruta relativa generando de nuevo la misma estructura.
+
+Si el fichero es una carpeta la cabezera es: "folder;<ruta relativa>"
+Si el fichero es un archivo la cabezera es: "file;<ruta relativa>;<algoritmo usado para la compresión>;<tamaño comprimido>"
+
+El nombre del algoritmo nos permite saber con que algoritmo vamos a descomrimir ese fichero y el tamaño los n bytes siguientes que hay que leer.

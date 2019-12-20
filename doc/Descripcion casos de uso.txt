@@ -4,29 +4,21 @@ Caso de uso : Compress
 
 2.El usuario elije la opción Compress.
 
-3.El usuario introduce archivo a comprimir.
+3.El usuario introduce archivo o carpeta a comprimir.
 
 4.El usuario introduce la carpeta destino.
 
-5.El usuario introduce el nombre del fichero comprimido.
+5.El usuario especifica el algoritmo usado para la compresión.
 
-6.El usuario especifica el algoritmo usado para la compresión.
-
-7.El usuario ve las estadísticas.
+6.El usuario ve las estadísticas.
 
 Escenarios excepcionales:
 
--El archivo a comprimir no es archivo o no existe:
-1.Volver al paso 3.
+-Si el archivo a comprimir es una carpeta o se usa el algoritmo JPEG.
+1.Se pregunta por la calidad de compresión.
 
--La carpeta destino no es una carpeta o no existe:
-1.Volver al paso 4.
-
--El nombre del fichero comprimido ya existe:
-1.Volver al paso 5.
-
-
-
+-El usuario puede escoger visualizar el resultado de la compresión.
+1.Se visualiza el archivo original y el comprimido.
 
 Caso de uso : Decompress
 
@@ -39,14 +31,6 @@ Caso de uso : Decompress
 4.El usuario introduce la carpeta destino.
 
 5.El usuario ve las estadísticas.
-
-Escenarios excepcionales: 
-
--El archivo no es un archivo comprimido o no es archivo:
-1.Volver al paso 3.
-
--El fichero ya existe en la carpeta destino:
-1.Introducir nuevo nombre para el fichero descomprimido. 
 
 
 
