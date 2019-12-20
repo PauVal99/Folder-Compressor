@@ -137,45 +137,43 @@ public class InformationDialog extends javax.swing.JDialog {
         jLabel2.setText("");
         jLabel3.setText("");
     }
-     /**
-     * Edita el contenido de la etiquieta tiempo
-     * 
-     * @param content contenido a cambiar
-     */
 
-   public void changeValueTemps(String content){
+    /**
+    * Edita el contenido de la etiquieta tiempo
+    * 
+    * @param content contenido a cambiar
+    */
+
+    public void changeValueTemps(String content){
        tempsLabel.setText(content);
    }
     
-   /**
-     * Edita el contenido de la etiquieta 1
-     * 
-     * @param content contenido a cambiar
-     */
-
+    /**
+    * Edita el contenido de la etiquieta 1
+    * 
+    * @param content contenido a cambiar
+    */
    public void changeValueLabel1(String content){
        jLabel1.setText(content);
    }
    
-   /**
-     * Edita el contenido de la etiquieta 2
-     * 
-     * @param content contenido a cambiar
-     */
-
-   public void changeValueLabel2(String content){
+    /**
+    * Edita el contenido de la etiquieta 2
+    * 
+    * @param content contenido a cambiar
+    */
+    public void changeValueLabel2(String content){
        jLabel2.setText(content);
-   }
+    }
    
-   /**
-     * Edita el contenido de la etiquieta 3
-     * 
-     * @param content contenido a cambiar
-     */
-
-   public void changeValueLabel3(String content){
+    /**
+    * Edita el contenido de la etiquieta 3
+    * 
+    * @param content contenido a cambiar
+    */
+    public void changeValueLabel3(String content){
        jLabel3.setText(content);
-   }
+    }
    
    /**
      * Envia el mensaje a las etiquetas
@@ -185,7 +183,6 @@ public class InformationDialog extends javax.swing.JDialog {
      * @param content contenido de la etiqueta 2
      * @param content contenido de la etiqueta 3
      */
-
    public void showResults(String time, String msg1, String msg2, String msg3) {
        changeValueTemps(time);
        changeValueLabel1(msg1);
