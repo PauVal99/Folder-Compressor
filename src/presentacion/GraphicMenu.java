@@ -6,9 +6,11 @@ import src.persistencia.File;
 import src.persistencia.ActorStadistics;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +30,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     private InformationDialog message;
 
     /**
-     * Crea un GrapgicMenu
+     * Crea un GraphicMenu
      */
     public GraphicMenu() {
         initComponents();
@@ -54,7 +56,6 @@ public class GraphicMenu extends javax.swing.JFrame {
         compressTitle = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         closeButton = new javax.swing.JLabel();
-        selectQual = new javax.swing.JComboBox<>();
         qualityText = new javax.swing.JLabel();
         selectAlg = new javax.swing.JComboBox<>();
         dstCompressButton = new javax.swing.JButton();
@@ -75,6 +76,8 @@ public class GraphicMenu extends javax.swing.JFrame {
         runDecompressButton = new javax.swing.JButton();
         srcText = new javax.swing.JLabel();
         dstText = new javax.swing.JLabel();
+        selectQual = new javax.swing.JTextField();
+        visualOption = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Compressor/Decopressor - PROP");
@@ -234,17 +237,12 @@ public class GraphicMenu extends javax.swing.JFrame {
         });
         completePanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 20, 20));
 
-        selectQual.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        selectQual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "50", "100", "150", "200" }));
-        selectQual.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        completePanel.add(selectQual, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 240, -1));
-
         qualityText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        qualityText.setText("Choose the JPEG quality compression:");
-        completePanel.add(qualityText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 270, -1));
+        qualityText.setText("Set the JPEG quality compression [0..100]:");
+        completePanel.add(qualityText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 280, -1));
 
         selectAlg.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        selectAlg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "auto", "LZ78", "LZSS", "LZW", "JPEG" }));
+        selectAlg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Automatic Process", "LZ78", "LZSS", "LZW", "JPEG" }));
         selectAlg.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         selectAlg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,22 +377,30 @@ public class GraphicMenu extends javax.swing.JFrame {
         dstText.setText("Choose the destination of the Uncompressed file/folder:");
         compressForm.add(dstText, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 390, -1));
 
-        completePanel.add(compressForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 680, 510));
+        completePanel.add(compressForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 680, 520));
+
+        selectQual.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        completePanel.add(selectQual, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 240, -1));
+
+        visualOption.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        visualOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Without checking display", "With checking display" }));
+        completePanel.add(visualOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, 170, 30));
 
         getContentPane().add(completePanel, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>                        
+    }// </editor-fold>
 
     /**
-     * Define algunas propiedades de la interfaz
+     * Define propiedades iniciales de algunos componentes de la interfaz
      */
 
     final void initialViewProperties(){
         compressForm.setVisible(false);
         qualityText.setVisible(false);
         selectQual.setVisible(false);
+        visualOption.setVisible(false);
         srcCompressPath.setEditable(false);
         dstCompressPath.setEditable(false);
         srcDecompressPath.setEditable(false);
@@ -484,31 +490,98 @@ public class GraphicMenu extends javax.swing.JFrame {
     * 
     *  @param evt evento que activa la funcion
     */
-    private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) { 
+        String alg = (String)selectAlg.getSelectedItem();                                                 
         if (sourceCompress == null || destinationCompress == null){
-            message = new InformationDialog(this,true);
-            message.changeValueLabel2("Source or Destination path not selected propperly !");
-            message.setVisible(true);
+            errorMessage("Source or Destination path not selected propperly !");
         }
         else{ 
-            String alg = (String)selectAlg.getSelectedItem();
-            Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg,Integer.parseInt((String)selectQual.getSelectedItem()));
-            ActorStadistics stadistics = cmp.execute();
+            if(alg == "Automatic Process") runCompressor("auto",50);
+                else manualOptions(alg);
 
-            String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
+            optionQuality();
+            selectQual.setText("");
+            srcCompressPath.setText("Source Path");
+            dstCompressPath.setText("Destination Path");
+            visualOption.setVisible(false);
+        }
+        sourceCompress = null; destinationCompress = null;
+    }
+    
+    private void manualOptions(String alg)
+    {
+        if(sourceCompress.isFile()){
+            if ("JPEG".equals(alg)) {
+                if(!isNumeric(selectQual.getText()) || (Integer.parseInt(selectQual.getText()) < 0 || Integer.parseInt(selectQual.getText()) > 100 )) 
+                    errorMessage("Choose a quality beetwen [0..100]");
+                else runCompressor("JPEG", Integer.parseInt(selectQual.getText()));
+
+                ckeckingFile(alg,"ppm");
+            }
+            else {
+                runCompressor(alg,50);
+                ckeckingFile(alg,"txt");
+            }
+        }
+        else {
+            if(!isNumeric(selectQual.getText()) || (Integer.parseInt(selectQual.getText()) < 0 || Integer.parseInt(selectQual.getText()) > 100 )) 
+                    errorMessage("Choose a quality beetwen [0..100]");
+            else runCompressor(alg, Integer.parseInt(selectQual.getText()));
+        }
+    }
+
+    private void ckeckingFile(String algName, String extension){
+        if ("With checking display".equals(visualOption.getSelectedItem())){
+            File original = sourceCompress;
+            File compressFolder = new File("data/compressed/"+algName);
+            File compressedFile = new File(destinationCompress.getAbsolutePath()+"/"+original.getFileName()+".cmprss");
+            File result = new File("data/compressed/"+algName+"/"+original.getFileName()+"."+extension);
+            
+            Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
+            decompressor.execute();
+            
+            try {
+                Desktop.getDesktop().open(original);
+                Desktop.getDesktop().open(result);
+            } catch (Exception ex) {
+                System.out.println("Opnening Files failed !");
+            }
+
+            result.delete();
+        }
+    }
+    
+    public void runCompressor(String alg, int quality)
+    {
+        Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg,quality);
+        ActorStadistics stadistics = cmp.execute();
+
+        String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
             String ratio = "Compress velocity was "+stadistics.getVelocity()+" Mb/s";
             String velocity = "Compression ratio is "+stadistics.getCompressRatio();
 
             InformationDialog message = new InformationDialog(new JFrame(),true);
             message.showResults(time,ratio,velocity,"");
             message.setVisible(true);
-            
-            qualityText.setVisible(false); selectQual.setVisible(false);
-            srcCompressPath.setText("Source Path");
-            dstCompressPath.setText("Destination Path");
+    }
+    
+    private void errorMessage(String reason) {
+        message = new InformationDialog(this,true);
+        message.changeValueLabel2(reason);
+        message.setVisible(true);
+    }
+    
+    private static boolean isNumeric(String cadena)
+    {
+        boolean resultado;
+        try {
+            Integer.parseInt(cadena);
+            resultado = true;
+        } catch (NumberFormatException excepcion) {
+            resultado = false;
         }
-        sourceCompress = null; destinationCompress = null;
-    }    
+        return resultado;
+    }
 
    /** Boton para buscar el archivo a comprimir
     * 
@@ -517,17 +590,19 @@ public class GraphicMenu extends javax.swing.JFrame {
     private void srcCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Text Files","txt");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Text Files", "txt");
         fc.setFileFilter(filtro);
         if ("JPEG".equals(selectAlg.getSelectedItem().toString())) {
-            FileNameExtensionFilter filtroPpm = new FileNameExtensionFilter("Image Files","ppm");
+            FileNameExtensionFilter filtroPpm = new FileNameExtensionFilter("Image Files", "ppm");
             fc.setFileFilter(filtroPpm);
         }
-        int select =  fc.showOpenDialog(this);
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+        if (select == JFileChooser.APPROVE_OPTION) {
             sourceCompress = new File(fc.getSelectedFile().getPath());
             this.srcCompressPath.setText(sourceCompress.getAbsolutePath());
         }
+        if(sourceCompress.isFile()) visualOption.setVisible(true);
+            else visualOption.setVisible(false);
     }    
 
     /** Boton para elegir la cualidad del JPEG
@@ -541,14 +616,13 @@ public class GraphicMenu extends javax.swing.JFrame {
      * Funcionalidad del boton para elegir la cualidad del JPEG
     */
 
-    private void optionQuality(){
-        if("JPEG".equals(selectAlg.getSelectedItem().toString())) {
-            qualityText.setVisible(true);
-            selectQual.setVisible(true);
-        }
-        else {
+    private void optionQuality() {
+        if ("Automatic Process".equals(selectAlg.getSelectedItem().toString())) {
             qualityText.setVisible(false);
             selectQual.setVisible(false);
+        } else {
+            qualityText.setVisible(true);
+            selectQual.setVisible(true);
         }
     }
 
@@ -559,9 +633,9 @@ public class GraphicMenu extends javax.swing.JFrame {
     private void dstCompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int select =  fc.showOpenDialog(this);
-        
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+
+        if (select == JFileChooser.APPROVE_OPTION) {
             destinationCompress = new File(fc.getSelectedFile().getPath());
             this.dstCompressPath.setText(destinationCompress.getAbsolutePath());
         }
@@ -574,13 +648,13 @@ public class GraphicMenu extends javax.swing.JFrame {
     private void dstDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int select =  fc.showOpenDialog(this);
-        
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+
+        if (select == JFileChooser.APPROVE_OPTION) {
             destinationDecompress = new File(fc.getSelectedFile().getPath());
             this.dstDecompressPath.setText(destinationDecompress.getAbsolutePath());
         }
-    }                                                   
+    }
 
     /** Boton para buscar ficheros comprimidos para descomprimir
     * 
@@ -589,10 +663,10 @@ public class GraphicMenu extends javax.swing.JFrame {
     private void srcDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Compressed Files","cmprss");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Compressed Files", "cmprss");
         fc.setFileFilter(filtro);
-        int select =  fc.showOpenDialog(this);
-        if(select == JFileChooser.APPROVE_OPTION) {
+        int select = fc.showOpenDialog(this);
+        if (select == JFileChooser.APPROVE_OPTION) {
             sourceDecompress = new File(fc.getSelectedFile().getPath());
             this.srcDecompressPath.setText(sourceDecompress.getAbsolutePath());
         }
@@ -624,7 +698,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify
     private javax.swing.JLabel addText;
     private javax.swing.JLabel algText;
     private javax.swing.JPanel btnCompress;
@@ -650,7 +724,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     private javax.swing.JButton runCompressButton;
     private javax.swing.JButton runDecompressButton;
     private javax.swing.JComboBox<String> selectAlg;
-    private javax.swing.JComboBox<String> selectQual;
+    private JTextField selectQual;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JButton srcCompressButton;
     private javax.swing.JTextField srcCompressPath;
@@ -660,6 +734,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     private javax.swing.JLabel titleProj;
     private javax.swing.JPanel titulMode;
     private javax.swing.JPanel titulModeDec;
+    private javax.swing.JComboBox<String> visualOption;
     // End of variables declaration
     public static final long serialVersionUID = 1L;
 
