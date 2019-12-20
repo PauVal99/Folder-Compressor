@@ -56,12 +56,16 @@ public class Tester {
         ActorStadistics compress = compressor.execute();
 
         Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
+        decompressor.execute();
+        
+        
         ActorStadistics decompress = decompressor.execute();
 
         String time = "Time: " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(compress.getElapsedTime() + decompress.getElapsedTime()));
         System.out.println(time +" Ratio: " + compress.getCompressRatio());
-
-        if (contentEquals(source, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
+        
+        File testF = new File("data/"+source.getName()+"T"+".ppm");
+        if (contentEquals(testF, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
         else System.out.println(ANSI_RED +sourceName+" test failed." + ANSI_RESET);
 
         compressedFile.delete();
