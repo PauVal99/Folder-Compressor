@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pair_317',['Pair',['../classsrc_1_1dominio_1_1huff_1_1_pair.html#ae26a5dadb836c17fb73815d4ba8695c7',1,'src::dominio::huff::Pair']]]
+  ['pair_313',['Pair',['../classsrc_1_1persistencia_1_1huff_1_1_pair.html#a4e376808d2b359a2f91b67f8e3e61c6a',1,'src::persistencia::huff::Pair']]]
 ];
