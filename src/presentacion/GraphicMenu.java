@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos botones
+ * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos componentes
  * 
  * @author Sebastian Acurio y Pol Aguilar
  */
@@ -38,7 +38,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     }
 
     /**
-     * Inicia los componentes necesarios para crear la interfaz.
+     * Inicializa los componentes necesarios para crear la interfaz
      */               
     private void initComponents() {
 
@@ -46,8 +46,6 @@ public class GraphicMenu extends javax.swing.JFrame {
         sidePanel = new javax.swing.JPanel();
         btnCompress = new javax.swing.JPanel();
         comText = new javax.swing.JLabel();
-        btnInfo = new javax.swing.JPanel();
-        addText = new javax.swing.JLabel();
         btnDecompress = new javax.swing.JPanel();
         decText = new javax.swing.JLabel();
         menuSeparator = new javax.swing.JSeparator();
@@ -121,37 +119,6 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         sidePanel.add(btnCompress, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 290, 50));
 
-        btnInfo.setBackground(new java.awt.Color(32, 47, 90));
-        btnInfo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnInfoMousePressed(evt);
-            }
-        });
-
-        addText.setBackground(new java.awt.Color(32, 47, 90));
-        addText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        addText.setForeground(new java.awt.Color(204, 204, 204));
-        addText.setText("+ Aditional Information");
-
-        javax.swing.GroupLayout btnInfoLayout = new javax.swing.GroupLayout(btnInfo);
-        btnInfo.setLayout(btnInfoLayout);
-        btnInfoLayout.setHorizontalGroup(
-            btnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInfoLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(addText, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        btnInfoLayout.setVerticalGroup(
-            btnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        sidePanel.add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, -1, -1));
-
         btnDecompress.setBackground(new java.awt.Color(32, 47, 90));
         btnDecompress.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -210,7 +177,7 @@ public class GraphicMenu extends javax.swing.JFrame {
                 .addComponent(compressTitle)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         titulModeLayout.setVerticalGroup(
             titulModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,6 +347,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         completePanel.add(compressForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 680, 520));
 
         selectQual.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        selectQual.setText("50");
         completePanel.add(selectQual, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 240, -1));
 
         visualOption.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -408,31 +376,30 @@ public class GraphicMenu extends javax.swing.JFrame {
     }
 
     /**
-     * Pone el color
+     * Asigna un color diferente al panel seleccionado
      * 
-     *  @param option Panel en que se cambia el color
+     *  @param option Panel que cambia de color
      */
     void setColor(JPanel option){
         option.setBackground(new Color(32,38,50));
     }
     
     /**
-     * Reinicia el color
+     * Reinicia el color del panel al predeterminado
      * 
-     *  @param option Panel en que se reinicia el color
+     *  @param option Panel que retoma su color original
      */
     void resetColor(JPanel option){
         option.setBackground(new Color(32,47,90));
     }
     
-   /** Pone la interfaz para comprimir
+   /** Abre la interfaz para la compresión
     * 
     *  @param evt evento que activa la funcion
     */
     private void btnCompressMousePressed(java.awt.event.MouseEvent evt) {                                         
         setColor(btnCompress);
         resetColor(btnDecompress);
-        resetColor(btnInfo);
         compressForm.setVisible(false);
         titulMode.setVisible(true);
         selectAlg.setVisible(true);
@@ -445,14 +412,13 @@ public class GraphicMenu extends javax.swing.JFrame {
         optionQuality();
     }   
 
-    /** Pone la interfaz para descomprimir
+    /** Abre la interfaz para la descompresión
     * 
     *  @param evt evento que activa la funcion
     */ 
     private void btnDecompressMousePressed(java.awt.event.MouseEvent evt) {                                           
         setColor(btnDecompress);
         resetColor(btnCompress);
-        resetColor(btnInfo);
         compressForm.setVisible(true);
         titulMode.setVisible(false);
         selectQual.setVisible(false);
@@ -464,19 +430,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         srcCompressPath.setVisible(false);
         runCompressButton.setVisible(false);
         algText.setVisible(false);
-    }     
-
-    /** Pone la interfaz de Additional Info
-    * 
-    *  @param evt evento que activa la funcion
-    */
-    private void btnInfoMousePressed(java.awt.event.MouseEvent evt) {                                     
-        setColor(btnInfo);
-        resetColor(btnDecompress);
-        resetColor(btnCompress);
-        compressForm.setVisible(false);
-        titulMode.setVisible(false);
-    }     
+    }  
 
     /** Cierra la interfaz
     * 
@@ -486,7 +440,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         System.exit(0);
     }        
 
-    /** Programa el boton run para comprimir
+    /** Programa la secuencia de acciones que realia el boton run para comprimir
     * 
     *  @param evt evento que activa la funcion
     */
@@ -508,6 +462,10 @@ public class GraphicMenu extends javax.swing.JFrame {
         sourceCompress = null; destinationCompress = null;
     }
     
+    /** Comprueba si el archivo es una carpeta o fichero y si los parámetros correspondientes són correctos
+    * 
+    *  @param alg algoritmo que se utilizará
+    */
     private void manualOptions(String alg)
     {
         if(sourceCompress.isFile()){
@@ -515,7 +473,6 @@ public class GraphicMenu extends javax.swing.JFrame {
                 if(!isNumeric(selectQual.getText()) || (Integer.parseInt(selectQual.getText()) < 0 || Integer.parseInt(selectQual.getText()) > 100 )) 
                     errorMessage("Choose a quality beetwen [0..100]");
                 else runCompressor("JPEG", Integer.parseInt(selectQual.getText()));
-
                 ckeckingFile(alg,"ppm");
             }
             else {
@@ -530,6 +487,11 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
     }
 
+    /** Programa la visualización de un archivo original y su correspondiente descompresión 
+    * 
+    *  @param algName algoritmo que se utilizará
+    *  @param extension extensión del archivo (txt o ppm)
+    */
     private void ckeckingFile(String algName, String extension){
         if ("With checking display".equals(visualOption.getSelectedItem())){
             File original = sourceCompress;
@@ -546,11 +508,14 @@ public class GraphicMenu extends javax.swing.JFrame {
             } catch (Exception ex) {
                 System.out.println("Opnening Files failed !");
             }
-
-            result.delete();
         }
     }
-    
+
+    /** Realiza la compresión con el algoritmo correspondiente y una calidad de imágen en el caso del JPEG 
+    * 
+    *  @param alg algoritmo que se utilizará
+    *  @param quality calidad de compresión de la imágen
+    */
     public void runCompressor(String alg, int quality)
     {
         Compressor cmp = new Compressor(sourceCompress,destinationCompress,alg,quality);
@@ -565,12 +530,20 @@ public class GraphicMenu extends javax.swing.JFrame {
             message.setVisible(true);
     }
     
+    /** Abre un dialog con un mensaje de error 
+    * 
+    *  @param reason String con el contenido del mensaje
+    */
     private void errorMessage(String reason) {
         message = new InformationDialog(this,true);
         message.changeValueLabel2(reason);
         message.setVisible(true);
     }
     
+    /** Comprueba si un String es correspondiente a un número o no
+    * 
+    *  @param cadena String que queremos tratar
+    */
     private static boolean isNumeric(String cadena)
     {
         boolean resultado;
@@ -583,7 +556,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         return resultado;
     }
 
-   /** Boton para buscar el archivo a comprimir
+    /** Abre el buscador de ficheros para poder seleccionar el archivo que se quiere comprimir
     * 
     *  @param evt evento que activa la funcion
     */
@@ -605,17 +578,17 @@ public class GraphicMenu extends javax.swing.JFrame {
             else visualOption.setVisible(false);
     }    
 
-    /** Boton para elegir la cualidad del JPEG
+    /** Permite seleccionar el algoritmo para la compresión
     * 
     *  @param evt evento que activa la funcion
     */
     private void selectAlgActionPerformed(java.awt.event.ActionEvent evt) {                                          
         optionQuality();
-    }                                         
-    /** 
-     * Funcionalidad del boton para elegir la cualidad del JPEG
-    */
+    }
 
+    /** 
+     * Permite abrir o no el apartado para seleccionar la calidad de imágen
+    */
     private void optionQuality() {
         if ("Automatic Process".equals(selectAlg.getSelectedItem().toString())) {
             qualityText.setVisible(false);
@@ -656,7 +629,7 @@ public class GraphicMenu extends javax.swing.JFrame {
         }
     }
 
-    /** Boton para buscar ficheros comprimidos para descomprimir
+    /** Boton para buscar ficheros comprimidos en la descompresión
     * 
     *  @param evt evento que activa la funcion
     */
@@ -678,9 +651,7 @@ public class GraphicMenu extends javax.swing.JFrame {
     */
     private void runDecompressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         if (sourceDecompress == null || destinationDecompress == null){
-            message = new InformationDialog(this,true);
-            message.changeValueLabel2("Source or Destination path not selected propperly !");
-            message.setVisible(true);
+            errorMessage("Source or Destination path not selected propperly !");
         }
         else{ 
             Decompressor cmp = new Decompressor(sourceDecompress,destinationDecompress);
@@ -699,11 +670,9 @@ public class GraphicMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private javax.swing.JLabel addText;
     private javax.swing.JLabel algText;
     private javax.swing.JPanel btnCompress;
     private javax.swing.JPanel btnDecompress;
-    private javax.swing.JPanel btnInfo;
     private javax.swing.JLabel closeButton;
     private javax.swing.JLabel comText;
     private javax.swing.JPanel completePanel;
