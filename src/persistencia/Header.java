@@ -3,16 +3,30 @@ package src.persistencia;
 import src.dominio.algoritmos.*;
 import src.dominio.algoritmos.Algorithm;
 
+/**
+ * Esta clase representa la cabezera que usamos para descomprir un archivo.
+ * 
+ * @author Pau Val
+ */
 public class Header
 {
+    /** Tipo de archivo */
     private String type;
 
+    /** Ruta relatica a la raíz */
     private String relativePath;
 
+    /** Algoritmo usado en la compressión */
     private Algorithm algorithm;
 
+    /** Tamaño del archivo comprimido */
     private int size;
 
+    /**
+     * Construye un header a partir de un string.
+     * 
+     * @param header header en formato string
+     */
     public Header(String header)
     {
         String[] camp = header.split(";");
@@ -24,6 +38,14 @@ public class Header
         }
     }
 
+    /**
+     * Contruye un header a partir de su información minima.
+     * 
+     * @param isFile true si el archivo es un fichero, falso en cualquier otro caso
+     * @param relativePath ruta relativa a la raíz
+     * @param algorithm algoritmo usado en la compressión
+     * @param size tamaño del archivo comprimido
+     */
     public Header(boolean isFile, String relativePath, Algorithm algorithm, int size)
     {
         if(isFile) type = "file";
@@ -33,26 +55,52 @@ public class Header
         this.size = size;
     }
 
+    /**
+     * Retorna el tipo de archivo
+     * 
+     * @return "file" si es un ficher, "folder" si es una carpeta
+     */
     public String getType()
     {
         return type;
     }
 
+    /**
+     * Retorna el path relativo a la raíz
+     * 
+     * @return ruta relativa a la raíz
+     */
     public String getRelativePath()
     {
         return relativePath;
     }
 
+    /**
+     * Retorna el algoritmo usado en la compressión
+     * 
+     * @return algorimo usado en la compessión
+     */
     public Algorithm getAlgorithm()
     {
         return algorithm;
     }
 
+
+    /**
+     * Retorna el tamaño del archivo comprimido
+     * 
+     * @return tamaño del archivo comprimido
+     */
     public int getSize()
     {
         return size;
     }
 
+    /**
+     * Convierte el header en un string
+     * 
+     * @return el header en formato string
+     */
     public String toString()
     {
         if(type.equals("file")) return "file"  +";"+relativePath+";"+algorithm.getName()+";"+size+"\n";
@@ -64,8 +112,6 @@ public class Header
      * 
      * @param algorithmName nombre del algoritmo
      * @return instancia del algoritmo
-     * 
-     * @see src.dominio.algoritmos.Algorithm
      */
     private Algorithm stringToAlgorithm(String algorithmName)
     {

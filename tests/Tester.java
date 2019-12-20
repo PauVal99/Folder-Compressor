@@ -1,10 +1,13 @@
 package tests;
 
+import src.persistencia.ActorStadistics;
 import src.persistencia.File;
 import src.dominio.Compressor;
 import src.dominio.Decompressor;
 
 import java.nio.file.Files;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 public class Tester {
@@ -25,10 +28,13 @@ public class Tester {
         File result = new File("data/compressed/"+alg_name+"/"+sourceName);
 
         Compressor compressor = new Compressor(source, compressFolder, alg_name, 50);
-        compressor.execute();
+        ActorStadistics compress = compressor.execute();
 
         Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
-        decompressor.execute();
+        ActorStadistics decompress = decompressor.execute();
+
+        String time = "Time: " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(compress.getElapsedTime() + decompress.getElapsedTime()));
+        System.out.println(time +" Ratio: " + compress.getCompressRatio());
 
         if (contentEquals(source, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
         else System.out.println(ANSI_RED +sourceName+" test failed." + ANSI_RESET);
@@ -47,10 +53,13 @@ public class Tester {
         File result = new File("data/compressed/JPEG/"+sourceName);
 
         Compressor compressor = new Compressor(source, compressFolder, "JPEG", 50);
-        compressor.execute();
+        ActorStadistics compress = compressor.execute();
 
         Decompressor decompressor = new Decompressor(compressedFile, compressFolder);
-        decompressor.execute();
+        ActorStadistics decompress = decompressor.execute();
+
+        String time = "Time: " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(compress.getElapsedTime() + decompress.getElapsedTime()));
+        System.out.println(time +" Ratio: " + compress.getCompressRatio());
 
         if (contentEquals(source, result)) System.out.println(ANSI_GREEN + "Test Passed! Algorithm is working good!" + ANSI_RESET);
         else System.out.println(ANSI_RED +sourceName+" test failed." + ANSI_RESET);

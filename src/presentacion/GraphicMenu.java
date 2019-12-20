@@ -16,11 +16,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos botones
+ * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos botones.
  * 
- * @author Sebastian Acurio y Pol Aguilar
+ * @author Sebastian Acurio
+ * @author Pol Aguilar
  */
-
 public class GraphicMenu extends javax.swing.JFrame {
 
     private File sourceCompress = null;
@@ -390,12 +390,11 @@ public class GraphicMenu extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>
+    }
 
     /**
-     * Define propiedades iniciales de algunos componentes de la interfaz
+     * Define propiedades iniciales de algunos componentes de la interfaz.
      */
-
     final void initialViewProperties(){
         compressForm.setVisible(false);
         qualityText.setVisible(false);
@@ -557,8 +556,8 @@ public class GraphicMenu extends javax.swing.JFrame {
         ActorStadistics stadistics = cmp.execute();
 
         String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
-            String ratio = "Compress velocity was "+stadistics.getVelocity()+" Mb/s";
-            String velocity = "Compression ratio is "+stadistics.getCompressRatio();
+            String velocity = "Compress velocity was "+stadistics.getVelocity()+" Mb/s";
+            String ratio = "Compression ratio is "+stadistics.getCompressRatio();
 
             InformationDialog message = new InformationDialog(new JFrame(),true);
             message.showResults(time,ratio,velocity,"");
@@ -687,7 +686,7 @@ public class GraphicMenu extends javax.swing.JFrame {
             ActorStadistics stadistics = cmp.execute();
 
             String time = "Done in " + (new SimpleDateFormat("mm 'minute(s)' ss 'second(s)' SSS 'milliseconds'")).format(new Date(stadistics.getElapsedTime()));
-            String velocity = "Compression ratio is "+stadistics.getCompressRatio();
+            String velocity = "Decompress velocity was "+stadistics.getVelocity()+" Mb/s";
 
             InformationDialog message = new InformationDialog(new JFrame(),true);
             message.showResults(time,velocity,"","");

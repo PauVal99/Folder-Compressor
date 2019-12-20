@@ -12,7 +12,6 @@ import java.util.*;
  *
  * @author Bartomeu Perelló
  */
-
 public class JPEG extends Algorithm
 {
     /**

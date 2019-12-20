@@ -11,10 +11,15 @@ import src.persistencia.File;
  */
 public abstract class Actor
 {
+    /**
+     * Archivo origen.
+     * 
+     * @see src.persistencia.File
+     */
     protected File source;
 
     /**
-     * Archivo de destino
+     * Archivo de destino.
      * 
      * @see src.persistencia.File
      */
@@ -23,11 +28,10 @@ public abstract class Actor
     /**
      * Construye un Actor.
      * 
-     * @param destinationFile archivo de destino
-     * @param algorithmName nombre del algoritmo a usar
+     * @param source archivo origen
+     * @param destination archivo destino
      * 
      * @see src.persistencia.File
-     * @see src.dominio.Actor::setAlgortihm()
      */
     public Actor(File source, File destination)
     {
@@ -35,5 +39,12 @@ public abstract class Actor
         this.destination = destination;
     }
 
+    /**
+     * Realiza la acción de la classe.
+     * 
+     * @return clase con las estadísticas de la ejecucción
+     * 
+     * @see src.persistencia.ActorStadistics
+     */
     public abstract ActorStadistics execute();
 }

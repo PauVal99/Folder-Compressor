@@ -28,6 +28,7 @@ public class FileCompressor
     /** Bytes que ocupa el archivo comprimido */
     private long compressedLength;
 
+    /** Calidad con la que se comprimira (si el algoritmo lo permite) */
     private int quality;
 
     /**
@@ -40,9 +41,9 @@ public class FileCompressor
     public FileCompressor(File source, String algorithmName, String relativePath, int quality)
     {
         this.source = source;
+        this.quality = quality;
         this.algorithm = setAlgorithm(algorithmName);
         this.relativePath = relativePath;
-        this.quality = quality;
     }
 
     /**
@@ -51,7 +52,7 @@ public class FileCompressor
      * @return el fichero comprimido con su header
      * @throws Exception En caso de error en la entrada o salida
      * 
-     * @see java.io.ByteArrayOutputStream
+     * @see src.persistencia.OutputBuffer
      */
     public OutputBuffer compress() throws Exception
     {
@@ -100,21 +101,29 @@ public class FileCompressor
     }
 
     /**
-     * Llama al algoritmo de texto o si source es una foto a JPEG para la compresión fileBytes
+     * Llama al algoritmo decidido para comprimir source
      * 
      * @param fileBytes bytes a comprimir
      * @return bytes comprimidos
      * 
-     * @see java.io.ByteArrayOutputStream
+     * @see src.persistencia.OutputBuffer
      */
     private OutputBuffer compressFile(InputBuffer fileBytes)
     {
         return algorithm.compress(fileBytes);
     }
 
+    /**
+     * Decide que algoritmo comprimira soruce.
+     * Si source es una foto usa JPEG. Si es texto el algoritmo especificado.
+     * Si se ha especificado automatico se escoje uno en función del tamaño de source
+     * 
+     * @param algorithmName nombre del algorimto especificado
+     * @return algoritmo decidido
+     */
     private Algorithm setAlgorithm(String algorithmName)
     {
-        Algorithm algorithm = null;
+        Algorithm algorithm = new LZW();
         if(source.getExtension().equals("ppm")){
             algorithm = new JPEG();
             algorithm.setQuality(quality);
@@ -122,11 +131,10 @@ public class FileCompressor
         else if(algorithmName.equals("LZ78")) algorithm = new LZ78();
         else if(algorithmName.equals("LZSS")) algorithm = new LZSS();
         else if(algorithmName.equals("LZW")) algorithm = new LZW();
-        else if(source.length() < 262144) algorithm = new LZW();
-        else if(source.length() < 2097152) algorithm = new LZSS();
-        else if(source.length() > 2097152) algorithm = new LZ78();
+        else if(source.length() < 2097152) algorithm = new LZW();
+        else if(source.length() < 10485760) algorithm = new LZSS();
+        else if(source.length() > 10485760) algorithm = new LZ78();
 
-        System.out.println(algorithm.getName());
         return algorithm;
     }
 }

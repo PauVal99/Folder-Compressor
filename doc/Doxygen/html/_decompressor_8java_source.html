@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -53,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('_decompressor_8java_source.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,6 +59,11 @@ $(document).ready(function(){initNavTree('_decompressor_8java_source.html','');}
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_99e8efb7985db3832d54cf06274403f7.html">dominio</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Decompressor.java</div>  </div>
@@ -91,54 +71,99 @@ $(document).ready(function(){initNavTree('_decompressor_8java_source.html','');}
 <div class="contents">
 <a href="_decompressor_8java.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">package </span>src.dominio;</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> java.io.File;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1persistencia.html">persistencia</a>.*;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1dominio.html">dominio</a>.<a class="code" href="classsrc_1_1dominio_1_1_actor.html">Actor</a>;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html">   15</a></span>&#160;<span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classsrc_1_1dominio_1_1_decompressor.html">Decompressor</a> <span class="keyword">extends</span> <a class="code" href="classsrc_1_1dominio_1_1_actor.html">Actor</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">   22</a></span>&#160;    <span class="keyword">private</span> <a class="code" href="classsrc_1_1persistencia_1_1_compressed_file.html">CompressedFile</a> <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html#ae577115a1197de5c66419ab9133b1a23">   33</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#ae577115a1197de5c66419ab9133b1a23">Decompressor</a>(<a class="code" href="classsrc_1_1persistencia_1_1_compressed_file.html">CompressedFile</a> <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>, File <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">destinationFile</a>)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        super(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">destinationFile</a>, <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>.<a class="code" href="classsrc_1_1persistencia_1_1_compressed_file.html#a5b158c3cfa6abc2ac4d78c26189a6e2c">getAlgorithm</a>());</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        this.compressedFile = <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html#aaf23e903693c678a7eb2412f1ab27644">   43</a></span>&#160;    <span class="keyword">public</span> <span class="keywordtype">void</span> <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#aaf23e903693c678a7eb2412f1ab27644">decompress</a>()</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a6f0393757e7750b93c77fc317e342035">initStadistics</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">byte</span>[] b = <a class="code" href="classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230">algorithm</a>.decompress(<a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">compressedFile</a>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a31bbd87d4ec0b3d79d6bb91de5d61197">writeInDestiantionFile</a>(b);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classsrc_1_1dominio_1_1_actor.html#aceb2cc5a79e8fbd7e862fee7a4956d2d">printStadistics</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1dominio.html">dominio</a>.<a class="code" href="classsrc_1_1dominio_1_1_actor.html">Actor</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1persistencia.html">persistencia</a>.<a class="code" href="classsrc_1_1persistencia_1_1_actor_stadistics.html">ActorStadistics</a>;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1persistencia.html">persistencia</a>.<a class="code" href="classsrc_1_1persistencia_1_1_input_buffer.html">InputBuffer</a>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1persistencia.html">persistencia</a>.<a class="code" href="classsrc_1_1persistencia_1_1_output_buffer.html">OutputBuffer</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1persistencia.html">persistencia</a>.<a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">import</span> <a class="code" href="namespacesrc.html">src</a>.<a class="code" href="namespacesrc_1_1persistencia.html">persistencia</a>.<a class="code" href="classsrc_1_1persistencia_1_1_header.html">Header</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">import</span> java.io.BufferedReader;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">import</span> java.io.FileReader;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">import</span> java.io.FileInputStream;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">import</span> java.io.FileOutputStream;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html">   21</a></span>&#160;<span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classsrc_1_1dominio_1_1_decompressor.html">Decompressor</a> <span class="keyword">extends</span> <a class="code" href="classsrc_1_1dominio_1_1_actor.html">Actor</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html#a55f13adaa089d7b342960700f123b278">   31</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a55f13adaa089d7b342960700f123b278">Decompressor</a>(<a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a> <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">source</a>, <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a> <a class="code" href="classsrc_1_1dominio_1_1_actor.html#ad6d055c8fb8b3dbafc5f029ecbd60faf">destination</a>)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        super(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">source</a>, <a class="code" href="classsrc_1_1dominio_1_1_actor.html#ad6d055c8fb8b3dbafc5f029ecbd60faf">destination</a>);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html#a5f1ac806b0dcb9a6768e968f869b2118">   44</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classsrc_1_1persistencia_1_1_actor_stadistics.html">ActorStadistics</a> <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#a5f1ac806b0dcb9a6768e968f869b2118">execute</a>()</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classsrc_1_1persistencia_1_1_actor_stadistics.html">ActorStadistics</a> stadistics = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_actor_stadistics.html">ActorStadistics</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        stadistics.<a class="code" href="classsrc_1_1persistencia_1_1_actor_stadistics.html#ab4f3e22867347f18a12e635a9e004d37">setStartTime</a>(System.currentTimeMillis());</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        stadistics.<a class="code" href="classsrc_1_1persistencia_1_1_actor_stadistics.html#afcdce72047c3b5fe24953c74bfb68549">setOriginalSize</a>(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">source</a>.<a class="code" href="classsrc_1_1persistencia_1_1_file.html#a0cb6f27720880f9489aab383acc033b0">getSize</a>());</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">try</span>{</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#afab5176833592fcd8cffd3ba454f0ce9">decompressSource</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">catch</span>(Exception e){</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            System.out.println(<span class="stringliteral">&quot;Error decompressing: &quot;</span> + <a class="code" href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">source</a>.getPath());</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        stadistics.<a class="code" href="classsrc_1_1persistencia_1_1_actor_stadistics.html#a013a5e49300ee682af8d46e8cdce6504">setStopTime</a>(System.currentTimeMillis());</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> stadistics;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classsrc_1_1dominio_1_1_decompressor.html#afab5176833592fcd8cffd3ba454f0ce9">   64</a></span>&#160;    <span class="keyword">private</span> <span class="keywordtype">void</span> <a class="code" href="classsrc_1_1dominio_1_1_decompressor.html#afab5176833592fcd8cffd3ba454f0ce9">decompressSource</a>() throws Exception</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        FileInputStream compressedFileReader = <span class="keyword">new</span> FileInputStream(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">source</a>.getPath());</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        BufferedReader headerReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">source</a>.getPath()));</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        String sHeader;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">while</span>((sHeader = headerReader.readLine()) != <span class="keyword">null</span>){</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <a class="code" href="classsrc_1_1persistencia_1_1_header.html">Header</a> header = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_header.html">Header</a>(sHeader);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            compressedFileReader.skip((sHeader+<span class="stringliteral">&quot;\n&quot;</span>).getBytes().length);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a> actFile = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>(<a class="code" href="classsrc_1_1dominio_1_1_actor.html#ad6d055c8fb8b3dbafc5f029ecbd60faf">destination</a>.getPath() + <a class="code" href="classsrc_1_1persistencia_1_1_file.html">File</a>.separator + header.<a class="code" href="classsrc_1_1persistencia_1_1_header.html#ae7ce8e2eba2dd128b2974378a1c2a887">getRelativePath</a>());</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">if</span>(header.<a class="code" href="classsrc_1_1persistencia_1_1_header.html#a26a96cb4cb711ea69d66135c8f491178">getType</a>().equals(<span class="stringliteral">&quot;folder&quot;</span>)) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                actFile.mkdirs();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <span class="keywordtype">byte</span>[] decom = <span class="keyword">new</span> <span class="keywordtype">byte</span>[header.<a class="code" href="classsrc_1_1persistencia_1_1_header.html#a573755575e18905812563a888b62bdf8">getSize</a>()];</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                compressedFileReader.read(decom);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <a class="code" href="classsrc_1_1persistencia_1_1_input_buffer.html">InputBuffer</a> compressedFileBytes = <span class="keyword">new</span> <a class="code" href="classsrc_1_1persistencia_1_1_input_buffer.html">InputBuffer</a>(decom);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <a class="code" href="classsrc_1_1persistencia_1_1_output_buffer.html">OutputBuffer</a> decompressedFileBytes = header.<a class="code" href="classsrc_1_1persistencia_1_1_header.html#ad60843c8e1e50b355fdb0a6486edb686">getAlgorithm</a>().<a class="code" href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a17c9dce9a48118a76c6d74991cb34e2d">decompress</a>(compressedFileBytes);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                FileOutputStream fileWritter = <span class="keyword">new</span> FileOutputStream(actFile);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                fileWritter.write(decompressedFileBytes.toByteArray());</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                fileWritter.close();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                headerReader.skip((<span class="keyword">new</span> String(decom)).toCharArray().length);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        compressedFileReader.close();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        headerReader.close();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html_a5e0e941f2760c7d6c8cacfa556327f63"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html#a5e0e941f2760c7d6c8cacfa556327f63">src.dominio.Decompressor.compressedFile</a></div><div class="ttdeci">CompressedFile compressedFile</div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00022">Decompressor.java:22</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html">src.dominio.Decompressor</a></div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00015">Decompressor.java:15</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html_aaf23e903693c678a7eb2412f1ab27644"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html#aaf23e903693c678a7eb2412f1ab27644">src.dominio.Decompressor.decompress</a></div><div class="ttdeci">void decompress()</div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00043">Decompressor.java:43</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a31bbd87d4ec0b3d79d6bb91de5d61197"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a31bbd87d4ec0b3d79d6bb91de5d61197">src.dominio.Actor.writeInDestiantionFile</a></div><div class="ttdeci">void writeInDestiantionFile(byte[] bytes)</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00083">Actor.java:83</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html_ae577115a1197de5c66419ab9133b1a23"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html#ae577115a1197de5c66419ab9133b1a23">src.dominio.Decompressor.Decompressor</a></div><div class="ttdeci">Decompressor(CompressedFile compressedFile, File destinationFile)</div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00033">Decompressor.java:33</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_actor_stadistics_html_a013a5e49300ee682af8d46e8cdce6504"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_actor_stadistics.html#a013a5e49300ee682af8d46e8cdce6504">src.persistencia.ActorStadistics.setStopTime</a></div><div class="ttdeci">void setStopTime(long stopTime)</div><div class="ttdef"><b>Definition:</b> <a href="_actor_stadistics_8java_source.html#l00033">ActorStadistics.java:33</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_header_html_a26a96cb4cb711ea69d66135c8f491178"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_header.html#a26a96cb4cb711ea69d66135c8f491178">src.persistencia.Header.getType</a></div><div class="ttdeci">String getType()</div><div class="ttdef"><b>Definition:</b> <a href="_header_8java_source.html#l00063">Header.java:63</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html">src.dominio.Decompressor</a></div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00021">Decompressor.java:21</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_header_html_ad60843c8e1e50b355fdb0a6486edb686"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_header.html#ad60843c8e1e50b355fdb0a6486edb686">src.persistencia.Header.getAlgorithm</a></div><div class="ttdeci">Algorithm getAlgorithm()</div><div class="ttdef"><b>Definition:</b> <a href="_header_8java_source.html#l00083">Header.java:83</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html_a5f1ac806b0dcb9a6768e968f869b2118"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html#a5f1ac806b0dcb9a6768e968f869b2118">src.dominio.Decompressor.execute</a></div><div class="ttdeci">ActorStadistics execute()</div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00044">Decompressor.java:44</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html_a0cb6f27720880f9489aab383acc033b0"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html#a0cb6f27720880f9489aab383acc033b0">src.persistencia.File.getSize</a></div><div class="ttdeci">long getSize()</div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00056">File.java:56</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a22534d313e6fbced78cb04907071a0bd"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a22534d313e6fbced78cb04907071a0bd">src.dominio.Actor.source</a></div><div class="ttdeci">File source</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00019">Actor.java:19</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_output_buffer_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_output_buffer.html">src.persistencia.OutputBuffer</a></div><div class="ttdef"><b>Definition:</b> <a href="_output_buffer_8java_source.html#l00013">OutputBuffer.java:13</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_actor_stadistics_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_actor_stadistics.html">src.persistencia.ActorStadistics</a></div><div class="ttdef"><b>Definition:</b> <a href="_actor_stadistics_8java_source.html#l00009">ActorStadistics.java:9</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1algoritmos_1_1_algorithm_html_a17c9dce9a48118a76c6d74991cb34e2d"><div class="ttname"><a href="classsrc_1_1dominio_1_1algoritmos_1_1_algorithm.html#a17c9dce9a48118a76c6d74991cb34e2d">src.dominio.algoritmos.Algorithm.decompress</a></div><div class="ttdeci">abstract OutputBuffer decompress(InputBuffer input)</div></div>
 <div class="ttc" id="anamespacesrc_1_1dominio_html"><div class="ttname"><a href="namespacesrc_1_1dominio.html">src.dominio</a></div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00001">Actor.java:1</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_compressed_file_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_compressed_file.html">src.persistencia.CompressedFile</a></div><div class="ttdef"><b>Definition:</b> <a href="_compressed_file_8java_source.html#l00018">CompressedFile.java:18</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a838141a43ea35abb7a2d3357490a6ec2"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a838141a43ea35abb7a2d3357490a6ec2">src.dominio.Actor.destinationFile</a></div><div class="ttdeci">File destinationFile</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00034">Actor.java:34</a></div></div>
-<div class="ttc" id="anamespacesrc_1_1persistencia_html"><div class="ttname"><a href="namespacesrc_1_1persistencia.html">src.persistencia</a></div><div class="ttdef"><b>Definition:</b> <a href="_compressed_file_8java_source.html#l00001">CompressedFile.java:1</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html">src.dominio.Actor</a></div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00021">Actor.java:21</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_abbb29b4c1328835356a083fd465a5230"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#abbb29b4c1328835356a083fd465a5230">src.dominio.Actor.algorithm</a></div><div class="ttdeci">Algorithm algorithm</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00037">Actor.java:37</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_aceb2cc5a79e8fbd7e862fee7a4956d2d"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#aceb2cc5a79e8fbd7e862fee7a4956d2d">src.dominio.Actor.printStadistics</a></div><div class="ttdeci">void printStadistics()</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00068">Actor.java:68</a></div></div>
-<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_a6f0393757e7750b93c77fc317e342035"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#a6f0393757e7750b93c77fc317e342035">src.dominio.Actor.initStadistics</a></div><div class="ttdeci">void initStadistics()</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00057">Actor.java:57</a></div></div>
-<div class="ttc" id="anamespacesrc_html"><div class="ttname"><a href="namespacesrc.html">src</a></div></div>
-<div class="ttc" id="aclasssrc_1_1persistencia_1_1_compressed_file_html_a5b158c3cfa6abc2ac4d78c26189a6e2c"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_compressed_file.html#a5b158c3cfa6abc2ac4d78c26189a6e2c">src.persistencia.CompressedFile.getAlgorithm</a></div><div class="ttdeci">String getAlgorithm()</div><div class="ttdef"><b>Definition:</b> <a href="_compressed_file_8java_source.html#l00103">CompressedFile.java:103</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html_afab5176833592fcd8cffd3ba454f0ce9"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html#afab5176833592fcd8cffd3ba454f0ce9">src.dominio.Decompressor.decompressSource</a></div><div class="ttdeci">void decompressSource()</div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00064">Decompressor.java:64</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html_ad6d055c8fb8b3dbafc5f029ecbd60faf"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html#ad6d055c8fb8b3dbafc5f029ecbd60faf">src.dominio.Actor.destination</a></div><div class="ttdeci">File destination</div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00026">Actor.java:26</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_header_html_ae7ce8e2eba2dd128b2974378a1c2a887"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_header.html#ae7ce8e2eba2dd128b2974378a1c2a887">src.persistencia.Header.getRelativePath</a></div><div class="ttdeci">String getRelativePath()</div><div class="ttdef"><b>Definition:</b> <a href="_header_8java_source.html#l00073">Header.java:73</a></div></div>
+<div class="ttc" id="anamespacesrc_1_1persistencia_html"><div class="ttname"><a href="namespacesrc_1_1persistencia.html">src.persistencia</a></div><div class="ttdef"><b>Definition:</b> <a href="_actor_stadistics_8java_source.html#l00001">ActorStadistics.java:1</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_actor_stadistics_html_ab4f3e22867347f18a12e635a9e004d37"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_actor_stadistics.html#ab4f3e22867347f18a12e635a9e004d37">src.persistencia.ActorStadistics.setStartTime</a></div><div class="ttdeci">void setStartTime(long startTime)</div><div class="ttdef"><b>Definition:</b> <a href="_actor_stadistics_8java_source.html#l00026">ActorStadistics.java:26</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_actor_html"><div class="ttname"><a href="classsrc_1_1dominio_1_1_actor.html">src.dominio.Actor</a></div><div class="ttdef"><b>Definition:</b> <a href="_actor_8java_source.html#l00012">Actor.java:12</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_header_html_a573755575e18905812563a888b62bdf8"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_header.html#a573755575e18905812563a888b62bdf8">src.persistencia.Header.getSize</a></div><div class="ttdeci">int getSize()</div><div class="ttdef"><b>Definition:</b> <a href="_header_8java_source.html#l00094">Header.java:94</a></div></div>
+<div class="ttc" id="aclasssrc_1_1dominio_1_1_decompressor_html_a55f13adaa089d7b342960700f123b278"><div class="ttname"><a href="classsrc_1_1dominio_1_1_decompressor.html#a55f13adaa089d7b342960700f123b278">src.dominio.Decompressor.Decompressor</a></div><div class="ttdeci">Decompressor(File source, File destination)</div><div class="ttdef"><b>Definition:</b> <a href="_decompressor_8java_source.html#l00031">Decompressor.java:31</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_file_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_file.html">src.persistencia.File</a></div><div class="ttdef"><b>Definition:</b> <a href="_file_8java_source.html#l00011">File.java:11</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_header_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_header.html">src.persistencia.Header</a></div><div class="ttdef"><b>Definition:</b> <a href="_header_8java_source.html#l00011">Header.java:11</a></div></div>
+<div class="ttc" id="anamespacesrc_html"><div class="ttname"><a href="namespacesrc.html">src</a></div><div class="ttdef"><b>Definition:</b> <a href="_console_8java_source.html#l00001">Console.java:1</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_input_buffer_html"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_input_buffer.html">src.persistencia.InputBuffer</a></div><div class="ttdef"><b>Definition:</b> <a href="_input_buffer_8java_source.html#l00014">InputBuffer.java:14</a></div></div>
+<div class="ttc" id="aclasssrc_1_1persistencia_1_1_actor_stadistics_html_afcdce72047c3b5fe24953c74bfb68549"><div class="ttname"><a href="classsrc_1_1persistencia_1_1_actor_stadistics.html#afcdce72047c3b5fe24953c74bfb68549">src.persistencia.ActorStadistics.setOriginalSize</a></div><div class="ttdeci">void setOriginalSize(long originalSize)</div><div class="ttdef"><b>Definition:</b> <a href="_actor_stadistics_8java_source.html#l00041">ActorStadistics.java:41</a></div></div>
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_99e8efb7985db3832d54cf06274403f7.html">dominio</a></li><li class="navelem"><a class="el" href="_decompressor_8java.html">Decompressor.java</a></li>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.16 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.16
+</small></address>
 </body>
 </html>

@@ -15,11 +15,14 @@ import java.io.FileOutputStream;
  */
 public class Compressor extends Actor
 {
+    /** Nombre del algoritmo especificado */
     private String algorithmName;
 
-    private FileOutputStream destinationWritter;
-
+    /** Calidad con la que se comprimira (si el algoritmo lo permite) */
     private int quality;
+
+    /** Escritor al archivo destino */
+    private FileOutputStream destinationWritter;
 
     /**
      * Construye un Compressor.
@@ -48,7 +51,7 @@ public class Compressor extends Actor
      * 
      * @param destinationFolder carpeta de destino
      * @param fileName nombre del archivo a generar
-     * @return ruta del destino de la compresión
+     * @return archivo del destino de la compresión
      */
     private static File getDestinationFile(File destinationFolder, String fileName)
     {
@@ -58,6 +61,10 @@ public class Compressor extends Actor
     /**
      * Realiza la acción de comprimir un fichero o carpeta con los parametros de la constructora.
      * Se encaraga de recojer las estadísticas.
+     * 
+     * @return estadisticas de compressión
+     * 
+     * @see src.persistencia.ActorStadistics
      */
     public ActorStadistics execute()
     {

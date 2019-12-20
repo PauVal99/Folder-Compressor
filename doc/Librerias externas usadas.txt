@@ -1,0 +1,2 @@
+Se ha usado la librería AbsoluteLayout.jar para la interficie gráfica.
+Se ha usado la librería hamcrest-core-1.3.jar y junit-4.13-rc-1.jar para los tests con JUnit.
