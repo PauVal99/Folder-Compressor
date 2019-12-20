@@ -41,10 +41,11 @@ public class File extends java.io.File
      */
     public String getExtension()
     {
-        String extension = getName();
-        int pos = extension.lastIndexOf(".");
+        String extension = "";
+        String name = getName();
+        int pos = name.lastIndexOf(".");
         if (pos > 0)
-            extension = extension.substring(pos+1, extension.length());
+            extension = name.substring(pos+1, name.length());
         return extension;
     }
 

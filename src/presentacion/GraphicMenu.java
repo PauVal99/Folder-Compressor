@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  * Esta clase crea la interfaz del proyecto, tiene las funciones donde se programa el funcionamiento de los distintos botones.
@@ -85,10 +86,10 @@ public class GraphicMenu extends javax.swing.JFrame {
         setUndecorated(true);
 
         completePanel.setBackground(new java.awt.Color(255, 255, 255));
-        completePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        completePanel.setLayout(new AbsoluteLayout());
 
         sidePanel.setBackground(new java.awt.Color(0, 18, 40));
-        sidePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        sidePanel.setLayout(new AbsoluteLayout());
 
         btnCompress.setBackground(new java.awt.Color(32, 38, 50));
         btnCompress.addMouseListener(new java.awt.event.MouseAdapter() {

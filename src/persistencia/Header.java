@@ -20,7 +20,7 @@ public class Header
     private Algorithm algorithm;
 
     /** Tamaño del archivo comprimido */
-    private int size;
+    private long size;
 
     /**
      * Construye un header a partir de un string.
@@ -34,7 +34,7 @@ public class Header
         relativePath = camp[1];
         if(type.equals("file")) {
             algorithm = stringToAlgorithm(camp[2]);
-            size = Integer.parseInt(camp[3]);
+            size = Long.parseLong(camp[3]);
         }
     }
 
@@ -91,7 +91,7 @@ public class Header
      * 
      * @return tamaño del archivo comprimido
      */
-    public int getSize()
+    public long getSize()
     {
         return size;
     }

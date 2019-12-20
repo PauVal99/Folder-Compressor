@@ -73,7 +73,7 @@ public class Decompressor extends Actor
             if(header.getType().equals("folder")) {
                 actFile.mkdirs();
             } else {
-                byte[] decom = new byte[header.getSize()];
+                byte[] decom = new byte[(int)header.getSize()];
                 compressedFileReader.read(decom);
 
                 InputBuffer compressedFileBytes = new InputBuffer(decom);
