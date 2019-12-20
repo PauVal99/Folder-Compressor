@@ -37,6 +37,9 @@ src:
     ConsoleMenu: Pau Val
     GraphicMenu : Sebastian Acruio y Pol Aguilar
     InformationDialog: Sebastian Acurio y Pol Aguilar
+  util:
+    CharToByte: Pau Val
+    IntegerToByte: Pol Aguilar
   Console: Pau Val
   Main: Sebastian Acurio
 tests:
