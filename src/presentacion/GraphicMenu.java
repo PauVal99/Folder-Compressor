@@ -445,7 +445,8 @@ public class GraphicMenu extends javax.swing.JFrame {
     *  @param evt evento que activa la funcion
     */
     private void runCompressButtonActionPerformed(java.awt.event.ActionEvent evt) { 
-        String alg = (String)selectAlg.getSelectedItem();                                                 
+        String alg = (String)selectAlg.getSelectedItem();
+
         if (sourceCompress == null || destinationCompress == null){
             errorMessage("Source or Destination path not selected propperly !");
         }
@@ -508,6 +509,7 @@ public class GraphicMenu extends javax.swing.JFrame {
             } catch (Exception ex) {
                 System.out.println("Opnening Files failed !");
             }
+            result.deleteOnExit();
         }
     }
 
