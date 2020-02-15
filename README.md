@@ -1,4 +1,4 @@
-<h1> Java .TXT and .PPM compressor <h1>
+<h1> Java .TXT and .PPM compressor </h1>
 
 Implemented LZ78, LZSS, LZW and JPEG algorithms. There's an auto mode, not good so far.
 Compress ratio is really good in txt and ppm files.
