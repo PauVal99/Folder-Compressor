@@ -1,13 +1,17 @@
 <h1> Java .TXT and .PPM compressor </h1>
 
 Implemented LZ78, LZSS, LZW and JPEG algorithms. There's an auto mode, not good so far.
+
 Compress ratio is really good in txt and ppm files.
+
 Can compress folders with .txt and .ppm files in one file.
 
 **Doc**
 
 In doc folders there's usefull information in Spanish.
+
 See doc/Doxygen/html/index.html for a code view.
+
 JavaDoc is in Spanish too.
 
 **Use**
