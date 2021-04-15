@@ -1,4 +1,4 @@
-Java .TXT and .PPM compressor
+Folder Compressor for .txt and .ppm files in JAVA
 ==========
 
 This multiplatform program compress files and folders. Implements LZ78, LZSS, LZW and JPEG compression algorithms. You can choose wich algorithm to use. Moreover there's an auto mode, not good so far. Compress ratio is really good in txt and ppm files. Nevertheless can compres any type of files.
