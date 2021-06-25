@@ -19,3 +19,7 @@ In doc folder there's usefull information in Spanish. See doc/Doxygen/html/index
 ## Contact
 
 Any doubt email me at pau.val.tubau99@gmail.com
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
